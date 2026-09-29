@@ -12,6 +12,8 @@ Structure:
                     (search-and-replace this address if the site is published elsewhere)
   site.webmanifest, 404.html  web-app manifest and "not found" page
   img/og/           1200x630 social-share image for every page
+  js/analytics.js   shared cookieless analytics tracker (do not edit; same file in every project)
+  js/course-events.js  course events for the Course analytics Sheet: slide titles, quizzes, tools, answers
   js/core.js        helpers, theme, storage
   js/java.js        Java syntax highlighter
   js/tracer.js      step-through code tracer (stack, heap, static area, console)
