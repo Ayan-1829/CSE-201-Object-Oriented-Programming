@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long. Interactive slides, code tracers, demos and a quiz for Topic 12 of Object Oriented Programming (Java).">
+<meta name="keywords" content="java string, string pool, immutable string, equals vs ==, string methods, stringbuilder, big number addition, biginteger, java oop course, topic 12">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Strings &amp; Big Numbers – Topic 12 | Object Oriented Programming Notes">
+<meta property="og:description" content="The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long. Interactive slides, code tracers, demos and a quiz for Topic 12 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/12-strings.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Strings &amp; Big Numbers – Topic 12 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Strings &amp; Big Numbers – Topic 12 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long. Interactive slides, code tracers, demos and a quiz for Topic 12 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/12-strings.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Strings & Big Numbers", "description": "The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long.", "position": 12, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/12-strings.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 12: Strings & Big Numbers", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html"}]}</script>
+<title>Strings &amp; Big Numbers – Topic 12 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">12</span><span>Strings & Big Numbers</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Strings &amp; Big Numbers" aria-label="Strings &amp; Big Numbers" tabindex="-1"><div class="slide-inner">
+<span class="badge big">12</span>
+<p class="kicker">Topic 12 of 13 · Lectures 22–23</p>
+<h1>Strings & Big Numbers</h1>
+<p class="lead">The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">What is 30 factorial? A <code>long</code> gives you −8,764,578,968,847,253,504. Clearly wrong — so how do banks and cryptography handle numbers with hundreds of digits?</p><p>One answer is to store the digits in a <b>String</b> and do the arithmetic yourself, digit by digit, exactly as you learnt at school. Java’s <code>BigInteger</code> does the same thing internally.</p><p>First we study String itself: why <code>==</code> can lie, why strings never change, and the methods you will use in almost every program.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lectures 22–23</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">The String class and the string pool</a></li><li><a href="#s=6">Comparing strings</a></li><li><a href="#s=7">String operations</a></li><li><a href="#s=10">StringBuilder and StringBuffer</a></li><li><a href="#s=12">Big number manipulation using String</a></li></ol>
+</div></section>
+<section class="slide " data-title="The String class and the string pool" aria-label="The String class and the string pool" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 5</p><h2>The String class and the string pool</h2><div class="cols "><div><figure class="fig" data-fig="string-pool"><figcaption>Literals are shared from the pool; new String(...) always creates a separate object.</figcaption></figure></div><div><pre class="code small-code">String a = &quot;Hi&quot;;               // pool
+String b = &quot;Hi&quot;;               // same pooled object
+String c = new String(&quot;Hi&quot;);   // new heap object
+char[] cs = {&#x27;J&#x27;, &#x27;a&#x27;, &#x27;v&#x27;, &#x27;a&#x27;};
+String d = new String(cs);     // &quot;Java&quot;
+String e = String.valueOf(42); // &quot;42&quot;</pre><ul><li><code>String</code> is a class, but literals get special treatment: identical literals share one object in the <b>string pool</b>.</li><li>Strings are <b>immutable</b>: no method changes a String; methods return a new one.</li><li>Immutability makes strings safe to share between variables and threads.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: pool, heap and ==" aria-label="Trace: pool, heap and ==" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: pool, heap and ==</h2><p class="muted">Watch which variables share an object. <code>a + "!"</code> builds a brand-new String — the original "Hi" is untouched.</p><div data-trace="t12-pool"></div>
+</div></section>
+<section class="slide " data-title="Comparing strings" aria-label="Comparing strings" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 5</p><h2>Comparing strings</h2><div class="cols "><div><pre class="code small-code">String a = &quot;apple&quot;, b = &quot;Apple&quot;;
+a == b                    // compares references
+a.equals(b)               // false: content, case-sensitive
+a.equalsIgnoreCase(b)     // true
+a.compareTo(b)            // 32  (&#x27;a&#x27; 97 − &#x27;A&#x27; 65)
+&quot;apple&quot;.compareTo(&quot;banana&quot;)  // -1  (&#x27;a&#x27; − &#x27;b&#x27;)
+&quot;app&quot;.compareTo(&quot;apple&quot;)     // -2  (length 3 − 5)</pre></div><div><ul><li><b>Never</b> use <code>==</code> to compare text; use <code>equals</code>.</li><li><code>compareTo</code> returns negative, 0 or positive for dictionary order: it subtracts the first differing characters, or the lengths if one is a prefix of the other.</li><li>Guard against null with <code>"yes".equals(input)</code> instead of <code>input.equals("yes")</code>.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="String methods at a glance" aria-label="String methods at a glance" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>String methods at a glance</h2><div class="scrollx"><table class="doc"><thead><tr><th>Method</th><th>Example</th><th>Result</th></tr></thead><tbody><tr><td class="m">length()</td><td class="m">"Hello".length()</td><td class="m">5</td></tr><tr><td class="m">charAt(i)</td><td class="m">"Hello".charAt(1)</td><td class="m">'e'</td></tr><tr><td class="m">indexOf / lastIndexOf</td><td class="m">"banana".indexOf("an") / lastIndexOf("an")</td><td class="m">1 / 3</td></tr><tr><td class="m">substring(a, b)</td><td class="m">"Hello".substring(1, 4)</td><td class="m">"ell" (b excluded)</td></tr><tr><td class="m">toUpperCase / toLowerCase</td><td class="m">"Java".toUpperCase()</td><td class="m">"JAVA"</td></tr><tr><td class="m">trim / strip</td><td class="m">"  hi  ".trim()</td><td class="m">"hi"</td></tr><tr><td class="m">replace</td><td class="m">"a-b-c".replace("-", "+")</td><td class="m">"a+b+c"</td></tr><tr><td class="m">contains / startsWith / endsWith</td><td class="m">"report.pdf".endsWith(".pdf")</td><td class="m">true</td></tr><tr><td class="m">split</td><td class="m">"a,b,,c".split(",")</td><td class="m">{"a", "b", "", "c"}</td></tr><tr><td class="m">join / repeat</td><td class="m">String.join("-", "a", "b") / "ab".repeat(3)</td><td class="m">"a-b" / "ababab"</td></tr><tr><td class="m">toCharArray / valueOf</td><td class="m">"hi".toCharArray() / String.valueOf(3.5)</td><td class="m">{'h','i'} / "3.5"</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="String method playground" aria-label="String method playground" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>String method playground</h2><div data-demo="strings"></div>
+</div></section>
+<section class="slide " data-title="Processing text" aria-label="Processing text" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Processing text</h2><div class="codeout"><pre class="code">String s = &quot;Green University of Bangladesh&quot;;
+
+int vowels = 0;
+for (char ch : s.toLowerCase().toCharArray())
+    if (&quot;aeiou&quot;.indexOf(ch) &gt;= 0) vowels++;
+
+String[] words = s.split(&quot; &quot;);
+String initials = &quot;&quot;;
+for (String w : words) initials += w.charAt(0);
+
+String p = &quot;madam&quot;;
+boolean pal = new StringBuilder(p).reverse().toString().equals(p);
+
+System.out.println(vowels + &quot; &quot; + words.length + &quot; &quot; + initials + &quot; &quot; + pal);
+System.out.println(s.replace(&quot;Bangladesh&quot;, &quot;BD&quot;).toUpperCase());</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">10 4 GUoB true
+GREEN UNIVERSITY OF BD</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="StringBuilder" aria-label="StringBuilder" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>StringBuilder</h2><div class="cols "><div><pre class="code small-code">StringBuilder sb = new StringBuilder(&quot;GUB&quot;);
+sb.append(&quot; CSE&quot;).append(201);   // &quot;GUB CSE201&quot;
+sb.insert(3, &quot;,&quot;);               // &quot;GUB, CSE201&quot;
+sb.reverse();                    // &quot;102ESC ,BUG&quot;
+sb.setCharAt(0, &#x27;9&#x27;);            // &quot;902ESC ,BUG&quot;
+sb.deleteCharAt(sb.length() - 1);// &quot;902ESC ,BU&quot;
+String result = sb.toString();</pre></div><div><ul><li><code>StringBuilder</code> is a <b>mutable</b> sequence of characters: its methods change the same object.</li><li>Joining strings with <code>+</code> in a loop creates a new String every time — slow for long loops.</li><li><code>StringBuffer</code> is the older, synchronized (thread-safe) version.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: String + in a loop vs StringBuilder" aria-label="Trace: String + in a loop vs StringBuilder" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: String + in a loop vs StringBuilder</h2><p class="muted">Count the objects on the heap: every <code>s + i</code> leaves an abandoned String behind, while the builder reuses one object.</p><div data-trace="t12-builder"></div>
+</div></section>
+<section class="slide " data-title="Big numbers stored as Strings" aria-label="Big numbers stored as Strings" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 5</p><h2>Big numbers stored as Strings</h2><div class="cols "><div><div class="scrollx"><table class="doc"><thead><tr><th>Type</th><th>Largest value</th></tr></thead><tbody><tr><td>int</td><td>2,147,483,647 (10 digits)</td></tr><tr><td>long</td><td>9,223,372,036,854,775,807 (19 digits)</td></tr><tr><td>String of digits</td><td>as many digits as memory allows</td></tr></tbody></table></div><ul><li>Store each number as a String of digits; the last character is the ones digit.</li><li>Work from right to left: <code>a.charAt(i) - '0'</code> converts a digit character to its value.</li><li>Keep a <b>carry</b> (addition) or <b>borrow</b> (subtraction), and build the answer with a StringBuilder, reversing at the end.</li></ul></div><div><pre class="code small-code">static String add(String a, String b) {
+    StringBuilder sb = new StringBuilder();
+    int i = a.length() - 1, j = b.length() - 1, carry = 0;
+    while (i &gt;= 0 || j &gt;= 0 || carry &gt; 0) {
+        int d1 = i &gt;= 0 ? a.charAt(i--) - &#x27;0&#x27; : 0;
+        int d2 = j &gt;= 0 ? b.charAt(j--) - &#x27;0&#x27; : 0;
+        int sum = d1 + d2 + carry;
+        sb.append(sum % 10);
+        carry = sum / 10;
+    }
+    return sb.reverse().toString();
+}</pre></div></div>
+</div></section>
+<section class="slide " data-title="Big-number addition, column by column" aria-label="Big-number addition, column by column" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Big-number addition, column by column</h2><div data-demo="bigadd"></div>
+</div></section>
+<section class="slide " data-title="Multiplying big numbers" aria-label="Multiplying big numbers" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Multiplying big numbers</h2><div class="codeout"><pre class="code" data-mark="5-7">static String multiply(String a, String b) {
+    int[] r = new int[a.length() + b.length()];
+    for (int i = a.length() - 1; i &gt;= 0; i--)
+        for (int j = b.length() - 1; j &gt;= 0; j--) {
+            int p = (a.charAt(i) - &#x27;0&#x27;) * (b.charAt(j) - &#x27;0&#x27;) + r[i + j + 1];
+            r[i + j + 1] = p % 10;        // this column
+            r[i + j] += p / 10;           // carry to the left
+        }
+    StringBuilder sb = new StringBuilder();
+    for (int d : r) if (!(sb.length() == 0 &amp;&amp; d == 0)) sb.append(d);
+    return sb.length() == 0 ? &quot;0&quot; : sb.toString();
+}
+System.out.println(multiply(&quot;123456789&quot;, &quot;987654321&quot;));
+System.out.println(multiply(&quot;12345678901234567890&quot;, &quot;98765432109876543210&quot;));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">121932631112635269
+1219326311370217952237463801111263526900</pre></div></div></div><p>Digit <code>i</code> of a times digit <code>j</code> of b lands in column <code>i + j + 1</code> of the result — the same shifted rows you write on paper.</p>
+</div></section>
+<section class="slide " data-title="The library way: BigInteger and BigDecimal" aria-label="The library way: BigInteger and BigDecimal" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>The library way: BigInteger and BigDecimal</h2><div class="codeout"><pre class="code">import java.math.*;
+
+BigInteger f = BigInteger.ONE;
+for (int i = 2; i &lt;= 30; i++) f = f.multiply(BigInteger.valueOf(i));
+System.out.println(&quot;30! = &quot; + f);
+System.out.println(&quot;2^100 = &quot; + BigInteger.TWO.pow(100));
+
+System.out.println(0.1 + 0.2);
+BigDecimal x = new BigDecimal(&quot;0.1&quot;), y = new BigDecimal(&quot;0.2&quot;);
+System.out.println(x.add(y));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">30! = 265252859812191058636308480000000
+2^100 = 1267650600228229401496703205376
+0.30000000000000004
+0.3</pre></div></div></div><ul><li><code>BigInteger</code>: integers of any size. <code>BigDecimal</code>: exact decimal arithmetic for money.</li><li>Both are immutable, like String: <code>f.multiply(...)</code> returns a new object.</li></ul>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">What is printed? <code>String s = "java"; s.toUpperCase(); System.out.println(s);</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans"><b>java</b>. toUpperCase returns a new String that is thrown away. Write <code>s = s.toUpperCase();</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Count the words in a sentence that may contain several spaces between words.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">String t = &quot;  OOP   is   fun &quot;;
+String[] w = t.trim().split(&quot;\\s+&quot;);     // one or more spaces
+System.out.println(w.length);            // 3</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Add "999" and "1" with the string algorithm. Show each column.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ol><li>9 + 1 + 0 = 10 → write 0, carry 1</li><li>9 + 0 + 1 = 10 → write 0, carry 1</li><li>9 + 0 + 1 = 10 → write 0, carry 1</li><li>carry 1 left → write 1</li></ol>Reverse "0001" → <b>"1000"</b>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. Why does <code>new String("a") == "a"</code> give false?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">new String creates a separate object on the heap; == compares references, and the literal is the pooled object.</div></details></div><div class="ex"><div class="qq">2. Write a method that checks whether a String is a palindrome, ignoring case.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">static boolean isPal(String s) {
+    s = s.toLowerCase();
+    for (int i = 0, j = s.length() - 1; i &lt; j; i++, j--)
+        if (s.charAt(i) != s.charAt(j)) return false;
+    return true;
+}</pre></div></details></div><div class="ex"><div class="qq">3. What does <code>"Programming".substring(3, 7)</code> return?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">"gram" (indexes 3, 4, 5, 6).</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Give the result of <code>"cat".compareTo("car")</code>.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">2 ('t' 116 − 'r' 114).</div></details></div><div class="ex"><div class="qq">5. Write <code>subtract(String a, String b)</code> for a ≥ b ≥ 0.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">static String subtract(String a, String b) {
+    StringBuilder sb = new StringBuilder();
+    int borrow = 0;
+    for (int i = a.length() - 1, j = b.length() - 1; i &gt;= 0; i--, j--) {
+        int d = a.charAt(i) - &#x27;0&#x27; - borrow - (j &gt;= 0 ? b.charAt(j) - &#x27;0&#x27; : 0);
+        borrow = d &lt; 0 ? 1 : 0;
+        sb.append(d &lt; 0 ? d + 10 : d);
+    }
+    String r = sb.reverse().toString().replaceFirst(&quot;^0+(?!$)&quot;, &quot;&quot;);
+    return r;
+}</pre></div></details></div><div class="ex"><div class="qq">6. When should you use StringBuilder instead of String?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">When you build a string step by step, especially inside loops, to avoid creating many temporary String objects.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="12"></div><script type="application/json" class="quiz-json">[{"q": "Strings in Java are…", "o": ["mutable", "immutable", "primitive", "always on the stack"], "a": 1, "w": "No String method changes the original object."}, {"q": "The correct way to compare the text of two strings is…", "o": ["==", "equals()", "=", "compare()"], "a": 1, "w": "== compares references."}, {"q": "<code>\"Hello\".indexOf('l')<\/code> returns…", "o": ["2", "3", "1", "−1"], "a": 0, "w": "The first l is at index 2."}, {"q": "Which class is mutable?", "o": ["String", "Integer", "StringBuilder", "BigInteger"], "a": 2, "w": "StringBuilder methods modify the same object."}, {"q": "In string-based addition, what does <code>a.charAt(i) - '0'<\/code> compute?", "o": ["The ASCII code", "The digit value", "The index", "A String"], "a": 1, "w": "'7' − '0' = 55 − 48 = 7."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>String literals share objects in the string pool; new String always creates a new object.</li><li>Strings are immutable — methods return new strings; compare text with equals, order with compareTo.</li><li>Key methods: length, charAt, indexOf, substring, split, replace, trim, toUpperCase.</li><li>StringBuilder is mutable and efficient for building strings in loops.</li><li>Numbers of any size can be stored as digit strings and added or multiplied column by column; BigInteger/BigDecimal do it for you.</li></ul><div class="nextcard"><a class="btn pri" href="13-javafx-jdbc-spring.html">Next: GUI, Graphics, Databases & Spring</a><a class="btn" href="../practice.html#t12">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 22</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 12, "prev": "11-multithreading.html", "next": "13-javafx-jdbc-spring.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

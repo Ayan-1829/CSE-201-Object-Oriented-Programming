@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms. Interactive slides, code tracers, demos and a quiz for Topic 3 of Object Oriented Programming (Java).">
+<meta name="keywords" content="java arrays, 2d array, jagged array, bubble sort, selection sort, insertion sort, linear search, binary search, java oop course, topic 3">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
+<meta property="og:description" content="Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms. Interactive slides, code tracers, demos and a quiz for Topic 3 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms. Interactive slides, code tracers, demos and a quiz for Topic 3 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Arrays, Sorting & Searching", "description": "Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms.", "position": 3, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 3: Arrays, Sorting & Searching", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html"}]}</script>
+<title>Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">3</span><span>Arrays, Sorting & Searching</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Arrays, Sorting &amp; Searching" aria-label="Arrays, Sorting &amp; Searching" tabindex="-1"><div class="slide-inner">
+<span class="badge big">3</span>
+<p class="kicker">Topic 3 of 13 · Lecture 3</p>
+<h1>Arrays, Sorting & Searching</h1>
+<p class="lead">Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A class has 60 students. Do you really need 60 separate variables to store their marks?</p><p>An array stores many values of the same type under one name, each reached by an index. Once marks sit in an array, one loop can find the highest, the average or sort them.</p><p>You will also see a surprise: arrays are objects, so copying an array variable does not copy the array.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lecture 3</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Arrays: declaration, creation, length</a></li><li><a href="#s=6">Array references and copying</a></li><li><a href="#s=8">Multidimensional arrays</a></li><li><a href="#s=10">Sorting: bubble, selection, insertion</a></li><li><a href="#s=12">Searching: linear and binary</a></li></ol>
+</div></section>
+<section class="slide " data-title="Declaring and creating arrays" aria-label="Declaring and creating arrays" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 5</p><h2>Declaring and creating arrays</h2><div class="cols "><div><pre class="code small-code">int[] marks = new int[5];         // 5 zeros
+marks[0] = 78;
+marks[4] = 91;
+
+double[] cgpa = {3.5, 3.9, 2.8};  // initializer
+String[] days = new String[7];    // 7 nulls
+
+System.out.println(marks.length); // 5
+System.out.println(cgpa[2]);      // 2.8
+marks[5] = 10;  // ArrayIndexOutOfBoundsException!</pre></div><div><figure class="fig" data-fig="array-mem"><figcaption>The variable holds a reference; the array object with its elements lives on the heap.</figcaption></figure><ul><li>Indexes run from <code>0</code> to <code>length − 1</code>.</li><li>New arrays are filled with default values: 0, 0.0, false or null.</li><li><code>length</code> is a field, not a method — no brackets.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: finding the highest mark" aria-label="Trace: finding the highest mark" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: finding the highest mark</h2><p class="muted">The loop compares every element with the best value so far. Watch <code>max</code> change only when a larger mark appears.</p><div data-trace="t3-max"></div>
+</div></section>
+<section class="slide " data-title="Arrays are objects: copying a reference" aria-label="Arrays are objects: copying a reference" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 5</p><h2>Arrays are objects: copying a reference</h2><div class="cols "><div><figure class="fig" data-fig="array-alias"><figcaption><code>int[] b = a;</code> copies the reference, not the elements. <code>a.clone()</code> makes a real copy.</figcaption></figure></div><div><ul><li><code>b = a</code> → both names refer to the <b>same</b> array (aliases). A change through <code>b</code> is visible through <code>a</code>.</li><li><code>a.clone()</code> or <code>Arrays.copyOf(a, a.length)</code> creates a new array with the same values.</li><li><code>a == b</code> compares references. Use <code>Arrays.equals(a, b)</code> to compare contents.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: aliases and copies" aria-label="Trace: aliases and copies" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: aliases and copies</h2><p class="muted">Colour-matched arrows show which variables share an array. The last step creates a new array for <code>a</code> — does <code>b</code> change?</p><div data-trace="t3-alias"></div>
+</div></section>
+<section class="slide " data-title="Multidimensional and jagged arrays" aria-label="Multidimensional and jagged arrays" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>Multidimensional and jagged arrays</h2><div class="fig2 "><figure class="fig" data-fig="array-2d"><figcaption>A 2-D array is an array of row arrays: m[i] is a whole row.</figcaption></figure><figure class="fig" data-fig="array-jagged"><figcaption>Rows can have different lengths (a jagged array).</figcaption></figure></div><pre class="code small-code">int[][] m = { {1, 2, 3}, {4, 5, 6} };      // 2 rows × 3 columns
+System.out.println(m.length + &quot; &quot; + m[0].length);   // 2 3
+int[][] t = new int[3][];                  // rows created later
+t[0] = new int[1];  t[1] = new int[2];  t[2] = new int[3];</pre>
+</div></section>
+<section class="slide " data-title="2-D array explorer" aria-label="2-D array explorer" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>2-D array explorer</h2><div data-demo="grid2d"></div>
+</div></section>
+<section class="slide " data-title="Sorting algorithms" aria-label="Sorting algorithms" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>Sorting algorithms</h2><div class="scrollx"><table class="doc"><thead><tr><th>Algorithm</th><th>Idea</th><th>Comparisons (worst)</th></tr></thead><tbody><tr><td><b>Bubble sort</b></td><td>Compare neighbours and swap if out of order. After pass k, the k largest values are in place at the end.</td><td>n(n−1)/2</td></tr><tr><td><b>Selection sort</b></td><td>Find the minimum of the unsorted part and swap it to the front.</td><td>n(n−1)/2, but at most n−1 swaps</td></tr><tr><td><b>Insertion sort</b></td><td>Take the next value and shift larger values right until its place is found — like sorting playing cards.</td><td>n(n−1)/2; almost linear on nearly-sorted data</td></tr></tbody></table></div><pre class="code small-code">// bubble sort
+for (int pass = 0; pass &lt; a.length - 1; pass++)
+    for (int j = 0; j &lt; a.length - 1 - pass; j++)
+        if (a[j] &gt; a[j + 1]) { int t = a[j]; a[j] = a[j + 1]; a[j + 1] = t; }</pre><div class="callout"><b>Library:</b> In real programs use <code>Arrays.sort(a)</code>, which is fast (O(n log n)).</div>
+</div></section>
+<section class="slide " data-title="Sorting visualizer" aria-label="Sorting visualizer" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Sorting visualizer</h2><div data-demo="sorting"></div>
+</div></section>
+<section class="slide " data-title="Searching" aria-label="Searching" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 5</p><h2>Searching</h2><div class="cols "><div><pre class="code small-code">static int linear(int[] a, int key) {
+    for (int i = 0; i &lt; a.length; i++)
+        if (a[i] == key) return i;
+    return -1;                     // not found
+}
+
+static int binary(int[] a, int key) {  // a must be sorted
+    int lo = 0, hi = a.length - 1;
+    while (lo &lt;= hi) {
+        int mid = (lo + hi) / 2;
+        if (a[mid] == key) return mid;
+        if (a[mid] &lt; key) lo = mid + 1;
+        else hi = mid - 1;
+    }
+    return -1;
+}</pre></div><div><div class="scrollx"><table class="doc"><thead><tr><th></th><th>Linear</th><th>Binary</th></tr></thead><tbody><tr><td>Needs sorted data?</td><td>No</td><td>Yes</td></tr><tr><td>Worst case, n = 1,000,000</td><td>1,000,000 checks</td><td>20 checks</td></tr><tr><td>Growth</td><td>O(n)</td><td>O(log n)</td></tr></tbody></table></div></div></div>
+</div></section>
+<section class="slide " data-title="Linear vs binary search" aria-label="Linear vs binary search" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Linear vs binary search</h2><div data-demo="searching"></div>
+</div></section>
+<section class="slide " data-title="Useful java.util.Arrays methods" aria-label="Useful java.util.Arrays methods" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Useful java.util.Arrays methods</h2><div class="codeout"><pre class="code">import java.util.Arrays;
+
+int[] a = {42, 7, 19, 3};
+Arrays.sort(a);
+System.out.println(Arrays.toString(a));
+System.out.println(Arrays.binarySearch(a, 19));
+int[] b = Arrays.copyOf(a, 6);
+System.out.println(Arrays.toString(b));
+Arrays.fill(b, 1);
+System.out.println(Arrays.toString(b));
+System.out.println(Arrays.equals(a, new int[]{3, 7, 19, 42}));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">[3, 7, 19, 42]
+2
+[3, 7, 19, 42, 0, 0]
+[1, 1, 1, 1, 1, 1]
+true</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Reverse an array in place.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">for (int i = 0, j = a.length - 1; i &lt; j; i++, j--) {
+    int t = a[i]; a[i] = a[j]; a[j] = t;
+}</pre>Swap the two ends and move inwards; stop when the indexes meet. Only n/2 swaps.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Show the array after each pass of bubble sort on <code>{5, 1, 4, 2}</code>.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ol><li>Pass 1: {1, 4, 2, <b>5</b>}</li><li>Pass 2: {1, 2, <b>4, 5</b>}</li><li>Pass 3: {<b>1, 2, 4, 5</b>} (no swaps — already sorted)</li></ol></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Binary search for 23 in <code>{2, 5, 8, 12, 16, 23, 38, 56}</code>. List lo, hi, mid for each step.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ol><li>lo=0, hi=7, mid=3 → 12 &lt; 23 → lo = 4</li><li>lo=4, hi=7, mid=5 → 23 found at index <b>5</b></li></ol>Only 2 comparisons, against up to 6 for a linear search.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. Write code to compute the average of a <code>double[]</code>.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">double s = 0;
+for (double v : a) s += v;
+double avg = s / a.length;</pre></div></details></div><div class="ex"><div class="qq">2. What is printed? <code>int[] a = {1,2,3}; int[] b = a; b[1] = 9; System.out.println(a[1]);</code></div><details class="reveal"><summary>Show the answer</summary><div class="ans">9 — a and b refer to the same array.</div></details></div><div class="ex"><div class="qq">3. Find the sum of each row of <code>int[][] m</code>.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">for (int i = 0; i &lt; m.length; i++) {
+    int s = 0;
+    for (int j = 0; j &lt; m[i].length; j++) s += m[i][j];
+    System.out.println(&quot;Row &quot; + i + &quot;: &quot; + s);
+}</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Show selection sort on <code>{29, 10, 14, 37, 13}</code> pass by pass.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">{10, 29, 14, 37, 13} → {10, 13, 14, 37, 29} → {10, 13, 14, 37, 29} → {10, 13, 14, 29, 37}.</div></details></div><div class="ex"><div class="qq">5. What is the maximum number of comparisons binary search needs for 1,000 sorted elements?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">10, because 2<sup>10</sup> = 1024 ≥ 1000.</div></details></div><div class="ex"><div class="qq">6. Why does <code>int[] a = new int[3]; System.out.println(a);</code> print something like <code>[I@1b6d3586</code>?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Printing an array prints its type and hash code, not its elements. Use <code>Arrays.toString(a)</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="3"></div><script type="application/json" class="quiz-json">[{"q": "What are the valid indexes of <code>new int[5]<\/code>?", "o": ["1 to 5", "0 to 5", "0 to 4", "−1 to 4"], "a": 2, "w": "Indexes run from 0 to length − 1."}, {"q": "<code>int[] b = a;<\/code> then <code>b[0] = 7;<\/code>. What is <code>a[0]<\/code>?", "o": ["unchanged", "7", "0", "compile error"], "a": 1, "w": "b and a are aliases for the same array object."}, {"q": "Binary search requires the array to be…", "o": ["of even length", "sorted", "of type int", "stored in a 2-D array"], "a": 1, "w": "Halving only works if everything left of mid is smaller and everything right is larger."}, {"q": "What does <code>m[1].length<\/code> give for <code>int[][] m = {{1,2},{3,4,5}}<\/code>?", "o": ["2", "3", "5", "6"], "a": 1, "w": "m[1] is the row {3, 4, 5}, which has length 3."}, {"q": "Which sort finds the minimum of the unsorted part and swaps it into place?", "o": ["Bubble", "Insertion", "Selection", "Binary"], "a": 2, "w": "Selection sort selects the minimum on every pass."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>An array stores a fixed number of same-typed values; indexes go from 0 to length − 1.</li><li>Array variables hold references: assignment creates aliases; clone() or Arrays.copyOf makes copies.</li><li>A 2-D array is an array of arrays; rows may differ in length (jagged).</li><li>Bubble, selection and insertion sort all take about n²/2 comparisons; use Arrays.sort in practice.</li><li>Linear search works on any array (O(n)); binary search needs sorted data but is O(log n).</li></ul><div class="nextcard"><a class="btn pri" href="04-classes-and-objects.html">Next: Classes, Objects & Encapsulation</a><a class="btn" href="../practice.html#t3">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 21</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 3, "prev": "02-loops.html", "next": "04-classes-and-objects.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

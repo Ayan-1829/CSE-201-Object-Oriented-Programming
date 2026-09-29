@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class. Interactive slides, code tracers, demos and a quiz for Topic 7 of Object Oriented Programming (Java).">
+<meta name="keywords" content="java inheritance, extends, super keyword, multilevel inheritance, UML class diagram, constructor chaining, object class, java oop course, topic 7">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Inheritance – Topic 7 | Object Oriented Programming Notes">
+<meta property="og:description" content="Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class. Interactive slides, code tracers, demos and a quiz for Topic 7 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Inheritance – Topic 7 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Inheritance – Topic 7 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class. Interactive slides, code tracers, demos and a quiz for Topic 7 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Inheritance", "description": "Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class.", "position": 7, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 19, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 7: Inheritance", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html"}]}</script>
+<title>Inheritance – Topic 7 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">7</span><span>Inheritance</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Inheritance" aria-label="Inheritance" tabindex="-1"><div class="slide-inner">
+<span class="badge big">7</span>
+<p class="kicker">Topic 7 of 13 · Lectures 9–10</p>
+<h1>Inheritance</h1>
+<p class="lead">Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A university system has Students, Teachers and Staff. All of them have a name, age, phone number and address. Do you really write those four fields three times?</p><p>Inheritance lets you put the shared parts in one <b>superclass</b> (Person) and have each <b>subclass</b> add only what is different. Fix a bug in Person and all three classes are fixed.</p><p>You will also see exactly which constructors run, and in what order, when you create an object at the bottom of a hierarchy.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lectures 9–10</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Inheritance basics and UML</a></li><li><a href="#s=7">Using super</a></li><li><a href="#s=9">Multilevel hierarchy and constructor order</a></li><li><a href="#s=11">The Object class</a></li></ol>
+</div></section>
+<section class="slide " data-title="Inheritance: the is-a relationship" aria-label="Inheritance: the is-a relationship" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 6</p><h2>Inheritance: the is-a relationship</h2><div class="cols "><div><figure class="fig" data-fig="uml-inherit"><figcaption>UML: the hollow triangle points from the subclass to its superclass.</figcaption></figure></div><div><pre class="code small-code">class Person {
+    protected String name;
+    protected int age;
+    String introduce() { return &quot;I am &quot; + name; }
+}
+class Student extends Person {
+    private double cgpa;              // added
+    void study() { System.out.println(name + &quot; studies&quot;); }
+}</pre><ul><li><code>class Student extends Person</code>: a Student <b>is a</b> Person.</li><li>The subclass inherits all accessible fields and methods and can add its own.</li><li>Test with “is-a”: a Car is a Vehicle ✓, a Car is an Engine ✗ (a Car <i>has</i> an Engine).</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Types of inheritance" aria-label="Types of inheritance" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 6</p><h2>Types of inheritance</h2><figure class="fig" data-fig="inherit-types"><figcaption>Java classes support single, multilevel and hierarchical inheritance. Multiple inheritance of classes is not allowed.</figcaption></figure><ul><li>A Java class extends <b>exactly one</b> superclass (by default <code>Object</code>).</li><li>Multiple inheritance of classes is banned to avoid the <b>diamond problem</b> (two inherited versions of the same method).</li><li>A class can implement many <b>interfaces</b> — that is how Java gets the benefits of multiple inheritance (topic 9).</li></ul>
+</div></section>
+<section class="slide " data-title="What a subclass can and cannot use" aria-label="What a subclass can and cannot use" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 6</p><h2>What a subclass can and cannot use</h2><div class="scrollx"><table class="doc"><thead><tr><th>Member of the superclass</th><th>Inherited?</th><th>Usable in the subclass?</th></tr></thead><tbody><tr><td>public / protected fields and methods</td><td>Yes</td><td>Yes, directly</td></tr><tr><td>default (package) members</td><td>Yes</td><td>Only if the subclass is in the same package</td></tr><tr><td>private fields</td><td>They exist inside the object</td><td>No — use public/protected getters and setters</td></tr><tr><td>constructors</td><td>No</td><td>Called with <code>super(...)</code></td></tr><tr><td>static members</td><td>Shared, not copied</td><td>Yes, through the class name</td></tr></tbody></table></div><div class="callout"><b>Why it matters:</b> Private fields are still part of every Student object — Student just cannot name them. That is why Student’s constructor must call <code>super(name, age)</code> to set them.</div>
+</div></section>
+<section class="slide " data-title="The super keyword" aria-label="The super keyword" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 6</p><h2>The super keyword</h2><div class="cols "><div><pre class="code small-code" data-mark="10,15">class Person {
+    private String name;
+    Person(String name) { this.name = name; }
+    String getName() { return name; }
+    String introduce() { return &quot;I am &quot; + name; }
+}
+class Student extends Person {
+    private int id;
+    Student(String name, int id) {
+        super(name);                 // 1. superclass constructor
+        this.id = id;
+    }
+    @Override
+    String introduce() {
+        return super.introduce()     // 2. superclass version
+               + &quot;, ID &quot; + id;
+    }
+}</pre></div><div><ul><li><code>super(args)</code> calls the superclass constructor; it must be the <b>first statement</b>.</li><li>If you do not write it, the compiler inserts <code>super();</code> — which fails if the superclass has no no-arg constructor.</li><li><code>super.method()</code> calls the superclass version of an overridden method.</li><li><code>super.field</code> reaches a superclass field hidden by a subclass field with the same name.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="super in action" aria-label="super in action" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>super in action</h2><div class="codeout"><pre class="code">class Person {
+    private String name;
+    Person(String name) { this.name = name; }
+    String introduce() { return &quot;I am &quot; + name; }
+}
+class Student extends Person {
+    private int id;
+    Student(String name, int id) { super(name); this.id = id; }
+    @Override
+    String introduce() { return super.introduce() + &quot;, ID &quot; + id; }
+}
+class Teacher extends Person {
+    private String dept;
+    Teacher(String name, String dept) { super(name); this.dept = dept; }
+    @Override
+    String introduce() { return super.introduce() + &quot; from &quot; + dept; }
+}
+Person[] people = { new Student(&quot;Mitu&quot;, 221), new Teacher(&quot;Dr. Karim&quot;, &quot;CSE&quot;) };
+for (Person p : people) System.out.println(p.introduce());</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">I am Mitu, ID 221
+I am Dr. Karim from CSE</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="Multilevel hierarchies and constructor order" aria-label="Multilevel hierarchies and constructor order" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 6</p><h2>Multilevel hierarchies and constructor order</h2><div class="cols "><div><figure class="fig" data-fig="uml-multilevel"><figcaption>A three-level hierarchy: ElectricCar → Car → Vehicle.</figcaption></figure></div><div><pre class="code small-code">class Vehicle {
+    Vehicle() { System.out.println(&quot;Vehicle&quot;); }
+}
+class Car extends Vehicle {
+    Car() { System.out.println(&quot;Car&quot;); }
+}
+class ElectricCar extends Car {
+    ElectricCar() { System.out.println(&quot;ElectricCar&quot;); }
+}
+new ElectricCar();</pre><div class="console"><div class="console-h">Output</div><pre class="console-body">Vehicle
+Car
+ElectricCar</pre></div><p>Constructors run from the <b>top</b> of the hierarchy down: a superclass part must be ready before the subclass part is built.</p></div></div>
+</div></section>
+<section class="slide " data-title="Trace: constructor chaining" aria-label="Trace: constructor chaining" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: constructor chaining</h2><p class="muted">Each constructor first calls <code>super()</code>. Watch the frames stack up to A, then print on the way back down.</p><div data-trace="t7-chain"></div>
+</div></section>
+<section class="slide " data-title="The Object class" aria-label="The Object class" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 6 of 6</p><h2>The Object class</h2><div class="cols "><div><figure class="fig" data-fig="object-tree"><figcaption>Every class inherits from java.lang.Object, directly or indirectly.</figcaption></figure></div><div><div class="scrollx"><table class="doc"><thead><tr><th>Method of Object</th><th>Default behaviour</th><th>Usually override?</th></tr></thead><tbody><tr><td><code>toString()</code></td><td><code>Student@1b6d3586</code></td><td>Yes, to print useful text</td></tr><tr><td><code>equals(Object o)</code></td><td>Same as <code>==</code> (same object?)</td><td>Yes, to compare contents</td></tr><tr><td><code>hashCode()</code></td><td>Based on identity</td><td>Yes, whenever you override equals</td></tr><tr><td><code>getClass()</code></td><td>Run-time class</td><td>No (final)</td></tr></tbody></table></div></div></div>
+</div></section>
+<section class="slide " data-title="Inheritance vs composition (is-a vs has-a)" aria-label="Inheritance vs composition (is-a vs has-a)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Design</p><h2>Inheritance vs composition (is-a vs has-a)</h2><div class="cols "><div><pre class="code small-code">class Engine {
+    int hp;
+    Engine(int hp) { this.hp = hp; }
+    void start() { System.out.println(hp + &quot; hp engine started&quot;); }
+}
+class Car extends Vehicle {       // is-a: inheritance
+    private Engine engine;        // has-a: composition
+    Car(int hp) { engine = new Engine(hp); }
+    void drive() {
+        engine.start();           // delegate
+        System.out.println(&quot;driving&quot;);
+    }
+}</pre></div><div><ul><li><b>Inheritance</b> (is-a) reuses the superclass’s interface and code.</li><li><b>Composition</b> (has-a) keeps an object as a field and delegates work to it.</li><li>Prefer composition when the relationship is not a true “is-a”: a Stack is not an ArrayList, but it can <i>have</i> one.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">What is printed?<br><code>class A { A() { System.out.print("A"); } }</code><br><code>class B extends A { B() { System.out.print("B"); } }</code><br><code>class C extends B { C() { super(); System.out.print("C"); } }</code><br><code>new C();</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans"><b>ABC</b>. Every constructor calls its superclass constructor first.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Why does this fail? <code>class P { P(int x) {} }  class Q extends P { Q() {} }</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">Q() implicitly calls <code>super()</code>, but P has no no-arg constructor. Fix: <code>Q() { super(0); }</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Draw the UML and write the classes: Shape has <code>color</code>; Circle is a Shape with <code>radius</code>; both have constructors.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">class Shape {
+    protected String color;
+    Shape(String color) { this.color = color; }
+}
+class Circle extends Shape {
+    private double radius;
+    Circle(String color, double radius) {
+        super(color);
+        this.radius = radius;
+    }
+}</pre>UML: Circle → (hollow triangle) → Shape.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. Why does Java not allow <code>class C extends A, B</code>?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">To avoid the diamond problem: if A and B both define the same method, C would inherit two conflicting versions. Interfaces are used for multiple inheritance of type.</div></details></div><div class="ex"><div class="qq">2. Can a subclass access a private field of its superclass directly?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">No. The field is inherited (it is inside the object) but not accessible; use a protected or public getter/setter.</div></details></div><div class="ex"><div class="qq">3. Write <code>Manager extends Employee</code> with an extra <code>bonus</code>, overriding <code>salary()</code> using <code>super.salary()</code>.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">class Manager extends Employee {
+    private double bonus;
+    Manager(String n, double base, double bonus) { super(n, base); this.bonus = bonus; }
+    @Override double salary() { return super.salary() + bonus; }
+}</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. What does <code>System.out.println(obj)</code> print if the class does not override toString()?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">ClassName@hexHashCode, e.g. <code>Student@7a81197d</code>.</div></details></div><div class="ex"><div class="qq">5. Name the relationship: Library – Book, Dog – Animal, Car – Wheel, Square – Rectangle.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">has-a, is-a, has-a, is-a (with care: a Square “is a” Rectangle mathematically, but changing width alone breaks it — a classic design trap).</div></details></div><div class="ex"><div class="qq">6. In which order do constructors and field initialisers run for <code>new C()</code> in A → B → C?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">A’s fields and constructor, then B’s, then C’s — from the top of the hierarchy down.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="7"></div><script type="application/json" class="quiz-json">[{"q": "Which keyword creates a subclass?", "o": ["implements", "extends", "inherits", "super"], "a": 1, "w": "class Sub extends Super."}, {"q": "What does <code>super(name)<\/code> do?", "o": ["Calls the superclass constructor", "Creates a new superclass object", "Calls an overridden method", "Returns the superclass"], "a": 0, "w": "super(...) invokes a superclass constructor as the first statement."}, {"q": "In A → B → C, which constructor body finishes first for <code>new C()<\/code>?", "o": ["C", "B", "A", "Unspecified"], "a": 2, "w": "A’s constructor completes first; then B’s, then C’s."}, {"q": "Every Java class ultimately extends…", "o": ["Class", "Base", "Object", "Main"], "a": 2, "w": "java.lang.Object is the root of the class hierarchy."}, {"q": "Which is a has-a relationship?", "o": ["Dog – Animal", "Car – Engine", "Student – Person", "Circle – Shape"], "a": 1, "w": "A car has an engine; it is not an engine."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>extends creates an is-a relationship; the subclass inherits accessible members and adds its own.</li><li>Java classes have exactly one superclass; multiple inheritance comes through interfaces.</li><li>super(...) calls the superclass constructor (first statement); super.m() calls the superclass version of m.</li><li>Constructors run from the top of the hierarchy down.</li><li>Every class inherits toString, equals and hashCode from Object.</li></ul><div class="nextcard"><a class="btn pri" href="08-polymorphism-and-abstraction.html">Next: Overriding, Polymorphism & Abstract Classes</a><a class="btn" href="../practice.html#t7">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 19</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 7, "prev": "06-access-static-final.html", "next": "08-polymorphism-and-abstraction.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

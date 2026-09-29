@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" role="img" aria-labelledby="title desc">
+  <title id="title">One class, many student objects</title>
+  <desc id="desc">A Student class blueprint points to two independent Student objects with different field values.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#155e63"/></marker>
+    <pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0v18" fill="none" stroke="#d8e9e7" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="880" height="390" rx="20" fill="#f6f7f5"/>
+  <rect x="1" y="1" width="878" height="388" rx="19" fill="url(#grid)" stroke="#d8dfdf"/>
+  <g>
+    <rect x="30" y="77" width="255" height="236" rx="12" fill="#fff" stroke="#155e63" stroke-width="2"/>
+    <path d="M30 89a12 12 0 0 1 12-12h231a12 12 0 0 1 12 12v40H30z" fill="#155e63"/>
+    <text x="52" y="108" fill="#fff" font-family="monospace" font-size="13">BLUEPRINT · WRITTEN ONCE</text>
+    <text x="52" y="162" fill="#102529" font-family="monospace" font-size="22" font-weight="700">class Student</text>
+    <path d="M52 181h210" stroke="#d8dfdf"/>
+    <text x="53" y="210" fill="#44536a" font-family="monospace" font-size="15">String name</text>
+    <text x="53" y="239" fill="#44536a" font-family="monospace" font-size="15">int id</text>
+    <text x="53" y="268" fill="#44536a" font-family="monospace" font-size="15">double cgpa</text>
+    <text x="52" y="294" fill="#8b5a24" font-family="sans-serif" font-size="12">defines the shape, not one person</text>
+  </g>
+  <g fill="none" stroke="#155e63" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M286 166C330 166 321 106 371 106" stroke-dasharray="8 7"><animate attributeName="stroke-dashoffset" values="0;-30" dur="1.2s" repeatCount="indefinite"/></path>
+    <path d="M286 222C330 222 321 286 371 286" stroke-dasharray="8 7"><animate attributeName="stroke-dashoffset" values="0;-30" dur="1.2s" repeatCount="indefinite"/></path>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin=".25s" dur=".55s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="translate" from="-16 0" to="0 0" begin=".25s" dur=".55s" fill="freeze"/>
+    <rect x="390" y="39" width="450" height="142" rx="15" fill="#fff" stroke="#d8dfdf" stroke-width="2"/>
+    <path d="M390 54a15 15 0 0 1 15-15h420a15 15 0 0 1 15 15v10H390z" fill="#e8892f"/>
+    <circle cx="451" cy="120" r="38" fill="#fce6cf"/>
+    <path d="M422 132q4-25 29-25t29 25v8h-58z" fill="#155e63"/>
+    <circle cx="451" cy="94" r="14" fill="#bd7953"/>
+    <path d="M437 91q2-16 15-16 13 1 15 17-8-7-16-7-7 0-14 6" fill="#263d42"/>
+    <text x="508" y="91" fill="#8b5a24" font-family="monospace" font-size="12">OBJECT 1 · OWN STATE</text>
+    <text x="508" y="119" fill="#102529" font-family="sans-serif" font-size="21" font-weight="700">Ann</text>
+    <text x="508" y="145" fill="#44536a" font-family="monospace" font-size="14">id 101  ·  cgpa 3.75</text>
+    <rect x="768" y="82" width="53" height="24" rx="12" fill="#ddf0ef"/>
+    <text x="794" y="98" text-anchor="middle" fill="#155e63" font-family="sans-serif" font-size="11" font-weight="700">new</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" from="0" to="1" begin=".7s" dur=".55s" fill="freeze"/>
+    <animateTransform attributeName="transform" type="translate" from="-16 0" to="0 0" begin=".7s" dur=".55s" fill="freeze"/>
+    <rect x="390" y="209" width="450" height="142" rx="15" fill="#fff" stroke="#d8dfdf" stroke-width="2"/>
+    <path d="M390 224a15 15 0 0 1 15-15h420a15 15 0 0 1 15 15v10H390z" fill="#1f7a80"/>
+    <circle cx="451" cy="290" r="38" fill="#dcebe8"/>
+    <path d="M422 302q4-25 29-25t29 25v8h-58z" fill="#e8892f"/>
+    <circle cx="451" cy="264" r="14" fill="#8e5c43"/>
+    <path d="M436 262q2-16 15-16 13 1 15 17-8-7-16-7-7 0-14 6" fill="#263d42"/>
+    <text x="508" y="261" fill="#155e63" font-family="monospace" font-size="12">OBJECT 2 · OWN STATE</text>
+    <text x="508" y="289" fill="#102529" font-family="sans-serif" font-size="21" font-weight="700">Bob</text>
+    <text x="508" y="315" fill="#44536a" font-family="monospace" font-size="14">id 102  ·  cgpa 3.20</text>
+    <rect x="768" y="252" width="53" height="24" rx="12" fill="#ddf0ef"/>
+    <text x="794" y="268" text-anchor="middle" fill="#155e63" font-family="sans-serif" font-size="11" font-weight="700">new</text>
+  </g>
+</svg>

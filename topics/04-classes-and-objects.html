@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects. Interactive slides, code tracers, demos and a quiz for Topic 4 of Object Oriented Programming (Java).">
+<meta name="keywords" content="java class, java object, encapsulation, getter setter, constructor, this keyword, garbage collection, java oop course, topic 4">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Classes, Objects &amp; Encapsulation – Topic 4 | Object Oriented Programming Notes">
+<meta property="og:description" content="Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects. Interactive slides, code tracers, demos and a quiz for Topic 4 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/04-classes-and-objects.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Classes, Objects &amp; Encapsulation – Topic 4 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Classes, Objects &amp; Encapsulation – Topic 4 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects. Interactive slides, code tracers, demos and a quiz for Topic 4 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/04-classes-and-objects.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Classes, Objects & Encapsulation", "description": "Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects.", "position": 4, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/04-classes-and-objects.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 4: Classes, Objects & Encapsulation", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html"}]}</script>
+<title>Classes, Objects &amp; Encapsulation – Topic 4 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">4</span><span>Classes, Objects & Encapsulation</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Classes, Objects &amp; Encapsulation" aria-label="Classes, Objects &amp; Encapsulation" tabindex="-1"><div class="slide-inner">
+<span class="badge big">4</span>
+<p class="kicker">Topic 4 of 13 · Lectures 4–6</p>
+<h1>Classes, Objects & Encapsulation</h1>
+<p class="lead">Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">If <code>Student s2 = s1;</code> and then you change <code>s2</code>’s CGPA, whose CGPA did you just change?</p><p>Both — because <code>s1</code> and <code>s2</code> are two names for one object. Understanding the difference between an object and a reference to it is the single most important idea in Java.</p><p>This topic builds classes from scratch: fields, methods, constructors, encapsulation with private fields, the <code>this</code> keyword and garbage collection.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lectures 4–6</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Class and object</a></li><li><a href="#s=4">Fields and methods</a></li><li><a href="#s=6">Constructors</a></li><li><a href="#s=7">Garbage collection</a></li><li><a href="#s=8">Encapsulation: private fields, getters and setters</a></li><li><a href="#s=10">Instance variable hiding and this</a></li></ol>
+</div></section>
+<section class="slide " data-title="Class and object" aria-label="Class and object" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 6</p><h2>Class and object</h2><div class="cols "><div><figure class="fig class-object-visual"><img class="class-object-image" src="../img/class-to-objects.svg" alt="A Student class blueprint produces two distinct student objects, Ann and Bob, each with their own name, ID and CGPA."><figcaption>One class describes the fields; each call to <code>new Student()</code> creates an object with its own values.</figcaption></figure></div><div><pre class="code small-code">public class Student {
+    // fields (instance variables)
+    private String name;
+    private int id;
+    private double cgpa;
+
+    // method
+    public void printInfo() {
+        System.out.println(id + &quot;: &quot; + name + &quot; (&quot; + cgpa + &quot;)&quot;);
+    }
+}</pre><ul><li>A <b>class</b> is a blueprint: it declares fields (state) and methods (behaviour).</li><li>An <b>object</b> is an instance created at run time with <code>new</code>; each object has its own copy of the fields.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Creating objects: new and references" aria-label="Creating objects: new and references" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 6</p><h2>Creating objects: new and references</h2><div class="cols "><div><pre class="code small-code">Student s1 = new Student(&quot;Ann&quot;, 101);
+Student s2 = new Student(&quot;Bob&quot;, 102);
+Student s3 = s1;          // no new object!
+
+s3.setCgpa(3.9);          // changes Ann</pre><ol><li><code>new</code> allocates the object on the <b>heap</b> and sets default field values.</li><li>The <b>constructor</b> runs to initialise it.</li><li>new returns a <b>reference</b>, stored in the variable on the <b>stack</b>.</li></ol></div><div><figure class="fig" data-fig="obj-refs"><figcaption>Two objects, three references: s1 and s3 are aliases.</figcaption></figure></div></div>
+</div></section>
+<section class="slide " data-title="Trace: constructing objects" aria-label="Trace: constructing objects" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: constructing objects</h2><p class="muted">Watch the heap: each <code>new</code> creates a fresh Student, then the constructor fills in its fields through <code>this</code>.</p><div data-trace="t4-ctor"></div>
+</div></section>
+<section class="slide " data-title="Object factory" aria-label="Object factory" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Object factory</h2><div data-demo="objects"></div>
+</div></section>
+<section class="slide " data-title="Encapsulation" aria-label="Encapsulation" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 6</p><h2>Encapsulation</h2><div class="cols "><div><figure class="fig" data-fig="capsule"><figcaption>Outside code cannot touch the private fields; it must go through the public methods.</figcaption></figure></div><div><pre class="code small-code">public class Account {
+    private double balance;        // hidden
+
+    public double getBalance() { return balance; }
+
+    public void deposit(double amt) {
+        if (amt &lt;= 0) {
+            System.out.println(&quot;Invalid amount&quot;);
+            return;
+        }
+        balance += amt;
+    }
+}
+// acc.balance = -500;   ✗ compile error: private</pre><ul><li>Make fields <code>private</code>; provide <code>public</code> <b>getters</b> and <b>setters</b> only where needed.</li><li>Setters can <b>validate</b>, so an object can never get into an invalid state.</li><li>You can change the inside later without breaking code that uses the class.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Constructors" aria-label="Constructors" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 6</p><h2>Constructors</h2><div class="cols "><div><pre class="code small-code">public class Student {
+    private String name;
+    private int id;
+
+    public Student() {                 // no-arg
+        name = &quot;Unknown&quot;;
+    }
+    public Student(String n, int i) {  // parameterized
+        name = n;
+        id = i;
+    }
+}</pre></div><div><ul><li>Same name as the class, <b>no return type</b> (not even void).</li><li>Runs automatically once, when <code>new</code> creates the object.</li><li>If you write <b>no</b> constructor, Java adds a default no-arg one. If you write <b>any</b> constructor, that default disappears — so <code>new Student()</code> would then fail unless you write it yourself.</li><li>Fields not set by the constructor keep their defaults (0, false, null).</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Instance variable hiding and this" aria-label="Instance variable hiding and this" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 6</p><h2>Instance variable hiding and this</h2><div class="cols "><div><pre class="code small-code" data-mark="4">class Box {
+    int width;
+    Box(int width) {
+        width = width;       // ✗ assigns parameter to itself
+    }
+}
+class Box2 {
+    int width;
+    Box2(int width) {
+        this.width = width;  // ✓ field = parameter
+    }
+}</pre></div><div><ul><li>A parameter or local variable with the same name as a field <b>hides</b> the field inside that method.</li><li><code>this</code> is a reference to the current object, so <code>this.width</code> always means the field.</li><li>Other uses: <code>this(...)</code> calls another constructor; <code>return this;</code> allows chaining; passing <code>this</code> to another method.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: the hiding bug" aria-label="Trace: the hiding bug" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: the hiding bug</h2><p class="muted">Both constructors receive 7. Watch which object’s field actually becomes 7.</p><div data-trace="t4-shadow"></div>
+</div></section>
+<section class="slide " data-title="Garbage collection" aria-label="Garbage collection" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 6 of 6</p><h2>Garbage collection</h2><div class="cols "><div><figure class="fig" data-fig="gc-fig"><figcaption>An object that no variable refers to is unreachable, so the garbage collector may reclaim its memory.</figcaption></figure></div><div><ul><li>Java has no <code>delete</code>: the <b>garbage collector</b> (GC) frees memory automatically.</li><li>An object becomes <b>eligible</b> when nothing reachable refers to it: <code>s = null;</code>, reassigning the variable, or the variable going out of scope.</li><li>You cannot control <i>when</i> GC runs; <code>System.gc()</code> is only a request.</li><li><code>finalize()</code> is deprecated — use try-with-resources to release files and connections.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: which objects become garbage?" aria-label="Trace: which objects become garbage?" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: which objects become garbage?</h2><p class="muted">Objects turn grey with a dashed border as soon as no reference reaches them.</p><div data-trace="t4-gc"></div>
+</div></section>
+<section class="slide " data-title="Putting it together: a complete class" aria-label="Putting it together: a complete class" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Putting it together: a complete class</h2><div class="codeout"><pre class="code" data-mark="12">public class Student {
+    private String name;
+    private double cgpa;
+
+    public Student(String name, double cgpa) {
+        this.name = name;
+        setCgpa(cgpa);
+    }
+    public String getName() { return name; }
+    public double getCgpa() { return cgpa; }
+    public void setCgpa(double cgpa) {
+        if (cgpa &gt;= 0 &amp;&amp; cgpa &lt;= 4) this.cgpa = cgpa;
+    }
+    @Override
+    public String toString() { return name + &quot; (&quot; + cgpa + &quot;)&quot;; }
+
+    public static void main(String[] args) {
+        Student s = new Student(&quot;Nabila&quot;, 3.75);
+        s.setCgpa(5.2);          // rejected
+        System.out.println(s);   // calls toString()
+    }
+}</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">Nabila (3.75)</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Design a <code>Rectangle</code> class with private width and height, a constructor, <code>area()</code> and <code>perimeter()</code>.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">public class Rectangle {
+    private double width, height;
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+    public double area()      { return width * height; }
+    public double perimeter() { return 2 * (width + height); }
+}</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">How many objects are created, and how many are eligible for GC at the end?<br><code>A a = new A(); A b = new A(); A c = a; a = b; b = null;</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ol><li>Two objects: #1 (first new) and #2.</li><li>c → #1, a → #2, b → null.</li><li>Both are still referenced → <b>0</b> eligible.</li></ol></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Why does this fail to compile? <code>class P { P(int x) {} }  …  P p = new P();</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">Writing <code>P(int x)</code> removes the automatic default constructor, so there is no <code>P()</code>. Add <code>P() {}</code> or call <code>new P(5)</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. What is the difference between a class and an object?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">A class is the definition (blueprint, written once in code); an object is an instance of it created at run time with its own field values. One class → many objects.</div></details></div><div class="ex"><div class="qq">2. Write a <code>BankAccount</code> class whose <code>withdraw</code> refuses to go below 0.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">public boolean withdraw(double amt) {
+    if (amt &lt;= 0 || amt &gt; balance) return false;
+    balance -= amt;
+    return true;
+}</pre></div></details></div><div class="ex"><div class="qq">3. What are the default values of the fields <code>int n; boolean b; String s; double d;</code> in a new object?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">0, false, null, 0.0. (Local variables have no defaults and must be assigned before use.)</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Fix the constructor: <code>Point(int x, int y) { x = x; y = y; }</code></div><details class="reveal"><summary>Show the answer</summary><div class="ans"><code>this.x = x; this.y = y;</code></div></details></div><div class="ex"><div class="qq">5. After <code>Student a = new Student("A"); a = new Student("B");</code>, what happens to the object "A"?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">It has no reference left, so it becomes eligible for garbage collection.</div></details></div><div class="ex"><div class="qq">6. Why should fields be private?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">So other classes cannot put the object into an invalid state; all changes go through methods that can validate. It also lets you change the internal representation without breaking other code.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="4"></div><script type="application/json" class="quiz-json">[{"q": "Where are objects created with <code>new<\/code> stored?", "o": ["On the stack", "On the heap", "In the class file", "In the CPU registers"], "a": 1, "w": "Objects live on the heap; local reference variables live on the stack."}, {"q": "A constructor…", "o": ["must return void", "has the class name and no return type", "can be called like any method at any time", "must be private"], "a": 1, "w": "Constructors have no return type and run when new creates the object."}, {"q": "What does <code>this.name = name;<\/code> do?", "o": ["Assigns the parameter to itself", "Copies the parameter into the field", "Creates a new object", "Calls another constructor"], "a": 1, "w": "this.name is the field; name alone is the parameter that hides it."}, {"q": "When is an object eligible for garbage collection?", "o": ["When its method returns", "When no reachable reference points to it", "Only after System.gc()", "When it is set to 0"], "a": 1, "w": "Unreachable objects may be reclaimed at any time the GC chooses."}, {"q": "Class <code>P<\/code> has only <code>P(int x)<\/code>. Which line fails?", "o": ["new P(1)", "new P(0)", "new P()", "P p = null;"], "a": 2, "w": "Once any constructor is written, Java no longer adds the default no-arg constructor."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>A class defines fields and methods; objects are created with new and reached through references.</li><li>Assigning a reference copies the arrow, not the object — two variables can alias one object.</li><li>Encapsulation: private fields + public methods that validate.</li><li>Constructors initialise objects; the default no-arg constructor exists only if you write none.</li><li>this refers to the current object and resolves field/parameter name clashes.</li><li>Unreachable objects are garbage-collected automatically.</li></ul><div class="nextcard"><a class="btn pri" href="05-methods-and-recursion.html">Next: Overloading, Objects as Parameters & Recursion</a><a class="btn" href="../practice.html#t4">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 21</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 4, "prev": "03-arrays.html", "next": "05-methods-and-recursion.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

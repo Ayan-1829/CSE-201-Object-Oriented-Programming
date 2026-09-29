@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes. Interactive slides, code tracers, demos and a quiz for Topic 9 of Object Oriented Programming (Java).">
+<meta name="keywords" content="java packages, import, access protection, interface, implements, default method, interface vs abstract class, comparable, java oop course, topic 9">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Packages &amp; Interfaces – Topic 9 | Object Oriented Programming Notes">
+<meta property="og:description" content="Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes. Interactive slides, code tracers, demos and a quiz for Topic 9 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/09-packages-and-interfaces.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Packages &amp; Interfaces – Topic 9 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Packages &amp; Interfaces – Topic 9 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes. Interactive slides, code tracers, demos and a quiz for Topic 9 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/09-packages-and-interfaces.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Packages & Interfaces", "description": "Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes.", "position": 9, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 20, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/09-packages-and-interfaces.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 9: Packages & Interfaces", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html"}]}</script>
+<title>Packages &amp; Interfaces – Topic 9 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">9</span><span>Packages & Interfaces</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Packages &amp; Interfaces" aria-label="Packages &amp; Interfaces" tabindex="-1"><div class="slide-inner">
+<span class="badge big">9</span>
+<p class="kicker">Topic 9 of 13 · Lectures 13–14</p>
+<h1>Packages & Interfaces</h1>
+<p class="lead">Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">An Employee and an Invoice have nothing in common — except that the accounts office must pay both. How can one loop pay them all?</p><p>Neither class should extend the other. Instead both can promise, through an <b>interface</b>, that they have a <code>getPayment()</code> method. The loop only needs that promise.</p><p>First, though, we organise classes into <b>packages</b> — and see how packages change what <code>protected</code> and default access mean.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lectures 13–14</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Packages and import</a></li><li><a href="#s=5">Access protection</a></li><li><a href="#s=7">Defining and implementing interfaces</a></li><li><a href="#s=10">Multiple interfaces</a></li><li><a href="#s=12">Interfaces vs. classes</a></li></ol>
+</div></section>
+<section class="slide " data-title="Packages" aria-label="Packages" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 5</p><h2>Packages</h2><div class="cols "><div><figure class="fig" data-fig="pkg-tree"><figcaption>Package names mirror the folder structure. Reverse domain names keep them unique.</figcaption></figure></div><div><pre class="code small-code">// file: src/bd/edu/green/cse/model/Student.java
+package bd.edu.green.cse.model;   // first line
+
+public class Student { ... }
+
+// file: src/bd/edu/green/cse/app/Main.java
+package bd.edu.green.cse.app;
+import bd.edu.green.cse.model.Student;   // one class
+import java.util.*;                      // whole package
+
+public class Main { ... }</pre><ul><li>A package groups related classes and gives them a <b>namespace</b>: two classes may both be called <code>Date</code> in different packages.</li><li><code>java.lang</code> (String, Math, System) is imported automatically.</li><li>Compile and run from the <code>src</code> folder using the full package path and name.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Access protection across packages" aria-label="Access protection across packages" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 5</p><h2>Access protection across packages</h2><div class="scrollx"><table class="doc"><thead><tr><th>Access from…</th><th>private</th><th>default</th><th>protected</th><th>public</th></tr></thead><tbody><tr><td>the same class</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>another class in the same package</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>a subclass in the same package</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>a subclass in another package</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td></tr><tr><td>an unrelated class in another package</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td></tr></tbody></table></div><div class="callout"><b>Subtle point:</b> A subclass in another package can use an inherited protected member through <code>this</code> (or its own type), but not through a reference to a plain superclass object.</div>
+</div></section>
+<section class="slide " data-title="Access-modifier checker" aria-label="Access-modifier checker" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Access-modifier checker</h2><div data-demo="access"></div>
+</div></section>
+<section class="slide " data-title="Interfaces" aria-label="Interfaces" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>Interfaces</h2><div class="cols "><div><figure class="fig" data-fig="uml-iface"><figcaption>UML: a dashed line with a hollow triangle means “implements”.</figcaption></figure></div><div><pre class="code small-code">interface Payable {
+    double getPayment();          // public abstract
+}
+class Invoice implements Payable {
+    private int qty; private double price;
+    Invoice(int q, double p) { qty = q; price = p; }
+    @Override
+    public double getPayment() { return qty * price; }
+}</pre><ul><li>An interface declares <b>what</b> a class can do; implementing classes decide <b>how</b>.</li><li>Interface methods are <code>public abstract</code> by default; fields are <code>public static final</code> constants.</li><li>You cannot create an object of an interface, but you can use it as a <b>type</b>: <code>Payable p = new Invoice(3, 250);</code></li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: paying through an interface" aria-label="Trace: paying through an interface" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: paying through an interface</h2><p class="muted">The array’s type is <code>Payable[]</code>, yet each call runs the method of the real object.</p><div data-trace="t9-iface"></div>
+</div></section>
+<section class="slide " data-title="Interface contract checker" aria-label="Interface contract checker" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Interface contract checker</h2><div data-demo="iface"></div>
+</div></section>
+<section class="slide " data-title="Multiple interfaces" aria-label="Multiple interfaces" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>Multiple interfaces</h2><figure class="fig" data-fig="iface-multi"><figcaption>A class extends one class but may implement any number of interfaces.</figcaption></figure><div class="cols "><div><pre class="code small-code">interface Flyable   { void fly(); }
+interface Swimmable { void swim(); }
+class Bird { void layEggs() { } }
+
+class Duck extends Bird implements Flyable, Swimmable {
+    public void fly()  { System.out.println(&quot;Duck flies&quot;); }
+    public void swim() { System.out.println(&quot;Duck swims&quot;); }
+}
+Flyable f = new Duck();   f.fly();
+Swimmable s = new Duck(); s.swim();</pre></div><div><ul><li>No diamond problem: interfaces (traditionally) carry no state and no competing method bodies.</li><li>Interfaces can extend other interfaces: <code>interface Amphibious extends Flyable, Swimmable {}</code>.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="default, static and private interface methods" aria-label="default, static and private interface methods" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>default, static and private interface methods</h2><div class="codeout"><pre class="code">interface Greeter {
+    String name();                               // abstract
+    default String greet() {                     // Java 8
+        return &quot;Hello, &quot; + decorate(name());
+    }
+    static Greeter of(String n) {                // Java 8
+        return () -&gt; n;                          // lambda implements name()
+    }
+    private String decorate(String s) {          // Java 9
+        return &quot;*&quot; + s + &quot;*&quot;;
+    }
+}
+class Teacher implements Greeter {
+    public String name() { return &quot;Sir&quot;; }
+    public String greet() { return &quot;Good morning, &quot; + name(); }   // override default
+}
+System.out.println(Greeter.of(&quot;Ayan&quot;).greet());
+System.out.println(new Teacher().greet());</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">Hello, *Ayan*
+Good morning, Sir</pre></div></div></div><ul><li><b>default</b> methods add behaviour to an interface without breaking existing implementing classes.</li><li><b>static</b> methods are helpers called on the interface name.</li><li><b>private</b> methods share code between default methods.</li></ul>
+</div></section>
+<section class="slide " data-title="Interface vs abstract class" aria-label="Interface vs abstract class" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 5</p><h2>Interface vs abstract class</h2><div class="scrollx"><table class="doc"><thead><tr><th></th><th>Interface</th><th>Abstract class</th></tr></thead><tbody><tr><td>Keyword</td><td><code>implements</code> (many)</td><td><code>extends</code> (only one)</td></tr><tr><td>Fields</td><td>Only public static final constants</td><td>Any fields, with any access</td></tr><tr><td>Constructors</td><td>None</td><td>Yes (called by subclasses)</td></tr><tr><td>Methods</td><td>abstract, default, static, private</td><td>abstract and concrete, any access</td></tr><tr><td>Relationship</td><td>“can do” — a capability (Comparable, Runnable)</td><td>“is a” — a common base with shared state</td></tr><tr><td>Use when</td><td>Unrelated classes share a role</td><td>Related classes share code and fields</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="A library interface: Comparable" aria-label="A library interface: Comparable" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>A library interface: Comparable</h2><div class="codeout"><pre class="code" data-mark="7-9">import java.util.Arrays;
+
+class Student implements Comparable&lt;Student&gt; {
+    String name; double cgpa;
+    Student(String n, double c) { name = n; cgpa = c; }
+    @Override
+    public int compareTo(Student o) {       // negative, 0 or positive
+        return Double.compare(o.cgpa, cgpa); // higher CGPA first
+    }
+    public String toString() { return name + &quot; &quot; + cgpa; }
+}
+Student[] list = { new Student(&quot;Rahim&quot;, 3.15), new Student(&quot;Sadia&quot;, 3.91),
+                   new Student(&quot;Nabila&quot;, 3.47) };
+Arrays.sort(list);                           // uses compareTo
+System.out.println(Arrays.toString(list));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">[Sadia 3.91, Nabila 3.47, Rahim 3.15]</pre></div></div></div><p>Because Student implements <code>Comparable</code>, the library’s <code>Arrays.sort</code> can order students without knowing anything else about them.</p>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Why does this not compile? <code>interface Shape { double area(); }  class Sq implements Shape { double area() { return 4; } }</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">Interface methods are public; <code>area()</code> in Sq has default (package) access, which is weaker. Write <code>public double area()</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">A class <code>Robot</code> must be both <code>Movable</code> and <code>Chargeable</code>, and it already extends <code>Machine</code>. Write the header.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">class Robot extends Machine implements Movable, Chargeable { ... }</pre>extends comes first; any number of interfaces follow implements.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">What does this print? <code>interface I { int X = 10; }  class A implements I { }  System.out.println(A.X + I.X);</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans"><b>20</b>. X is a public static final constant inherited by A.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. What is the purpose of the package statement and where must it appear?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">It puts the class in a named package (a namespace and folder); it must be the first statement in the file (only comments may come before it).</div></details></div><div class="ex"><div class="qq">2. A field is declared with no modifier in package <code>a</code>. Can a subclass in package <code>b</code> use it?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">No — default access is package-only. It would need to be protected or public.</div></details></div><div class="ex"><div class="qq">3. Write an interface <code>Resizable</code> with <code>void resize(double factor)</code> and implement it in <code>Circle</code>.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">interface Resizable { void resize(double factor); }
+class Circle implements Resizable {
+    private double r;
+    public void resize(double f) { r *= f; }
+}</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Can an interface have a constructor? A field that changes?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">No constructor. Fields are implicitly public static final constants, so they cannot change.</div></details></div><div class="ex"><div class="qq">5. Give one reason to prefer an interface over an abstract class.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">A class can implement many interfaces but extend only one class; interfaces let unrelated classes share a role.</div></details></div><div class="ex"><div class="qq">6. What happens if a class implements two interfaces that both have <code>default void hello()</code>?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Compile error unless the class overrides hello(); inside it can pick one with <code>A.super.hello()</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="9"></div><script type="application/json" class="quiz-json">[{"q": "Which package is imported automatically?", "o": ["java.util", "java.io", "java.lang", "java.awt"], "a": 2, "w": "java.lang (String, Math, System, …) is always available."}, {"q": "Interface fields are implicitly…", "o": ["private", "protected", "public static final", "instance variables"], "a": 2, "w": "They are constants."}, {"q": "A class may implement…", "o": ["exactly one interface", "any number of interfaces", "interfaces only if it extends Object explicitly", "no interfaces if it is abstract"], "a": 1, "w": "implements A, B, C is allowed."}, {"q": "Which access level allows a subclass in another package but not an unrelated class there?", "o": ["private", "default", "protected", "public"], "a": 2, "w": "protected = package + subclasses."}, {"q": "Which of these can an interface NOT have?", "o": ["default methods", "static methods", "constructors", "constants"], "a": 2, "w": "Interfaces have no constructors because they cannot be instantiated."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>Packages group classes into namespaces that mirror folders; import brings in names from other packages.</li><li>Across packages only public (and protected, for subclasses) members are reachable.</li><li>An interface is a contract of public methods; classes implement it and can implement many.</li><li>Interfaces may have default, static and private methods, and constants — but no instance fields or constructors.</li><li>Interface = can-do role for unrelated classes; abstract class = is-a base that shares code and state.</li></ul><div class="nextcard"><a class="btn pri" href="10-exception-handling.html">Next: Exception Handling</a><a class="btn" href="../practice.html#t9">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 20</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 9, "prev": "08-polymorphism-and-abstraction.html", "next": "10-exception-handling.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

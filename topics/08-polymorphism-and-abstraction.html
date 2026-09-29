@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Replacing inherited behaviour with method overriding, dynamic method dispatch, casting within a hierarchy, abstract classes, final classes and methods, and using library classes. Interactive slides, code tracers, demos and a quiz for Topic 8 of Object Oriented Programming (Java).">
+<meta name="keywords" content="method overriding, polymorphism java, dynamic method dispatch, abstract class, final class, downcasting, instanceof, library classes, java oop course, topic 8">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/08-polymorphism-and-abstraction.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Overriding, Polymorphism &amp; Abstract Classes – Topic 8 | Object Oriented Programming Notes">
+<meta property="og:description" content="Replacing inherited behaviour with method overriding, dynamic method dispatch, casting within a hierarchy, abstract classes, final classes and methods, and using library classes. Interactive slides, code tracers, demos and a quiz for Topic 8 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/08-polymorphism-and-abstraction.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/08-polymorphism-and-abstraction.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Overriding, Polymorphism &amp; Abstract Classes – Topic 8 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Overriding, Polymorphism &amp; Abstract Classes – Topic 8 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Replacing inherited behaviour with method overriding, dynamic method dispatch, casting within a hierarchy, abstract classes, final classes and methods, and using library classes. Interactive slides, code tracers, demos and a quiz for Topic 8 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/08-polymorphism-and-abstraction.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Overriding, Polymorphism & Abstract Classes", "description": "Replacing inherited behaviour with method overriding, dynamic method dispatch, casting within a hierarchy, abstract classes, final classes and methods, and using library classes.", "position": 8, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 20, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/08-polymorphism-and-abstraction.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/08-polymorphism-and-abstraction.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 8: Overriding, Polymorphism & Abstract Classes", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/08-polymorphism-and-abstraction.html"}]}</script>
+<title>Overriding, Polymorphism &amp; Abstract Classes – Topic 8 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">8</span><span>Overriding, Polymorphism & Abstract Classes</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Overriding, Polymorphism &amp; Abstract Classes" aria-label="Overriding, Polymorphism &amp; Abstract Classes" tabindex="-1"><div class="slide-inner">
+<span class="badge big">8</span>
+<p class="kicker">Topic 8 of 13 · Lectures 11–12</p>
+<h1>Overriding, Polymorphism & Abstract Classes</h1>
+<p class="lead">Replacing inherited behaviour with method overriding, dynamic method dispatch, casting within a hierarchy, abstract classes, final classes and methods, and using library classes.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">One loop, one line — <code>for (Shape s : shapes) total += s.area();</code> — correctly adds the areas of circles, rectangles and triangles. How does one line know three formulas?</p><p>Each object carries its real class with it. When the program runs, Java looks at the <b>object</b>, not the variable, to decide which <code>area()</code> to call. That is <b>dynamic method dispatch</b>, the engine behind polymorphism.</p><p>Abstract classes then let you say “every Shape has an area” without pretending to know a formula for a shape in general.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lectures 11–12</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Method overriding</a></li><li><a href="#s=6">Dynamic method dispatch</a></li><li><a href="#s=9">Abstract classes</a></li><li><a href="#s=12">final with classes and methods</a></li><li><a href="#s=13">Using library classes</a></li></ol>
+</div></section>
+<section class="slide " data-title="Method overriding" aria-label="Method overriding" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 5</p><h2>Method overriding</h2><div class="cols "><div><pre class="code small-code">class Animal {
+    String sound() { return &quot;...&quot;; }
+}
+class Dog extends Animal {
+    @Override
+    String sound() { return &quot;Woof&quot;; }
+}
+class Cat extends Animal {
+    @Override
+    public String sound() { return &quot;Meow&quot;; }  // wider access OK
+}</pre></div><div><ul><li>A subclass <b>overrides</b> a method by declaring the same name, parameters and a compatible return type.</li><li>Access may be the same or <b>wider</b>, never narrower (protected → public is OK).</li><li><code>@Override</code> asks the compiler to check that you really are overriding — a typo like <code>sound(int x)</code> becomes an error instead of a silent overload.</li><li><code>static</code>, <code>private</code> and <code>final</code> methods cannot be overridden.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Overloading vs overriding" aria-label="Overloading vs overriding" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 5</p><h2>Overloading vs overriding</h2><div class="scrollx"><table class="doc"><thead><tr><th></th><th>Overloading</th><th>Overriding</th></tr></thead><tbody><tr><td>Where</td><td>Same class (or subclass)</td><td>Subclass of the declaring class</td></tr><tr><td>Parameters</td><td>Must differ</td><td>Must be the same</td></tr><tr><td>Return type</td><td>Can be anything</td><td>Same or a subtype (covariant)</td></tr><tr><td>Chosen</td><td>At <b>compile time</b> from argument types</td><td>At <b>run time</b> from the object’s class</td></tr><tr><td>Purpose</td><td>Convenience: several ways to call</td><td>Specialise inherited behaviour</td></tr><tr><td>Also called</td><td>Static (compile-time) polymorphism</td><td>Dynamic (run-time) polymorphism</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="Dynamic method dispatch" aria-label="Dynamic method dispatch" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>Dynamic method dispatch</h2><div class="cols "><div><figure class="fig" data-fig="uml-animals"><figcaption>Dog and Cat both override sound().</figcaption></figure></div><div><pre class="code small-code">Animal a;             // reference type: Animal
+a = new Dog();
+System.out.println(a.sound());   // Woof
+a = new Cat();
+System.out.println(a.sound());   // Meow
+// a.fetch();   ✗ compile error: Animal has no fetch()</pre><ul><li>A superclass reference can refer to any subclass object (<b>upcasting</b> is automatic).</li><li><b>Compile time</b>: the reference type decides which methods you may call.</li><li><b>Run time</b>: the object’s actual class decides which version runs.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Dynamic dispatch explorer" aria-label="Dynamic dispatch explorer" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Dynamic dispatch explorer</h2><div data-demo="dispatch"></div>
+</div></section>
+<section class="slide " data-title="Downcasting and instanceof" aria-label="Downcasting and instanceof" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Downcasting and instanceof</h2><div data-demo="downcast"></div>
+</div></section>
+<section class="slide " data-title="Abstract classes" aria-label="Abstract classes" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>Abstract classes</h2><div class="cols "><div><figure class="fig" data-fig="uml-abstract"><figcaption>Shape is abstract (italic name): it declares area() but leaves the formula to subclasses.</figcaption></figure></div><div><pre class="code small-code">abstract class Shape {
+    protected String name;
+    Shape(String name) { this.name = name; }
+    abstract double area();              // no body
+    String describe() {                  // concrete method
+        return name + &quot; with area &quot; + area();
+    }
+}
+class Circle extends Shape {
+    private double r;
+    Circle(double r) { super(&quot;Circle&quot;); this.r = r; }
+    double area() { return Math.PI * r * r; }
+}</pre><ul><li>An <b>abstract method</b> has no body; an abstract class cannot be instantiated: <code>new Shape()</code> ✗.</li><li>A subclass must implement every abstract method — or be abstract itself.</li><li>Abstract classes can still have fields, constructors and concrete methods.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: polymorphic area()" aria-label="Trace: polymorphic area()" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: polymorphic area()</h2><p class="muted">One array, three objects, one call. Watch which <code>area()</code> frame appears for each element.</p><div data-trace="t8-shapes"></div>
+</div></section>
+<section class="slide " data-title="Polymorphic shapes" aria-label="Polymorphic shapes" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Polymorphic shapes</h2><div data-demo="shapes"></div>
+</div></section>
+<section class="slide " data-title="final classes and methods" aria-label="final classes and methods" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 5</p><h2>final classes and methods</h2><div class="cols "><div><pre class="code small-code">class Account {
+    final void audit() { /* must not change */ }
+}
+class Savings extends Account {
+    void audit() { }   // ✗ cannot override final method
+}
+
+final class Money { }
+class Taka extends Money { }   // ✗ cannot inherit from final</pre></div><div><ul><li>A <b>final method</b> keeps its behaviour in every subclass — useful for security checks and template steps.</li><li>A <b>final class</b> cannot be extended: <code>String</code>, <code>Integer</code>, <code>Math</code>.</li><li><code>abstract final</code> is a contradiction and does not compile.</li><li>final calls can be bound early, which also lets the JIT inline them.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Using library classes" aria-label="Using library classes" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Using library classes</h2><div class="codeout"><pre class="code">import java.util.*;
+
+ArrayList&lt;String&gt; names = new ArrayList&lt;&gt;();
+names.add(&quot;Sadia&quot;); names.add(&quot;Imran&quot;); names.add(&quot;Mitu&quot;);
+Collections.sort(names);
+System.out.println(names + &quot; size=&quot; + names.size());
+
+Integer boxed = 42;                         // autoboxing
+int n = Integer.parseInt(&quot;123&quot;) + boxed;    // wrapper helpers
+System.out.println(n + &quot; &quot; + Integer.toBinaryString(10));
+
+System.out.println(Math.max(3, 8) + &quot; &quot; + Math.sqrt(49) + &quot; &quot; + Math.round(2.5));
+
+Object o = names;                           // polymorphism again
+System.out.println(o instanceof List);</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">[Imran, Mitu, Sadia] size=3
+165 1010
+8 7.0 3
+true</pre></div></div></div><ul><li>The Java library (API) is thousands of ready-made classes. Read their documentation for constructors, methods and exceptions.</li><li>Wrapper classes (<code>Integer</code>, <code>Double</code>, …) let primitives be used as objects in collections.</li></ul>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">What is printed?<br><code>class A { void f() { System.out.print("A"); } }</code><br><code>class B extends A { void f() { System.out.print("B"); } }</code><br><code>A x = new B(); x.f(); ((A) x).f();</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans"><b>BB</b>. Casting the reference does not change the object; dispatch still picks B.f().</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Given <code>Animal a = new Dog();</code>, what happens with (1) <code>Dog d = a;</code> (2) <code>Dog d = (Dog) a;</code> (3) <code>Cat c = (Cat) a;</code>?</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ol><li>Does not compile: an Animal is not necessarily a Dog.</li><li>Compiles and works.</li><li>Compiles, but throws <code>ClassCastException</code> at run time because the object is a Dog.</li></ol></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Design an abstract <code>Employee</code> with abstract <code>earnings()</code> and two concrete subclasses.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">abstract class Employee {
+    protected String name;
+    Employee(String name) { this.name = name; }
+    abstract double earnings();
+}
+class Salaried extends Employee {
+    private double monthly;
+    Salaried(String n, double m) { super(n); monthly = m; }
+    double earnings() { return monthly; }
+}
+class Hourly extends Employee {
+    private double rate; private int hours;
+    Hourly(String n, double r, int h) { super(n); rate = r; hours = h; }
+    double earnings() { return rate * hours; }
+}</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. State three rules a method must follow to override another.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Same name and parameter list; return type the same or a subtype; access not more restrictive; cannot throw broader checked exceptions; the original must not be final, static or private.</div></details></div><div class="ex"><div class="qq">2. Can an abstract class have a constructor? Why?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Yes. It runs when a subclass object is created (via super(...)) to initialise the abstract class’s fields.</div></details></div><div class="ex"><div class="qq">3. What is printed? <code>Shape s = new Circle(1); System.out.println(s instanceof Shape);</code></div><details class="reveal"><summary>Show the answer</summary><div class="ans">true — a Circle is a Shape.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Why is <code>String</code> declared final?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">So no subclass can change its behaviour (for example make it mutable), which keeps strings safe to share, cache and use as keys.</div></details></div><div class="ex"><div class="qq">5. Write a loop that calls <code>speak()</code> only on the Dogs in an <code>Animal[]</code>.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">for (Animal a : zoo)
+    if (a instanceof Dog d)   // Java 16 pattern
+        d.speak();</pre></div></details></div><div class="ex"><div class="qq">6. Is overloading resolved at compile time or run time? Overriding?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Overloading at compile time (static binding); overriding at run time (dynamic binding).</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="8"></div><script type="application/json" class="quiz-json">[{"q": "<code>Animal a = new Dog(); a.sound();<\/code> runs…", "o": ["Animal.sound()", "Dog.sound()", "both", "neither — compile error"], "a": 1, "w": "Dynamic dispatch uses the object’s class, Dog."}, {"q": "Which cannot be overridden?", "o": ["a public method", "a protected method", "a final method", "a method returning Object"], "a": 2, "w": "final methods cannot be overridden."}, {"q": "Which statement about abstract classes is FALSE?", "o": ["They can have constructors", "They can be instantiated with new", "They can have concrete methods", "They may have no abstract methods"], "a": 1, "w": "You cannot create an object of an abstract class directly."}, {"q": "<code>Object o = \"hi\"; o.length();<\/code> — why does it fail?", "o": ["Strings have no length()", "The reference type Object has no length() — compile error", "ClassCastException", "It works"], "a": 1, "w": "The compiler checks methods against the reference type."}, {"q": "What does @Override do?", "o": ["Makes a method final", "Asks the compiler to verify the method overrides one from a supertype", "Makes the method faster", "Is required for every override"], "a": 1, "w": "It is optional but catches mistakes like wrong parameter lists."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>Overriding redefines an inherited method with the same signature; @Override lets the compiler check it.</li><li>The reference type limits which methods you may call; the object’s class decides which version runs.</li><li>Downcasting needs an explicit cast and is checked at run time; use instanceof to test first.</li><li>Abstract classes cannot be instantiated and may declare abstract methods that subclasses must implement.</li><li>final methods cannot be overridden; final classes cannot be extended.</li></ul><div class="nextcard"><a class="btn pri" href="09-packages-and-interfaces.html">Next: Packages & Interfaces</a><a class="btn" href="../practice.html#t8">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 20</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 8, "prev": "07-inheritance.html", "next": "09-packages-and-interfaces.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

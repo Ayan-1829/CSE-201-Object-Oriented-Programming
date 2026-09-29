@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework. Interactive slides, code tracers, demos and a quiz for Topic 13 of Object Oriented Programming (Java).">
+<meta name="keywords" content="javafx tutorial, javafx layout, event handling, canvas drawing, animation timer, jdbc, preparedstatement, spring boot introduction, java oop course, topic 13">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
+<meta property="og:description" content="Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework. Interactive slides, code tracers, demos and a quiz for Topic 13 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework. Interactive slides, code tracers, demos and a quiz for Topic 13 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "GUI, Graphics, Databases & Spring", "description": "Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework.", "position": 13, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 13: GUI, Graphics, Databases & Spring", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html"}]}</script>
+<title>GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">13</span><span>GUI, Graphics, Databases & Spring</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="GUI, Graphics, Databases &amp; Spring" aria-label="GUI, Graphics, Databases &amp; Spring" tabindex="-1"><div class="slide-inner">
+<span class="badge big">13</span>
+<p class="kicker">Topic 13 of 13 · Lecture 24</p>
+<h1>GUI, Graphics, Databases & Spring</h1>
+<p class="lead">Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">Every app you use has buttons, text boxes and pictures, and saves your data somewhere. How much of that can you already build with the OOP you know?</p><p>All of it. A JavaFX window is a tree of objects; a button click is an event object delivered to a method; a database row becomes a Java object. Classes, inheritance, interfaces and lambdas are everywhere.</p><p>This last topic tours the libraries you will use for real projects: JavaFX for interfaces and graphics, JDBC for databases and Spring for back-end services.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lecture 24</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">JavaFX application structure</a></li><li><a href="#s=5">Components and layouts</a></li><li><a href="#s=7">Event handling</a></li><li><a href="#s=8">Simple interface design</a></li><li><a href="#s=9">Graphical drawing</a></li><li><a href="#s=10">Animation</a></li><li><a href="#s=11">Database connection with JDBC</a></li><li><a href="#s=14">Introduction to Spring</a></li></ol>
+</div></section>
+<section class="slide " data-title="A JavaFX application" aria-label="A JavaFX application" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 5</p><h2>A JavaFX application</h2><div class="cols "><div><pre class="code small-code">public class HelloFX extends Application {
+    @Override
+    public void start(Stage stage) {
+        Label msg = new Label(&quot;Hello, JavaFX&quot;);
+        Button btn = new Button(&quot;Click me&quot;);
+        btn.setOnAction(e -&gt; msg.setText(&quot;Clicked!&quot;));
+
+        VBox root = new VBox(10, msg, btn);    // layout pane
+        stage.setScene(new Scene(root, 300, 150));
+        stage.setTitle(&quot;First FX app&quot;);
+        stage.show();
+    }
+    public static void main(String[] args) { launch(args); }
+}</pre></div><div><figure class="fig" data-fig="fx-tree"><figcaption>Stage (window) → Scene → scene graph of nodes: layout panes containing controls.</figcaption></figure><ul><li>Extend <code>Application</code> and override <code>start(Stage)</code>; <code>launch()</code> calls it for you.</li><li>Everything you see is a <b>Node</b> object in a tree.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Components (controls)" aria-label="Components (controls)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 5</p><h2>Components (controls)</h2><div class="scrollx"><table class="doc"><thead><tr><th>Control</th><th>Use</th><th>Useful methods</th></tr></thead><tbody><tr><td class="m">Label</td><td>Show text</td><td class="m">setText, setFont</td></tr><tr><td class="m">Button</td><td>Trigger an action</td><td class="m">setOnAction</td></tr><tr><td class="m">TextField / PasswordField</td><td>Type one line</td><td class="m">getText, setPromptText</td></tr><tr><td class="m">TextArea</td><td>Several lines</td><td class="m">getText, appendText</td></tr><tr><td class="m">CheckBox</td><td>Yes/no option</td><td class="m">isSelected</td></tr><tr><td class="m">RadioButton + ToggleGroup</td><td>One choice of many</td><td class="m">getSelectedToggle</td></tr><tr><td class="m">ComboBox / ChoiceBox</td><td>Drop-down list</td><td class="m">getItems().addAll, getValue</td></tr><tr><td class="m">ListView / TableView</td><td>Lists and tables of objects</td><td class="m">getItems, getSelectionModel</td></tr><tr><td class="m">ImageView</td><td>Show a picture</td><td class="m">new ImageView(new Image(url))</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="JavaFX layout playground" aria-label="JavaFX layout playground" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>JavaFX layout playground</h2><div data-demo="layouts"></div>
+</div></section>
+<section class="slide " data-title="Event handling" aria-label="Event handling" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>Event handling</h2><figure class="fig" data-fig="event-flow"><figcaption>The user acts; the control creates an event object and calls every registered handler.</figcaption></figure><pre class="code small-code">// 1. lambda (most common)
+btn.setOnAction(e -&gt; System.out.println(&quot;clicked&quot;));
+
+// 2. anonymous class implementing EventHandler&lt;ActionEvent&gt;
+btn.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+    @Override
+    public void handle(ActionEvent e) { System.out.println(&quot;clicked&quot;); }
+});
+
+// other events
+field.setOnKeyPressed(e -&gt; System.out.println(e.getCode()));
+canvas.setOnMouseClicked(e -&gt; System.out.println(e.getX() + &quot;,&quot; + e.getY()));</pre>
+</div></section>
+<section class="slide " data-title="Designing a simple interface" aria-label="Designing a simple interface" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Designing a simple interface</h2><div class="codeout"><pre class="code">GridPane g = new GridPane();
+g.setHgap(10); g.setVgap(8); g.setPadding(new Insets(16));
+
+TextField marks = new TextField();
+marks.setPromptText(&quot;0 - 100&quot;);
+Button calc = new Button(&quot;Get grade&quot;);
+Label result = new Label();
+
+g.add(new Label(&quot;Marks:&quot;), 0, 0);   g.add(marks, 1, 0);
+g.add(calc, 1, 1);
+g.add(result, 1, 2);
+
+calc.setOnAction(e -&gt; {
+    try {
+        int m = Integer.parseInt(marks.getText().trim());
+        result.setText(m &gt;= 80 ? &quot;A+&quot; : m &gt;= 70 ? &quot;A&quot; : m &gt;= 60 ? &quot;A-&quot; : &quot;Below A-&quot;);
+    } catch (NumberFormatException ex) {
+        result.setText(&quot;Please enter a whole number&quot;);
+    }
+});
+stage.setScene(new Scene(g));</pre><div><div class="console"><div class="console-h">The window after typing 76 and clicking</div><pre class="console-body">┌ Grade calculator ─────────────┐
+│ Marks:  [ 76            ]     │
+│         [ Get grade ]         │
+│         A                     │
+└───────────────────────────────┘</pre></div></div></div><p>Layout pane + controls + one event handler with exception handling: every OOP idea in one small form.</p>
+</div></section>
+<section class="slide " data-title="Drawing graphics on a Canvas" aria-label="Drawing graphics on a Canvas" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive · code example</p><h2>Drawing graphics on a Canvas</h2><div class="cols wl"><div><pre class="code small-code">Canvas canvas = new Canvas(400, 250);
+GraphicsContext gc = canvas.getGraphicsContext2D();
+gc.setFill(Color.LIGHTBLUE);   gc.fillRect(0, 0, 400, 250);
+gc.setFill(Color.GOLD);        gc.fillOval(300, 30, 60, 60);
+gc.setFill(Color.FORESTGREEN); gc.fillRect(0, 190, 400, 60);
+gc.setFill(Color.SIENNA);      gc.fillRect(80, 120, 120, 70);
+gc.setFill(Color.DARKRED);
+gc.fillPolygon(new double[]{70, 140, 210}, new double[]{120, 70, 120}, 3);
+gc.setFill(Color.KHAKI);       gc.fillRect(125, 150, 30, 40);
+gc.setStroke(Color.BLACK);     gc.setLineWidth(2);
+gc.strokeLine(0, 190, 400, 190);
+gc.setFill(Color.BLACK);       gc.fillText(&quot;My house&quot;, 110, 215);</pre></div><div><div data-demo="canvasdraw"></div></div></div>
+</div></section>
+<section class="slide " data-title="Animation with AnimationTimer" aria-label="Animation with AnimationTimer" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Animation with AnimationTimer</h2><div data-demo="anim"></div>
+</div></section>
+<section class="slide " data-title="Connecting to a database with JDBC" aria-label="Connecting to a database with JDBC" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>Connecting to a database with JDBC</h2><figure class="fig" data-fig="jdbc-flow"><figcaption>The standard JDBC steps.</figcaption></figure><ol><li>Add the driver (e.g. MySQL Connector/J) to the project.</li><li><code>DriverManager.getConnection(url, user, password)</code> opens a <code>Connection</code>.</li><li>Create a <code>PreparedStatement</code> with <code>?</code> placeholders and fill them with <code>setString</code>, <code>setInt</code>, …</li><li><code>executeQuery()</code> returns a <code>ResultSet</code> (SELECT); <code>executeUpdate()</code> returns a row count (INSERT/UPDATE/DELETE).</li><li>Close everything — try-with-resources does it for you.</li></ol>
+</div></section>
+<section class="slide " data-title="JDBC query walk-through" aria-label="JDBC query walk-through" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>JDBC query walk-through</h2><div data-demo="jdbc"></div>
+</div></section>
+<section class="slide " data-title="Inserting rows safely" aria-label="Inserting rows safely" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Inserting rows safely</h2><div class="codeout"><pre class="code">String url = &quot;jdbc:mysql://localhost:3306/gub&quot;;
+String sql = &quot;INSERT INTO students(name, dept, cgpa) VALUES (?, ?, ?)&quot;;
+try (Connection con = DriverManager.getConnection(url, &quot;root&quot;, &quot;secret&quot;);
+     PreparedStatement ps = con.prepareStatement(sql)) {
+    ps.setString(1, &quot;Farhan&quot;);
+    ps.setString(2, &quot;CSE&quot;);
+    ps.setDouble(3, 3.80);
+    int rows = ps.executeUpdate();
+    System.out.println(rows + &quot; row inserted&quot;);
+} catch (SQLException e) {
+    System.out.println(&quot;DB error: &quot; + e.getMessage());
+}</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">1 row inserted</pre></div></div></div><div class="callout warn"><b>Security:</b> Never build SQL by joining user input: <code>"… WHERE name = '" + input + "'"</code> lets a user type <code>' OR '1'='1</code> and read every row (<b>SQL injection</b>). PreparedStatement parameters are always treated as data.</div>
+</div></section>
+<section class="slide " data-title="Introduction to Spring" aria-label="Introduction to Spring" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 5</p><h2>Introduction to Spring</h2><div class="cols "><div><pre class="code small-code">@SpringBootApplication
+public class GradeApp {
+    public static void main(String[] args) {
+        SpringApplication.run(GradeApp.class, args);
+    }
+}
+
+@Service
+class GradeService {
+    String letter(int m) { return m &gt;= 80 ? &quot;A+&quot; : m &gt;= 70 ? &quot;A&quot; : &quot;below A&quot;; }
+}
+
+@RestController
+class GradeController {
+    private final GradeService service;
+    GradeController(GradeService service) {   // injected by Spring
+        this.service = service;
+    }
+    @GetMapping(&quot;/grade/{marks}&quot;)
+    String grade(@PathVariable int marks) { return service.letter(marks); }
+}</pre><div class="console"><div class="console-h">Browser</div><pre class="console-body">GET http://localhost:8080/grade/85   →   A+</pre></div></div><div><ul><li><b>Spring</b> is the most widely used Java framework for back-end and web applications.</li><li><b>Inversion of Control / Dependency Injection</b>: you declare what an object needs (a constructor parameter); Spring creates the objects and wires them together.</li><li><b>Spring Boot</b> adds sensible defaults and an embedded web server, so a REST API is a few annotated classes.</li><li>Spring Data JPA maps classes to database tables, replacing most hand-written JDBC.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Which layout pane would you use for a login form with labels in one column and fields in the next?</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><b>GridPane</b> — it places nodes in rows and columns: <code>g.add(new Label("User"), 0, 0); g.add(userField, 1, 0);</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Write a handler that shows the length of the text typed in <code>TextField tf</code> in <code>Label lb</code> whenever the user presses Enter.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">tf.setOnAction(e -&gt; lb.setText(&quot;Length: &quot; + tf.getText().length()));</pre>For a TextField, setOnAction fires when Enter is pressed.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Loop through a ResultSet and build a list of Student objects.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">List&lt;Student&gt; list = new ArrayList&lt;&gt;();
+try (ResultSet rs = ps.executeQuery()) {
+    while (rs.next())
+        list.add(new Student(rs.getString(&quot;name&quot;), rs.getDouble(&quot;cgpa&quot;)));
+}</pre>Each row becomes one object — the bridge between tables and OOP.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. What are Stage, Scene and Node in JavaFX?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Stage is the window; Scene is the content shown in it; Nodes are the objects (panes, controls, shapes) in the scene graph tree.</div></details></div><div class="ex"><div class="qq">2. Write code that draws a red circle of radius 40 centred at (100, 100) on a GraphicsContext gc.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">gc.setFill(Color.RED);
+gc.fillOval(60, 60, 80, 80);   // top-left corner, width, height</pre></div></details></div><div class="ex"><div class="qq">3. Why must slow work (like a database query) not run inside an event handler on the JavaFX Application Thread?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">The UI thread would be blocked, so the window freezes. Run the work in a background thread (e.g. a Task) and update the UI with Platform.runLater.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. What is the difference between executeQuery and executeUpdate?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">executeQuery runs a SELECT and returns a ResultSet; executeUpdate runs INSERT/UPDATE/DELETE and returns the number of affected rows.</div></details></div><div class="ex"><div class="qq">5. Explain dependency injection in one sentence.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Instead of an object creating the objects it needs, they are passed to it (usually through the constructor) by a container such as Spring.</div></details></div><div class="ex"><div class="qq">6. How does an AnimationTimer create smooth motion?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Its handle(now) method is called about 60 times per second; each call updates positions slightly and redraws the frame.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="13"></div><script type="application/json" class="quiz-json">[{"q": "Which method must a JavaFX Application override?", "o": ["main", "run", "start(Stage)", "init(Scene)"], "a": 2, "w": "launch() creates the Stage and calls start(Stage)."}, {"q": "Which pane arranges children in a single horizontal row?", "o": ["VBox", "HBox", "GridPane", "StackPane"], "a": 1, "w": "HBox = horizontal box."}, {"q": "What does <code>rs.next()<\/code> return when there are no more rows?", "o": ["null", "false", "−1", "It throws an exception"], "a": 1, "w": "next() moves the cursor and returns false after the last row."}, {"q": "Why use PreparedStatement parameters?", "o": ["They are shorter", "They prevent SQL injection and handle quoting", "They avoid needing a connection", "They make queries asynchronous"], "a": 1, "w": "Parameters are sent as data, never as SQL code."}, {"q": "In Spring, who creates the GradeService passed to GradeController’s constructor?", "o": ["The controller", "The programmer in main", "The Spring container", "The browser"], "a": 2, "w": "That is dependency injection."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>A JavaFX app is a Stage showing a Scene whose root is a tree of nodes: layout panes and controls.</li><li>Layouts (HBox, VBox, GridPane, BorderPane, FlowPane, StackPane) position controls; events call handlers, usually lambdas.</li><li>Canvas + GraphicsContext draw shapes and text; AnimationTimer redraws ~60 times a second for animation.</li><li>JDBC: Connection → PreparedStatement → ResultSet, closed with try-with-resources.</li><li>Spring Boot builds back-end services from annotated classes wired together by dependency injection.</li></ul><div class="nextcard"><a class="btn pri" href="../projects.html">Try a project</a><a class="btn" href="../practice.html#t13">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 21</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 13, "prev": "12-strings.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

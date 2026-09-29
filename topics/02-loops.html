@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue. Interactive slides, code tracers, demos and a quiz for Topic 2 of Object Oriented Programming (Java).">
+<meta name="keywords" content="java loops, while loop, do while, for loop, for each, nested loops, break, continue, labeled break, java oop course, topic 2">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Iterative Statements – Topic 2 | Object Oriented Programming Notes">
+<meta property="og:description" content="Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue. Interactive slides, code tracers, demos and a quiz for Topic 2 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/02-loops.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Iterative Statements – Topic 2 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Iterative Statements – Topic 2 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue. Interactive slides, code tracers, demos and a quiz for Topic 2 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/02-loops.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Iterative Statements", "description": "Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue.", "position": 2, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/02-loops.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 2: Iterative Statements", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html"}]}</script>
+<title>Iterative Statements – Topic 2 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">2</span><span>Iterative Statements</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Iterative Statements" aria-label="Iterative Statements" tabindex="-1"><div class="slide-inner">
+<span class="badge big">2</span>
+<p class="kicker">Topic 2 of 13 · Lecture 2</p>
+<h1>Iterative Statements</h1>
+<p class="lead">Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">How would you print the multiplication table from 1 × 1 to 12 × 12 without writing 144 println lines?</p><p>A loop lets the computer repeat a block of code while a condition stays true. With one loop inside another, those 144 lines shrink to about five.</p><p>In this topic you will learn the four loop forms in Java, when each is the right choice, and how to leave or skip part of a loop early.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lecture 2</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">while loop</a></li><li><a href="#s=4">do-while loop</a></li><li><a href="#s=5">for loop</a></li><li><a href="#s=9">for-each loop</a></li><li><a href="#s=10">Nested loops</a></li><li><a href="#s=12">break, labeled break and continue</a></li><li><a href="#s=14">Choosing the right loop</a></li></ol>
+</div></section>
+<section class="slide " data-title="while and do-while" aria-label="while and do-while" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 5</p><h2>while and do-while</h2><div class="cols "><div><figure class="fig" data-fig="loop-flow"><figcaption>while checks first, so its body may run zero times; do-while always runs its body at least once.</figcaption></figure></div><div><pre class="code small-code">int n = 1;
+while (n &lt;= 3) {           // check, then run
+    System.out.println(n);
+    n++;
+}
+
+int choice;
+do {                       // run, then check
+    choice = readMenu();
+} while (choice != 0);     // note the semicolon</pre><ul><li>Use <b>while</b> when you might not need to run at all (reading until end of input).</li><li>Use <b>do-while</b> for menus and input validation: ask at least once.</li><li>Forgetting <code>n++</code> gives an <b>infinite loop</b>.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="The for loop" aria-label="The for loop" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 5</p><h2>The for loop</h2><div class="cols "><div><pre class="code small-code">//   init       condition   update
+for (int i = 1; i &lt;= 5;     i++) {
+    System.out.print(i + &quot; &quot;);
+}
+// 1 2 3 4 5
+
+for (int i = 10; i &gt; 0; i -= 3)
+    System.out.print(i + &quot; &quot;);
+// 10 7 4 1</pre></div><div><ol><li><b>init</b> runs once.</li><li><b>condition</b> is checked before every pass; false ends the loop.</li><li>The <b>body</b> runs.</li><li><b>update</b> runs, then back to step 2.</li></ol><div class="callout"><b>Scope:</b> The variable <code>i</code> declared in the for header exists only inside the loop.</div></div></div>
+</div></section>
+<section class="slide " data-title="Trace: summing 1 to n" aria-label="Trace: summing 1 to n" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: summing 1 to n</h2><p class="muted">Watch <code>i</code> and <code>sum</code> change on every pass, and see the exact moment the condition becomes false.</p><div data-trace="t2-sum"></div>
+</div></section>
+<section class="slide " data-title="Trace: digits of a number" aria-label="Trace: digits of a number" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: digits of a number</h2><p class="muted">A classic while loop: <code>% 10</code> takes the last digit, <code>/ 10</code> removes it. We add the digits and build the reverse at the same time.</p><div data-trace="t2-digits"></div>
+</div></section>
+<section class="slide " data-title="Loop explorer" aria-label="Loop explorer" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Loop explorer</h2><div data-demo="loops"></div>
+</div></section>
+<section class="slide " data-title="The enhanced for (for-each) loop" aria-label="The enhanced for (for-each) loop" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>The enhanced for (for-each) loop</h2><div class="codeout"><pre class="code" data-mark="3">int[] marks = {78, 91, 64, 85};
+int total = 0;
+for (int m : marks) {          // &quot;for each m in marks&quot;
+    total += m;
+}
+System.out.println(&quot;Total: &quot; + total);
+
+String[] names = {&quot;Ayesha&quot;, &quot;Rahim&quot;, &quot;Nabila&quot;};
+for (String s : names)
+    System.out.print(s.charAt(0));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">Total: 318
+ARN</pre></div></div></div><ul><li>Reads every element in order, with no index variable to get wrong.</li><li>Use a normal for loop when you need the index, want to go backwards, or must <b>change</b> the array: assigning to <code>m</code> changes only the copy.</li></ul>
+</div></section>
+<section class="slide " data-title="Nested loops" aria-label="Nested loops" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>Nested loops</h2><div class="cols "><div><pre class="code small-code">for (int i = 1; i &lt;= 3; i++) {          // rows
+    for (int j = 1; j &lt;= i; j++) {      // columns
+        System.out.print(&quot;* &quot;);
+    }
+    System.out.println();               // next row
+}</pre><div class="console"><div class="console-h">Output</div><pre class="console-body">*
+* *
+* * *</pre></div></div><div><ul><li>The inner loop runs <b>completely</b> for every single pass of the outer loop.</li><li>Total work = outer passes × inner passes: a 12 × 12 table does 144 inner steps.</li><li>Pattern trick: the outer loop picks the <b>row</b>, the inner loop decides <b>how many</b> items that row has — often depending on <code>i</code>.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Nested-loop pattern printer" aria-label="Nested-loop pattern printer" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Nested-loop pattern printer</h2><div data-demo="patterns"></div>
+</div></section>
+<section class="slide " data-title="break, continue and labeled break" aria-label="break, continue and labeled break" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>break, continue and labeled break</h2><div class="cols "><div><pre class="code small-code">for (int i = 1; i &lt;= 10; i++) {
+    if (i % 2 == 0) continue;   // skip evens
+    if (i &gt; 7) break;           // leave the loop
+    System.out.print(i + &quot; &quot;);
+}
+// 1 3 5 7
+
+search:
+for (int r = 0; r &lt; 3; r++)
+    for (int c = 0; c &lt; 3; c++)
+        if (grid[r][c] == target) {
+            System.out.println(r + &quot;,&quot; + c);
+            break search;       // exits BOTH loops
+        }</pre></div><div><div class="scrollx"><table class="doc"><thead><tr><th>Statement</th><th>Effect</th></tr></thead><tbody><tr><td><code>break</code></td><td>Leaves the innermost loop (or switch) immediately.</td></tr><tr><td><code>continue</code></td><td>Skips the rest of this pass and goes to the next check/update.</td></tr><tr><td><code>break label</code></td><td>Leaves the loop marked with that label, even from deep inside nested loops.</td></tr><tr><td><code>continue label</code></td><td>Jumps to the next pass of the labeled outer loop.</td></tr></tbody></table></div></div></div>
+</div></section>
+<section class="slide " data-title="Trace: continue and labeled break" aria-label="Trace: continue and labeled break" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: continue and labeled break</h2><p class="muted">Follow the two loop counters. <code>continue</code> skips j = 2; <code>break outer</code> ends everything as soon as i × j reaches 6.</p><div data-trace="t2-labeled"></div>
+</div></section>
+<section class="slide " data-title="Choosing the right loop" aria-label="Choosing the right loop" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 5</p><h2>Choosing the right loop</h2><div class="scrollx"><table class="doc"><thead><tr><th>Situation</th><th>Best loop</th><th>Why</th></tr></thead><tbody><tr><td>Known number of repetitions (1 to n)</td><td><code>for</code></td><td>Counter, condition and update sit together in one line.</td></tr><tr><td>Visit every element of an array or list</td><td><code>for-each</code></td><td>No index errors; clearest to read.</td></tr><tr><td>Repeat until something happens (sentinel, end of input)</td><td><code>while</code></td><td>May run zero times.</td></tr><tr><td>Ask the user at least once (menu, validation)</td><td><code>do-while</code></td><td>Body runs before the first check.</td></tr><tr><td>Search a 2-D grid and stop at the first hit</td><td>nested <code>for</code> + labeled <code>break</code></td><td>Leaves both loops in one step.</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">How many times does <code>Hi</code> print? <code>for (int i = 0; i &lt; 10; i += 3) System.out.println("Hi");</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">i takes the values 0, 3, 6, 9 → <b>4 times</b>. At i = 12 the condition is false.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Print all prime numbers from 2 to 30 using nested loops and <code>continue</code> with a label.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">outer:
+for (int n = 2; n &lt;= 30; n++) {
+    for (int d = 2; d * d &lt;= n; d++)
+        if (n % d == 0) continue outer;   // not prime
+    System.out.print(n + &quot; &quot;);
+}</pre><div class="console"><div class="console-h">Output</div><pre class="console-body">2 3 5 7 11 13 17 19 23 29</pre></div></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Keep asking for a PIN until the user types 1234, allowing at most 3 tries.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">int tries = 0, pin;
+do {
+    System.out.print(&quot;PIN: &quot;);
+    pin = in.nextInt();
+    tries++;
+} while (pin != 1234 &amp;&amp; tries &lt; 3);
+System.out.println(pin == 1234 ? &quot;Welcome&quot; : &quot;Card blocked&quot;);</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. Write a loop that prints the sum of the even numbers from 1 to 100.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">int s = 0;
+for (int i = 2; i &lt;= 100; i += 2) s += i;
+System.out.println(s);   // 2550</pre></div></details></div><div class="ex"><div class="qq">2. Rewrite <code>for (int i = 5; i &gt; 0; i--) System.out.print(i);</code> as a while loop.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">int i = 5;
+while (i &gt; 0) {
+    System.out.print(i);
+    i--;
+}</pre></div></details></div><div class="ex"><div class="qq">3. What is the output? <code>int i = 10; do { i++; } while (i &lt; 5); System.out.println(i);</code></div><details class="reveal"><summary>Show the answer</summary><div class="ans">11 — the body runs once before the condition is checked.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Print this pattern with nested loops:<br><code>1</code><br><code>1 2</code><br><code>1 2 3</code></div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= i; j++) System.out.print(j + &quot; &quot;);
+    System.out.println();
+}</pre></div></details></div><div class="ex"><div class="qq">5. Count the digits of a positive integer n using a while loop.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">int count = 0;
+while (n &gt; 0) { n /= 10; count++; }</pre></div></details></div><div class="ex"><div class="qq">6. What is the difference between <code>break</code> and <code>continue</code> inside a nested loop?</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><code>break</code> leaves the innermost loop entirely; <code>continue</code> skips to its next pass. Neither affects the outer loop unless you use a label.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="2"></div><script type="application/json" class="quiz-json">[{"q": "Which loop always executes its body at least once?", "o": ["for", "while", "do-while", "for-each"], "a": 2, "w": "do-while checks the condition after the body."}, {"q": "How many stars? <code>for (int i=0;i&lt;3;i++) for (int j=0;j&lt;4;j++) System.out.print(\"*\");<\/code>", "o": ["7", "12", "3", "4"], "a": 1, "w": "The inner loop runs 4 times for each of the 3 outer passes: 3 × 4 = 12."}, {"q": "What does <code>continue<\/code> do?", "o": ["Ends the program", "Leaves the loop", "Skips to the next iteration", "Restarts the loop from the beginning"], "a": 2, "w": "The rest of the current pass is skipped; the loop goes on with its next update/check."}, {"q": "Why can a for-each loop not double every element of an int array?", "o": ["for-each only works on lists", "The loop variable is a copy of each element", "Arrays are immutable", "It can, with m *= 2"], "a": 1, "w": "Assigning to the loop variable changes only that copy, not the array element."}, {"q": "What is the purpose of a labeled break?", "o": ["To name a method", "To exit an outer loop from inside an inner one", "To jump backwards", "To catch exceptions"], "a": 1, "w": "break label; ends the loop that carries that label."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>while checks before the body (0 or more runs); do-while checks after (1 or more runs).</li><li>for keeps init, condition and update in one line — ideal for counting.</li><li>for-each visits every element without an index, but cannot change primitive elements.</li><li>Nested loops: the inner loop completes for every outer pass (work = outer × inner).</li><li>break leaves a loop, continue skips a pass; labels let both act on an outer loop.</li></ul><div class="nextcard"><a class="btn pri" href="03-arrays.html">Next: Arrays, Sorting & Searching</a><a class="btn" href="../practice.html#t2">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 21</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 2, "prev": "01-introduction.html", "next": "03-arrays.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

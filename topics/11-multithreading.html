@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify. Interactive slides, code tracers, demos and a quiz for Topic 11 of Object Oriented Programming (Java).">
+<meta name="keywords" content="java multithreading, thread, runnable, thread life cycle, synchronization, race condition, wait notify, producer consumer, deadlock, java oop course, topic 11">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
+<meta property="og:description" content="Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify. Interactive slides, code tracers, demos and a quiz for Topic 11 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify. Interactive slides, code tracers, demos and a quiz for Topic 11 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Multithreaded Programming", "description": "Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify.", "position": 11, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 11: Multithreaded Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html"}]}</script>
+<title>Multithreaded Programming – Topic 11 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">11</span><span>Multithreaded Programming</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Multithreaded Programming" aria-label="Multithreaded Programming" tabindex="-1"><div class="slide-inner">
+<span class="badge big">11</span>
+<p class="kicker">Topic 11 of 13 · Lectures 19–21</p>
+<h1>Multithreaded Programming</h1>
+<p class="lead">Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">Your music keeps playing while you scroll, download and type. How can one program do several things at the same time?</p><p>Each activity runs in its own <b>thread</b>: an independent path of execution inside the same program. Threads make programs responsive and let them use every CPU core.</p><p>But threads that share data can trip over each other. You will create threads, then break a counter on purpose, and fix it with synchronization.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lectures 19–21</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Processes and threads</a></li><li><a href="#s=5">Thread life cycle</a></li><li><a href="#s=6">Creating threads: Thread and Runnable</a></li><li><a href="#s=9">Synchronization</a></li><li><a href="#s=12">Interthread communication: wait and notify</a></li></ol>
+</div></section>
+<section class="slide " data-title="Processes and threads" aria-label="Processes and threads" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 6</p><h2>Processes and threads</h2><figure class="fig" data-fig="threads-mem"><figcaption>Threads of one process share the heap but each has its own stack.</figcaption></figure><ul><li>A <b>process</b> is a running program with its own memory. A <b>thread</b> is a path of execution inside a process.</li><li>Threads share the heap (objects, static fields), so they communicate cheaply — and can interfere.</li><li>Every Java program starts with the <b>main</b> thread; the JVM also runs background threads such as the garbage collector.</li><li>On a multi-core CPU threads can truly run in parallel; on one core they take turns (time-slicing).</li></ul>
+</div></section>
+<section class="slide " data-title="The thread life cycle" aria-label="The thread life cycle" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 6</p><h2>The thread life cycle</h2><figure class="fig" data-fig="thread-states"><figcaption>A thread moves between these states; the scheduler decides which RUNNABLE thread actually uses a CPU.</figcaption></figure><div class="scrollx"><table class="doc"><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody><tr><td>NEW</td><td>Created with <code>new Thread(...)</code>, not started yet.</td></tr><tr><td>RUNNABLE</td><td>Running or ready to run.</td></tr><tr><td>BLOCKED</td><td>Waiting to enter a synchronized block held by another thread.</td></tr><tr><td>WAITING / TIMED_WAITING</td><td>After <code>wait()</code>, <code>join()</code> or <code>sleep(ms)</code>.</td></tr><tr><td>TERMINATED</td><td><code>run()</code> has finished.</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="Creating threads" aria-label="Creating threads" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Creating threads</h2><div class="cols "><div><pre class="code small-code">class Worker extends Thread {                 // way 1
+    Worker(String name) { super(name); }
+    public void run() {
+        for (int i = 1; i &lt;= 3; i++)
+            System.out.println(getName() + &quot; step &quot; + i);
+    }
+}
+class Task implements Runnable {              // way 2 (preferred)
+    public void run() {
+        System.out.println(&quot;Task in &quot; + Thread.currentThread().getName());
+    }
+}
+public static void main(String[] args) throws InterruptedException {
+    Thread w = new Worker(&quot;W&quot;);
+    Thread t = new Thread(new Task(), &quot;T&quot;);
+    Thread l = new Thread(() -&gt; System.out.println(&quot;Lambda&quot;), &quot;L&quot;);  // way 3
+    w.start(); t.start(); l.start();
+    w.join(); t.join(); l.join();
+    System.out.println(&quot;main ends&quot;);
+}</pre></div><div><div class="console"><div class="console-h">One possible output</div><pre class="console-body">W step 1
+Task in T
+W step 2
+Lambda
+W step 3
+main ends</pre></div><ul><li>Put the thread’s work in <code>run()</code>, but call <code>start()</code> — start creates the new thread, which then calls run.</li><li>Implementing <code>Runnable</code> keeps your class free to extend something else.</li><li>The order of lines from different threads can change on every run.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Two threads, many outputs" aria-label="Two threads, many outputs" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Two threads, many outputs</h2><div data-demo="interleave"></div>
+</div></section>
+<section class="slide " data-title="sleep, join and other Thread methods" aria-label="sleep, join and other Thread methods" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>sleep, join and other Thread methods</h2><div class="codeout"><pre class="code">Thread timer = new Thread(() -&gt; {
+    for (int s = 3; s &gt;= 1; s--) {
+        System.out.println(s + &quot;...&quot;);
+        try { Thread.sleep(1000); }           // pause 1 s
+        catch (InterruptedException e) { return; }
+    }
+    System.out.println(&quot;Go!&quot;);
+});
+timer.start();
+System.out.println(&quot;Waiting for the countdown&quot;);
+timer.join();                                 // wait until timer ends
+System.out.println(&quot;Race started, alive? &quot; + timer.isAlive());</pre><div><div class="console"><div class="console-h">Output (the first two lines may swap)</div><pre class="console-body">Waiting for the countdown
+3...
+2...
+1...
+Go!
+Race started, alive? false</pre></div></div></div><div class="scrollx"><table class="doc"><thead><tr><th>Method</th><th>Purpose</th></tr></thead><tbody><tr><td><code>Thread.sleep(ms)</code></td><td>Pause the current thread (TIMED_WAITING).</td></tr><tr><td><code>t.join()</code></td><td>Wait for thread t to finish.</td></tr><tr><td><code>t.isAlive()</code>, <code>getName()</code>, <code>setPriority(1–10)</code></td><td>Query or tune a thread (priority is only a hint).</td></tr><tr><td><code>t.interrupt()</code></td><td>Ask a sleeping or waiting thread to stop: it gets InterruptedException.</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="Race conditions" aria-label="Race conditions" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 6</p><h2>Race conditions</h2><div class="cols "><div><pre class="code small-code">class Counter {
+    private int count = 0;
+    void increment() { count++; }   // NOT atomic
+    int get() { return count; }
+}
+Counter c = new Counter();
+Runnable job = () -&gt; { for (int i = 0; i &lt; 100_000; i++) c.increment(); };
+Thread a = new Thread(job), b = new Thread(job);
+a.start(); b.start(); a.join(); b.join();
+System.out.println(c.get());   // expected 200000</pre><div class="console"><div class="console-h">Typical output — different every run</div><pre class="console-body">137462</pre></div></div><div><ul><li><code>count++</code> is three steps: <b>read</b> count, <b>add</b> 1, <b>write</b> it back.</li><li>If both threads read the same old value, one increment is <b>lost</b>.</li><li>A bug whose result depends on timing is a <b>race condition</b>. It may pass a hundred tests and fail in the exam demo.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Race-condition lab" aria-label="Race-condition lab" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Race-condition lab</h2><div data-demo="race"></div>
+</div></section>
+<section class="slide " data-title="Synchronization" aria-label="Synchronization" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 6</p><h2>Synchronization</h2><div class="cols "><div><pre class="code small-code" data-mark="3,11">class Counter {
+    private int count = 0;
+    synchronized void increment() { count++; }   // method lock on this
+    synchronized int get() { return count; }
+}
+
+class Bank {
+    private final Object lock = new Object();
+    private double balance;
+    void deposit(double amt) {
+        synchronized (lock) {                        // block lock
+            balance += amt;
+        }
+    }
+}</pre></div><div><ul><li>Every object has a <b>monitor lock</b>. Only one thread at a time can hold it.</li><li>A <code>synchronized</code> method locks <code>this</code> (a static synchronized method locks the class).</li><li>Other threads trying to enter become <b>BLOCKED</b> until the lock is released.</li><li>Keep synchronized sections short; for simple counters <code>AtomicInteger</code> is an alternative.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Interthread communication: wait and notify" aria-label="Interthread communication: wait and notify" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 6</p><h2>Interthread communication: wait and notify</h2><div class="cols "><div><pre class="code small-code">class Buffer {
+    private final Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+    private final int CAP = 3;
+
+    synchronized void put(int x) throws InterruptedException {
+        while (q.size() == CAP) wait();   // release lock and sleep
+        q.add(x);
+        notifyAll();                      // wake waiting takers
+    }
+    synchronized int take() throws InterruptedException {
+        while (q.isEmpty()) wait();
+        int x = q.remove();
+        notifyAll();                      // wake waiting putters
+        return x;
+    }
+}</pre></div><div><ul><li><code>wait()</code> releases the lock and waits until another thread calls <code>notify()</code>/<code>notifyAll()</code> on the same object.</li><li>All three may only be called while holding that object’s lock (inside synchronized).</li><li>Always wait in a <code>while</code> loop: re-check the condition after waking up.</li><li>This is the classic <b>producer–consumer</b> pattern.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Producer–consumer" aria-label="Producer–consumer" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Producer–consumer</h2><div data-demo="prodcons"></div>
+</div></section>
+<section class="slide " data-title="Deadlock" aria-label="Deadlock" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 6 of 6</p><h2>Deadlock</h2><div class="cols "><div><figure class="fig" data-fig="deadlock"><figcaption>Each thread holds one lock and waits forever for the other.</figcaption></figure></div><div><pre class="code small-code">// Thread 1                     // Thread 2
+synchronized (a) {              synchronized (b) {
+    synchronized (b) { ... }        synchronized (a) { ... }
+}                               }</pre><ul><li>A <b>deadlock</b> happens when threads wait for each other in a cycle; none can continue.</li><li>Prevent it by always taking locks in the <b>same order</b>, holding locks briefly, or using timeouts (<code>tryLock</code>).</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">What is wrong? <code>Thread t = new Thread(task); t.run();</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">run() executes the task in the <b>current</b> thread like a normal method call. Use <code>t.start()</code> to create a new thread.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Two threads each call <code>synchronized void inc()</code> 1000 times on the <b>same</b> object. What is the final count? What if each thread uses its own object?</div><details class="reveal"><summary>Show the solution</summary><div class="ans">Same object: always 2000. Different objects: each counter reaches 1000; the locks are different but so is the data, so there is no race.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Why should <code>wait()</code> be called in a while loop rather than an if?</div><details class="reveal"><summary>Show the solution</summary><div class="ans">A thread can wake up when the condition is still false (another thread got there first, or a spurious wake-up). The while loop re-checks before continuing.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. Give two ways to create a thread and one reason to prefer Runnable.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Extend Thread or implement Runnable (or use a lambda). Runnable lets the class extend another class and separates the task from the thread.</div></details></div><div class="ex"><div class="qq">2. Which state is a thread in while inside <code>Thread.sleep(500)</code>?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">TIMED_WAITING.</div></details></div><div class="ex"><div class="qq">3. Write code that starts 3 threads printing their names and waits for all before printing “done”.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">Thread[] ts = new Thread[3];
+for (int i = 0; i &lt; 3; i++) {
+    ts[i] = new Thread(() -&gt; System.out.println(Thread.currentThread().getName()), &quot;T&quot; + i);
+    ts[i].start();
+}
+for (Thread t : ts) t.join();
+System.out.println(&quot;done&quot;);</pre></div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Why is <code>count++</code> not thread-safe?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">It is a read, an add and a write; another thread can run between them and one update is lost.</div></details></div><div class="ex"><div class="qq">5. What is the difference between <code>sleep()</code> and <code>wait()</code>?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">sleep pauses without releasing any lock and is called on Thread; wait must hold the object’s lock, releases it, and waits for notify.</div></details></div><div class="ex"><div class="qq">6. State one rule that prevents deadlock.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Acquire locks in a fixed global order in every thread.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="11"></div><script type="application/json" class="quiz-json">[{"q": "Which method actually starts a new thread?", "o": ["run()", "start()", "init()", "execute()"], "a": 1, "w": "start() creates the thread, which then calls run()."}, {"q": "Threads of the same process share…", "o": ["their stacks", "the heap", "their program counters", "nothing"], "a": 1, "w": "Objects on the heap are shared; each thread has its own stack."}, {"q": "A thread waiting to enter a synchronized method held by another thread is…", "o": ["NEW", "BLOCKED", "TERMINATED", "RUNNING"], "a": 1, "w": "It is blocked on the monitor lock."}, {"q": "wait() must be called…", "o": ["from main only", "while holding the object’s lock", "after notify()", "inside a static method"], "a": 1, "w": "Otherwise IllegalMonitorStateException is thrown."}, {"q": "t.join() makes the current thread…", "o": ["stop t", "wait until t finishes", "start t", "share t’s stack"], "a": 1, "w": "join blocks until the target thread terminates."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>A thread is an independent path of execution; threads share the heap but have their own stacks.</li><li>Create threads by extending Thread or implementing Runnable; always call start(), not run().</li><li>States: NEW → RUNNABLE ↔ BLOCKED / WAITING / TIMED_WAITING → TERMINATED.</li><li>Unsynchronized shared updates cause race conditions; synchronized methods/blocks give one thread the lock at a time.</li><li>wait/notifyAll coordinate threads (producer–consumer); consistent lock ordering avoids deadlock.</li></ul><div class="nextcard"><a class="btn pri" href="12-strings.html">Next: Strings & Big Numbers</a><a class="btn" href="../practice.html#t11">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 21</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 11, "prev": "10-exception-handling.html", "next": "12-strings.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

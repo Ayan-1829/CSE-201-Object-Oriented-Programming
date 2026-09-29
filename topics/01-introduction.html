@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions. Interactive slides, code tracers, demos and a quiz for Topic 1 of Object Oriented Programming (Java).">
+<meta name="keywords" content="object oriented programming, java basics, data types, operators, if else, switch, java oop course, topic 1">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Introducing OOP &amp; Java Basics – Topic 1 | Object Oriented Programming Notes">
+<meta property="og:description" content="What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions. Interactive slides, code tracers, demos and a quiz for Topic 1 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/01-introduction.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Introducing OOP &amp; Java Basics – Topic 1 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Introducing OOP &amp; Java Basics – Topic 1 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions. Interactive slides, code tracers, demos and a quiz for Topic 1 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/01-introduction.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Introducing OOP & Java Basics", "description": "What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions.", "position": 1, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 25, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/01-introduction.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 1: Introducing OOP & Java Basics", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html"}]}</script>
+<title>Introducing OOP &amp; Java Basics – Topic 1 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">1</span><span>Introducing OOP & Java Basics</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Introducing OOP &amp; Java Basics" aria-label="Introducing OOP &amp; Java Basics" tabindex="-1"><div class="slide-inner">
+<span class="badge big">1</span>
+<p class="kicker">Topic 1 of 13 · Lecture 1</p>
+<h1>Introducing OOP & Java Basics</h1>
+<p class="lead">What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A banking app stores two million accounts. Where does each balance live — and who is allowed to change it?</p><p>In a structured program, every function can reach every piece of data, so one careless line anywhere can corrupt a balance. Object-oriented programming (OOP) groups each account’s data together with the only methods allowed to touch it.</p><p>This topic introduces that idea and the Java basics we will use to express it: types, variables, operators and decisions.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lecture 1</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">What is object-oriented programming</a></li><li><a href="#s=4">OOP vs. structured programming</a></li><li><a href="#s=5">Classes, objects and the four pillars</a></li><li><a href="#s=6">The Java platform: JDK, JRE, JVM</a></li><li><a href="#s=7">First program and program structure</a></li><li><a href="#s=8">Data types</a></li><li><a href="#s=9">Variables, literals and type conversion</a></li><li><a href="#s=11">Operators and precedence</a></li><li><a href="#s=15">if, if-else and else-if ladder</a></li><li><a href="#s=17">switch statement</a></li></ol>
+</div></section>
+<section class="slide " data-title="Two ways to organise a program" aria-label="Two ways to organise a program" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 8</p><h2>Two ways to organise a program</h2><figure class="fig" data-fig="paradigm"><figcaption>Structured code shares global data between functions; OOP packs data and behaviour into objects.</figcaption></figure><div class="vs"><div><h4>Structured (procedural) programming</h4><ul><li>The program is a list of <b>functions</b> that run top-down.</li><li>Data is separate from the functions, often <b>shared globally</b>.</li><li>Languages: C, Pascal, Fortran.</li><li>Works well for small, linear tasks.</li></ul></div><div><h4>Object-oriented programming</h4><ul><li>The program is a set of <b>objects</b> that send messages to each other.</li><li>Each object keeps its <b>own data</b> private and exposes methods.</li><li>Languages: Java, C++, C#, Python.</li><li>Scales to large systems that change over time.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Classes, objects and the four pillars" aria-label="Classes, objects and the four pillars" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 8</p><h2>Classes, objects and the four pillars</h2><div class="cols "><div><figure class="fig" data-fig="class-objects"><figcaption>A class is a blueprint; each object is one thing built from it, with its own field values.</figcaption></figure></div><div><div class="scrollx"><table class="doc"><thead><tr><th>Pillar</th><th>In one sentence</th></tr></thead><tbody><tr><td><b>Encapsulation</b></td><td>Keep an object’s data private; allow changes only through its methods.</td></tr><tr><td><b>Inheritance</b></td><td>Build a new class from an existing one and reuse its code (Student <i>is a</i> Person).</td></tr><tr><td><b>Polymorphism</b></td><td>One call, many behaviours: <code>shape.area()</code> works for circles and rectangles.</td></tr><tr><td><b>Abstraction</b></td><td>Show what an object does, hide how it does it.</td></tr></tbody></table></div></div></div>
+</div></section>
+<section class="slide " data-title="The Java platform: JDK, JRE and JVM" aria-label="The Java platform: JDK, JRE and JVM" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 8</p><h2>The Java platform: JDK, JRE and JVM</h2><div class="fig2 r2"><figure class="fig" data-fig="jdk-jre-jvm"><figcaption>The JDK (developer kit) includes the JRE (runtime), which includes the JVM (virtual machine).</figcaption></figure><figure class="fig" data-fig="jvm-pipeline"><figcaption>“Write once, run anywhere”: the same bytecode runs on every JVM.</figcaption></figure></div><ul><li><code>javac Hello.java</code> compiles source code into <b>bytecode</b> (<code>Hello.class</code>).</li><li><code>java Hello</code> starts a JVM that loads, verifies and runs the bytecode, compiling hot code to machine code (JIT).</li></ul>
+</div></section>
+<section class="slide " data-title="Your first Java program" aria-label="Your first Java program" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Your first Java program</h2><div class="codeout"><pre class="code" data-mark="2">public class Hello {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello, GUB!&quot;);
+        System.out.print(&quot;OOP &quot;);
+        System.out.println(&quot;in Java&quot;);
+    }
+}</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">Hello, GUB!
+OOP in Java</pre></div></div></div><ul><li>The file name must match the public class: <code>Hello.java</code>.</li><li><code>main</code> is where the program starts. It is <code>public</code> (the JVM can call it) and <code>static</code> (no object is needed to call it).</li><li><code>println</code> ends the line; <code>print</code> does not.</li></ul>
+</div></section>
+<section class="slide " data-title="Primitive data types" aria-label="Primitive data types" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 8</p><h2>Primitive data types</h2><div class="scrollx"><table class="doc"><thead><tr><th>Type</th><th>Size</th><th>Range / example</th><th>Default</th></tr></thead><tbody><tr><td class="m">byte</td><td>8 bits</td><td>−128 to 127</td><td class="m">0</td></tr><tr><td class="m">short</td><td>16 bits</td><td>−32,768 to 32,767</td><td class="m">0</td></tr><tr><td class="m">int</td><td>32 bits</td><td>about ±2.1 billion (2<sup>31</sup> − 1 = 2,147,483,647)</td><td class="m">0</td></tr><tr><td class="m">long</td><td>64 bits</td><td>±9.2 × 10<sup>18</sup> — write <code>10_000_000_000L</code></td><td class="m">0L</td></tr><tr><td class="m">float</td><td>32 bits</td><td>~7 significant digits — write <code>3.14f</code></td><td class="m">0.0f</td></tr><tr><td class="m">double</td><td>64 bits</td><td>~15 significant digits — <code>3.14</code></td><td class="m">0.0</td></tr><tr><td class="m">char</td><td>16 bits</td><td>one Unicode character — <code>'A'</code> (value 65)</td><td class="m">'\u0000'</td></tr><tr><td class="m">boolean</td><td>—</td><td><code>true</code> or <code>false</code> only</td><td class="m">false</td></tr></tbody></table></div><div class="callout"><b>Note:</b> <code>String</code> is <b>not</b> a primitive — it is a class. Primitives hold a value directly; everything else is an object reached through a reference.</div>
+</div></section>
+<section class="slide " data-title="Variables, literals and type conversion" aria-label="Variables, literals and type conversion" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 8</p><h2>Variables, literals and type conversion</h2><figure class="fig" data-fig="widening"><figcaption>Widening conversions happen automatically (no data lost). Going the other way needs an explicit cast.</figcaption></figure><div class="cols "><div><pre class="code small-code">int age = 20;            // declare + initialise
+final double PI = 3.14159; // constant
+char grade = &#x27;A&#x27;;
+boolean passed = true;
+long big = 9_000_000_000L;
+var name = &quot;Rahim&quot;;      // type inferred: String
+
+double d = age;          // widening: automatic
+int i = (int) 9.99;      // narrowing: cast → 9
+char next = (char) (grade + 1);  // &#x27;B&#x27;</pre></div><div><ul><li>Casting a double to int <b>truncates</b> (drops the fraction).</li><li>Casting to a smaller integer type keeps only the low bits, so values <b>wrap around</b>.</li><li>In expressions, byte/short/char are promoted to <code>int</code> first.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Type casting and overflow" aria-label="Type casting and overflow" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Type casting and overflow</h2><div data-demo="casting"></div>
+</div></section>
+<section class="slide " data-title="Operators" aria-label="Operators" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 6 of 8</p><h2>Operators</h2><div class="scrollx"><table class="doc"><thead><tr><th>Group</th><th>Operators</th><th>Example → result</th></tr></thead><tbody><tr><td>Arithmetic</td><td class="m">+ − * / %</td><td><code>17 / 5</code> → 3, <code>17 % 5</code> → 2, <code>17.0 / 5</code> → 3.4</td></tr><tr><td>Increment / decrement</td><td class="m">++ −−</td><td><code>x++</code> uses then adds; <code>++x</code> adds then uses</td></tr><tr><td>Relational</td><td class="m">== != &lt; &gt; &lt;= &gt;=</td><td><code>5 &gt;= 5</code> → true</td></tr><tr><td>Logical</td><td class="m">&amp;&amp; || !</td><td><code>a &gt; 0 &amp;&amp; b &gt; 0</code> (short-circuit)</td></tr><tr><td>Assignment</td><td class="m">= += −= *= /= %=</td><td><code>x += 3</code> is <code>x = x + 3</code></td></tr><tr><td>Ternary</td><td class="m">cond ? a : b</td><td><code>m &gt;= 40 ? "Pass" : "Fail"</code></td></tr><tr><td>Bitwise / shift</td><td class="m">&amp; | ^ ~ &lt;&lt; &gt;&gt;</td><td><code>5 &amp; 3</code> → 1, <code>1 &lt;&lt; 4</code> → 16</td></tr></tbody></table></div><div class="callout"><b>Precedence:</b> Precedence, high to low: <code>++ -- !</code> → <code>* / %</code> → <code>+ -</code> → relational → <code>== !=</code> → <code>&amp;&amp;</code> → <code>||</code> → <code>?:</code> → assignment. Use parentheses when in doubt.</div>
+</div></section>
+<section class="slide " data-title="Trace: evaluating expressions" aria-label="Trace: evaluating expressions" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: evaluating expressions</h2><p class="muted">Press <b>Next</b> to run one line at a time and watch every variable change. Predict each value before you click.</p><div data-trace="t1-expr"></div>
+</div></section>
+<section class="slide " data-title="Operator playground" aria-label="Operator playground" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Operator playground</h2><div data-demo="operators"></div>
+</div></section>
+<section class="slide " data-title="Reading input with Scanner" aria-label="Reading input with Scanner" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Reading input with Scanner</h2><div class="codeout"><pre class="code" data-mark="5,7,9">import java.util.Scanner;
+
+public class AddTwo {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.print(&quot;First number: &quot;);
+        int a = in.nextInt();
+        System.out.print(&quot;Second number: &quot;);
+        int b = in.nextInt();
+        System.out.println(&quot;Sum = &quot; + (a + b));
+        System.out.println(&quot;Avg = &quot; + (a + b) / 2.0);
+    }
+}</pre><div><div class="console"><div class="console-h">Console (user typed 7 and 8)</div><pre class="console-body">First number: 7
+Second number: 8
+Sum = 15
+Avg = 7.5</pre></div></div></div><ul><li><code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code> (one word), <code>nextLine()</code> (whole line).</li><li>Why the brackets in <code>"Sum = " + (a + b)</code>? Without them, <code>"Sum = " + a</code> becomes a String first and you would print <code>Sum = 78</code>.</li></ul>
+</div></section>
+<section class="slide " data-title="Decisions: if, else if, else" aria-label="Decisions: if, else if, else" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 7 of 8</p><h2>Decisions: if, else if, else</h2><div class="cols "><div><figure class="fig" data-fig="if-flow"><figcaption>An if-else chooses exactly one of two paths.</figcaption></figure></div><div><pre class="code small-code" data-mark="4-5">int marks = 72;
+if (marks &gt;= 80) {
+    System.out.println(&quot;A+&quot;);
+} else if (marks &gt;= 70) {
+    System.out.println(&quot;A&quot;);   // runs
+} else if (marks &gt;= 60) {
+    System.out.println(&quot;A-&quot;);
+} else {
+    System.out.println(&quot;Below A-&quot;);
+}</pre><ul><li>Conditions are checked <b>top to bottom</b>; the first true branch runs and the rest are skipped.</li><li>The condition must be a <code>boolean</code> — <code>if (x = 5)</code> does not compile in Java.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="if-else ladder in action" aria-label="if-else ladder in action" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>if-else ladder in action</h2><div data-demo="grades"></div>
+</div></section>
+<section class="slide " data-title="The switch statement" aria-label="The switch statement" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 8 of 8</p><h2>The switch statement</h2><div class="cols "><div><pre class="code small-code">int day = 3;
+switch (day) {
+    case 1:  System.out.println(&quot;Sat&quot;); break;
+    case 2:  System.out.println(&quot;Sun&quot;); break;
+    case 3:  System.out.println(&quot;Mon&quot;); break;
+    default: System.out.println(&quot;Other&quot;);
+}
+
+// Java 14+: arrow form, no fall-through, can return a value
+String type = switch (day) {
+    case 6, 7 -&gt; &quot;Weekend&quot;;
+    default   -&gt; &quot;Weekday&quot;;
+};</pre></div><div><ul><li><code>switch</code> works on <code>int</code>, <code>char</code>, <code>String</code>, enums and their wrappers — not on <code>double</code> or <code>boolean</code>.</li><li>Without <code>break</code>, execution <b>falls through</b> into the next case.</li><li><code>default</code> runs when no case matches.</li><li>Use <code>switch</code> for one variable compared with fixed values; use <code>if</code> for ranges like <code>marks &gt;= 80</code>.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="switch and fall-through" aria-label="switch and fall-through" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>switch and fall-through</h2><div data-demo="switch"></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">What does <code>System.out.println(7 / 2 + 7 % 2 + 7 / 2.0);</code> print?</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ol><li><code>7 / 2</code> = 3 (integer division).</li><li><code>7 % 2</code> = 1.</li><li><code>7 / 2.0</code> = 3.5 (a double operand).</li><li>3 + 1 + 3.5 = <b>7.5</b></li></ol></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Write one line that stores the larger of <code>a</code> and <code>b</code> in <code>max</code>.</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">int max = (a &gt; b) ? a : b;</pre>The ternary operator picks one of two values. <code>Math.max(a, b)</code> does the same.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">What is printed? <code>int x = 10; x += x++ + ++x; System.out.println(x);</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ol><li><code>x += E</code> means <code>x = x + E</code>; the left x is read first: 10.</li><li><code>x++</code> gives 10, x becomes 11.</li><li><code>++x</code> makes x 12 and gives 12.</li><li>x = 10 + (10 + 12) = <b>32</b>.</li></ol></div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. Which primitive type would you use for a student ID like 2233051012? Why?</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><code>long</code> — 2,233,051,012 is larger than the int maximum (2,147,483,647). (A String is also fine because we never do arithmetic on IDs.)</div></details></div><div class="ex"><div class="qq">2. Evaluate <code>(double) (5 / 2)</code> and <code>(double) 5 / 2</code>.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">2.0 and 2.5. In the first, integer division happens before the cast.</div></details></div><div class="ex"><div class="qq">3. What is the value of <code>(byte) 130</code>?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">−126. 130 − 256 = −126.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Write an if-else that prints “Leap” for leap years.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">if ((y % 4 == 0 &amp;&amp; y % 100 != 0) || y % 400 == 0)
+    System.out.println(&quot;Leap&quot;);
+else
+    System.out.println(&quot;Not leap&quot;);</pre></div></details></div><div class="ex"><div class="qq">5. A switch on <code>month</code> (1–12) must print the number of days. How can fall-through help?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Group cases with no break between them: <code>case 4: case 6: case 9: case 11: days = 30; break;</code> and <code>case 2: days = 28; break;</code>, default 31.</div></details></div><div class="ex"><div class="qq">6. Give two differences between OOP and structured programming.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">OOP bundles data with methods in objects (structured code keeps them separate); OOP hides data with access control (structured code often shares global data); OOP supports inheritance and polymorphism for reuse.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="1"></div><script type="application/json" class="quiz-json">[{"q": "Which component actually runs Java bytecode?", "o": ["javac", "JVM", "JDK", "The operating system directly"], "a": 1, "w": "javac compiles source to bytecode; the JVM executes that bytecode."}, {"q": "What does <code>17 % 5 + 17 / 5<\/code> evaluate to?", "o": ["5", "6", "5.4", "2"], "a": 0, "w": "17 % 5 = 2 and 17 / 5 = 3 (integer division), so the result is 5."}, {"q": "Which line does NOT compile?", "o": ["long n = 5;", "double d = 3;", "int i = 3.0;", "char c = 65;"], "a": 2, "w": "Narrowing from double to int needs an explicit cast: (int) 3.0."}, {"q": "Without break statements, a switch will…", "o": ["stop after the first matching case", "fall through into the following cases", "refuse to compile", "run only the default case"], "a": 1, "w": "Execution continues into the next case labels until a break or the end of the switch."}, {"q": "Which pillar of OOP hides an object’s data behind methods?", "o": ["Inheritance", "Polymorphism", "Encapsulation", "Compilation"], "a": 2, "w": "Encapsulation keeps fields private and exposes controlled methods."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>OOP organises programs as objects that bundle data with behaviour; structured programming separates functions from data.</li><li>javac compiles .java to bytecode; the JVM runs bytecode on any platform.</li><li>Eight primitives: byte, short, int, long, float, double, char, boolean. Everything else is an object.</li><li>int / int is integer division; casting narrows with truncation or wrap-around.</li><li>if-else checks conditions top-down; switch compares one value against constants and falls through without break.</li></ul><div class="nextcard"><a class="btn pri" href="02-loops.html">Next: Iterative Statements</a><a class="btn" href="../practice.html#t1">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 25</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 1, "next": "02-loops.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>

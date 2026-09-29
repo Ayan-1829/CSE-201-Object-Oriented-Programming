@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes. Interactive slides, code tracers, demos and a quiz for Topic 6 of Object Oriented Programming (Java).">
+<meta name="keywords" content="access modifiers java, private protected public, static keyword, final keyword, nested class, inner class, anonymous class, java oop course, topic 6">
+<meta name="author" content="Object Oriented Programming Notes">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#155E63">
+<link rel="canonical" href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html">
+<link rel="icon" type="image/svg+xml" href="../img/logo-mark.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Object Oriented Programming (CSE 201)">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Access Control, static, final &amp; Nested Classes – Topic 6 | Object Oriented Programming Notes">
+<meta property="og:description" content="Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes. Interactive slides, code tracers, demos and a quiz for Topic 6 of Object Oriented Programming (Java).">
+<meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/06-access-static-final.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Access Control, static, final &amp; Nested Classes – Topic 6 | Object Oriented Programming Notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Access Control, static, final &amp; Nested Classes – Topic 6 | Object Oriented Programming Notes">
+<meta name="twitter:description" content="Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes. Interactive slides, code tracers, demos and a quiz for Topic 6 of Object Oriented Programming (Java).">
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/06-access-static-final.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Access Control, static, final & Nested Classes", "description": "Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes.", "position": 6, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 19, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/06-access-static-final.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 6: Access Control, static, final & Nested Classes", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html"}]}</script>
+<title>Access Control, static, final &amp; Nested Classes – Topic 6 | Object Oriented Programming Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="deck-page">
+<div class="sr-only" id="live" aria-live="polite"></div>
+<header class="deck-bar">
+  <a class="home-link" href="../index.html" aria-label="Home: all topics"><img src="../img/logo-mark.svg" alt="" width="26" height="26"><span>Home</span></a>
+  <div class="deck-title"><span class="badge">6</span><span>Access Control, static, final & Nested Classes</span></div>
+  <div class="deck-actions">
+    <button type="button" class="btn sm" id="btn-menu" aria-expanded="false" aria-controls="slide-menu" aria-label="Slides"><svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="3" rx="1"></rect><rect x="3" y="10.5" width="18" height="3" rx="1"></rect><rect x="3" y="16.5" width="18" height="3" rx="1"></rect></svg><span>Slides</span></button>
+    <button type="button" class="btn sm" id="btn-theme" aria-pressed="false" aria-label="Toggle dark mode"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg><span>Dark mode</span></button>
+    <button type="button" class="btn sm" id="btn-fs" aria-pressed="false" aria-label="Full screen"><svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"></path></svg><span>Full screen</span></button>
+  </div>
+</header>
+<div class="deck-progress"><i id="progress-fill"></i></div>
+<main class="deck" id="deck">
+<section class="slide title-slide" data-title="Access Control, static, final &amp; Nested Classes" aria-label="Access Control, static, final &amp; Nested Classes" tabindex="-1"><div class="slide-inner">
+<span class="badge big">6</span>
+<p class="kicker">Topic 6 of 13 · Lectures 8–9</p>
+<h1>Access Control, static, final & Nested Classes</h1>
+<p class="lead">Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes.</p>
+<div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
+<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
+</div></section>
+<section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">How does every <code>Student</code> object know how many students have been created so far — without any of them being in charge?</p><p>A <code>static</code> field belongs to the class itself, so there is exactly one copy shared by every object. Combined with access modifiers and <code>final</code>, it lets you control precisely who sees what, and what may never change.</p><p>We finish with nested classes: classes defined inside other classes to keep helper code close to where it is used.</p></div>
+</div></section>
+<section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Outline · Lectures 8–9</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Access modifiers</a></li><li><a href="#s=6">static fields and methods</a></li><li><a href="#s=10">final variables and constants</a></li><li><a href="#s=11">Nested and inner classes</a></li></ol>
+</div></section>
+<section class="slide " data-title="Access modifiers" aria-label="Access modifiers" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 4</p><h2>Access modifiers</h2><div class="scrollx"><table class="doc"><thead><tr><th>Modifier</th><th>Same class</th><th>Same package</th><th>Subclass (other package)</th><th>Everywhere</th></tr></thead><tbody><tr><td><code>private</code></td><td>✓</td><td>✗</td><td>✗</td><td>✗</td></tr><tr><td><i>(none)</i> default / package-private</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td></tr><tr><td><code>protected</code></td><td>✓</td><td>✓</td><td>✓ (through inheritance)</td><td>✗</td></tr><tr><td><code>public</code></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr></tbody></table></div><ul><li>Top-level classes can only be <code>public</code> or default.</li><li>Good default: fields <code>private</code>, methods <code>public</code> only if other classes need them, helpers <code>private</code>.</li><li>Access is checked per <b>class</b>, not per object: a Student method may read another Student’s private fields.</li></ul>
+</div></section>
+<section class="slide " data-title="Access-modifier checker" aria-label="Access-modifier checker" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Access-modifier checker</h2><div data-demo="access"></div>
+</div></section>
+<section class="slide " data-title="static fields and methods" aria-label="static fields and methods" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 4</p><h2>static fields and methods</h2><div class="cols "><div><figure class="fig" data-fig="static-mem"><figcaption>One static count lives with the class; each object has its own id.</figcaption></figure></div><div><pre class="code small-code">class Counter {
+    static int count = 0;   // one per class
+    int id;                 // one per object
+    Counter() {
+        count++;
+        id = count;
+    }
+    static int getCount() { return count; }
+}
+Counter.getCount();         // call via the class</pre><ul><li>A <b>static</b> member belongs to the class; use it through the class name: <code>Math.sqrt</code>, <code>Integer.parseInt</code>.</li><li>A static method has no <code>this</code>, so it cannot use instance fields or instance methods directly.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: a shared static counter" aria-label="Trace: a shared static counter" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: a shared static counter</h2><p class="muted">The static area holds one <code>count</code>. Every constructor call increases it and copies the current value into that object’s own <code>id</code>.</p><div data-trace="t6-static"></div>
+</div></section>
+<section class="slide " data-title="Static or not? Predict the compiler" aria-label="Static or not? Predict the compiler" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Interactive</p><h2>Static or not? Predict the compiler</h2><div data-demo="static-rules"></div>
+</div></section>
+<section class="slide " data-title="Static blocks and utility classes" aria-label="Static blocks and utility classes" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Static blocks and utility classes</h2><div class="codeout"><pre class="code" data-mark="3-6">class MathUtil {
+    static final double[] SQUARES = new double[5];
+    static {                          // runs once, when the class loads
+        for (int i = 0; i &lt; SQUARES.length; i++) SQUARES[i] = i * i;
+        System.out.println(&quot;MathUtil loaded&quot;);
+    }
+    private MathUtil() {}             // no objects needed
+    static int max(int... v) {
+        int m = v[0];
+        for (int x : v) if (x &gt; m) m = x;
+        return m;
+    }
+}
+System.out.println(&quot;start&quot;);
+System.out.println(MathUtil.max(4, 9, 2));
+System.out.println(MathUtil.SQUARES[3]);</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">start
+MathUtil loaded
+9
+9.0</pre></div></div></div><ul><li>A <b>static block</b> initialises static data once, the first time the class is used.</li><li>A <b>utility class</b> has only static members and a private constructor (like <code>Math</code> and <code>Arrays</code>).</li></ul>
+</div></section>
+<section class="slide " data-title="The final keyword" aria-label="The final keyword" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 4</p><h2>The final keyword</h2><div class="scrollx"><table class="doc"><thead><tr><th>Applied to</th><th>Meaning</th><th>Example</th></tr></thead><tbody><tr><td>Local variable / parameter</td><td>Can be assigned only once.</td><td><code>final int max = 100;</code></td></tr><tr><td>Field</td><td>Must be set once — at declaration or in every constructor (“blank final”).</td><td><code>private final int id;</code></td></tr><tr><td>static final field</td><td>A class constant; name it in UPPER_CASE.</td><td><code>static final double PI = 3.14159;</code></td></tr><tr><td>Reference variable</td><td>The arrow cannot move, but the object can still change.</td><td><code>final int[] a = {1}; a[0] = 5; // OK</code></td></tr><tr><td>Method</td><td>Cannot be overridden by a subclass.</td><td><code>final void pay()</code></td></tr><tr><td>Class</td><td>Cannot be extended.</td><td><code>final class String</code></td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="Nested classes" aria-label="Nested classes" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 4</p><h2>Nested classes</h2><figure class="fig" data-fig="nested-classes"><figcaption>Four kinds of class that can live inside another class.</figcaption></figure><div class="scrollx"><table class="doc"><thead><tr><th>Kind</th><th>Key facts</th></tr></thead><tbody><tr><td><b>static nested</b></td><td>Like a normal class placed inside for grouping; no link to an outer object. <code>new Outer.Nested()</code></td></tr><tr><td><b>inner</b> (non-static)</td><td>Every inner object belongs to an outer object and can use its private fields. <code>outer.new Inner()</code></td></tr><tr><td><b>local</b></td><td>Declared inside a method; can use effectively-final local variables.</td></tr><tr><td><b>anonymous</b></td><td>A one-off class without a name, written where it is used — often to implement an interface.</td></tr></tbody></table></div>
+</div></section>
+<section class="slide " data-title="Inner and anonymous classes in code" aria-label="Inner and anonymous classes in code" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Inner and anonymous classes in code</h2><div class="codeout"><pre class="code">class Bank {
+    private String name = &quot;GUB Bank&quot;;
+    private int opened = 0;
+
+    class Account {                         // inner class
+        int no = ++opened;                  // uses outer&#x27;s field
+        String info() { return name + &quot; #&quot; + no; }
+    }
+    static class Rate {                     // static nested
+        static double of(int years) { return years &gt; 5 ? 0.08 : 0.06; }
+    }
+}
+Bank b = new Bank();
+Bank.Account a1 = b.new Account();
+Bank.Account a2 = b.new Account();
+System.out.println(a1.info() + &quot;, &quot; + a2.info());
+System.out.println(Bank.Rate.of(7));
+
+Runnable r = new Runnable() {               // anonymous class
+    public void run() { System.out.println(&quot;running&quot;); }
+};
+r.run();
+Runnable r2 = () -&gt; System.out.println(&quot;lambda&quot;);  // same idea, Java 8+
+r2.run();</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">GUB Bank #1, GUB Bank #2
+0.08
+running
+lambda</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Why does this not compile?<br><code>class A { int x; static void show() { System.out.println(x); } }</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">show() is static, so it runs without any object — there is no <code>this.x</code> to print. Make show() an instance method, or make x static, or pass an A object as a parameter.</div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 2" aria-label="Worked example 2" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 2 of 3</p><h2>Worked example 2</h2><div class="ex"><div class="qq">Class <code>Pay</code> in package <code>hr</code> declares <code>protected double rate;</code>. Which classes can use <code>rate</code>?</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><ul><li>Pay itself.</li><li>Every class in package <code>hr</code>.</li><li>Subclasses of Pay in other packages — through inheritance (their own objects).</li><li>No other classes.</li></ul></div></details></div>
+</div></section>
+<section class="slide " data-title="Worked example 3" aria-label="Worked example 3" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Worked example 3 of 3</p><h2>Worked example 3</h2><div class="ex"><div class="qq">Give each <code>Order</code> a unique, unchangeable number 1001, 1002, …</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><pre class="code nonum">class Order {
+    private static int next = 1001;
+    private final int no;
+    Order() { no = next++; }
+    int getNo() { return no; }
+}</pre>A static counter shared by all orders, and a final instance field set once in the constructor.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (1 of 2)" aria-label="Practice (1 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (1 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">1. What is the difference between default (package-private) and protected access?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">Both allow access within the same package; protected additionally allows subclasses in other packages.</div></details></div><div class="ex"><div class="qq">2. Can a static method call an instance method directly? Explain.</div><details class="reveal"><summary>Show the answer</summary><div class="ans">No — an instance method needs an object (<code>this</code>), and a static method has none. It must create or receive an object first: <code>obj.method()</code>.</div></details></div><div class="ex"><div class="qq">3. Is this legal? <code>final StringBuilder sb = new StringBuilder(); sb.append("x");</code></div><details class="reveal"><summary>Show the answer</summary><div class="ans">Yes. final fixes the reference, not the object. <code>sb = new StringBuilder();</code> would be illegal.</div></details></div>
+</div></section>
+<section class="slide " data-title="Practice (2 of 2)" aria-label="Practice (2 of 2)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Practice</p><h2>Practice (2 of 2)</h2><p class="muted">Try each one on paper first, then check your answer.</p><div class="ex"><div class="qq">4. Write a class <code>Circle</code> that counts how many circles exist and exposes the count with a static getter.</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><pre class="code nonum">class Circle {
+    private static int count;
+    private double r;
+    Circle(double r) { this.r = r; count++; }
+    static int getCount() { return count; }
+}</pre></div></details></div><div class="ex"><div class="qq">5. How do you create an object of an inner class <code>Inner</code> defined in <code>Outer</code>?</div><details class="reveal"><summary>Show the answer</summary><div class="ans"><code>Outer o = new Outer(); Outer.Inner in = o.new Inner();</code> — an inner object always needs an outer object.</div></details></div><div class="ex"><div class="qq">6. Why is <code>Math</code>’s constructor private?</div><details class="reveal"><summary>Show the answer</summary><div class="ans">All its members are static, so objects are pointless; a private constructor prevents <code>new Math()</code>.</div></details></div>
+</div></section>
+<section class="slide " data-title="Quiz" aria-label="Quiz" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Check yourself</p><h2>Quiz</h2><div><div class="quiz-host" data-quiz-key="6"></div><script type="application/json" class="quiz-json">[{"q": "Which modifier makes a member visible only inside its own class?", "o": ["public", "protected", "default", "private"], "a": 3, "w": "private is the most restrictive level."}, {"q": "How many copies of a static field exist if 50 objects are created?", "o": ["50", "51", "1", "0 until accessed"], "a": 2, "w": "Static fields belong to the class: one copy in total."}, {"q": "A final method…", "o": ["cannot be called", "cannot be overridden", "cannot be overloaded", "must be static"], "a": 1, "w": "final methods can still be called and overloaded but not overridden."}, {"q": "Which nested class needs an instance of the outer class to be created?", "o": ["static nested", "inner (non-static)", "none of them", "all of them"], "a": 1, "w": "Inner objects are tied to an outer object: outer.new Inner()."}, {"q": "What does a static block do?", "o": ["Runs every time an object is created", "Runs once when the class is loaded", "Prevents inheritance", "Makes all fields static"], "a": 1, "w": "Static initialisers run once, on class initialisation."}]</script></div>
+</div></section>
+<section class="slide " data-title="Summary" aria-label="Summary" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Summary</p><h2>Summary</h2><ul class="sumlist"><li>private → class only; default → package; protected → package + subclasses; public → everyone.</li><li>static members belong to the class (one copy); static methods have no this.</li><li>final: variables assigned once, methods not overridable, classes not extendable. static final = constant.</li><li>Nested classes: static nested, inner (tied to an outer object), local and anonymous.</li></ul><div class="nextcard"><a class="btn pri" href="07-inheritance.html">Next: Inheritance</a><a class="btn" href="../practice.html#t6">More practice</a><a class="btn" href="../reference.html">Quick reference</a><a class="btn" href="../index.html">All topics</a></div>
+</div></section>
+</main>
+<footer class="deck-foot">
+  <button type="button" class="btn" id="prev">Previous</button>
+  <span class="counter" id="counter">1 / 19</span>
+  <button type="button" class="btn pri" id="next">Next</button>
+</footer>
+<aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
+<noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
+<script src="../js/core.js"></script>
+<script src="../js/java.js"></script>
+<script src="../js/tracer.js"></script>
+<script src="../js/figs.js"></script>
+<script src="../js/traces.js"></script>
+<script src="../js/demos-basics.js"></script>
+<script src="../js/demos-oop.js"></script>
+<script src="../js/demos-adv.js"></script>
+<script src="../js/quiz.js"></script>
+<script src="../js/page.js"></script>
+<script>window.OOP_TOPIC = {"id": 6, "prev": "05-methods-and-recursion.html", "next": "07-inheritance.html"};</script>
+<script>mountPage();</script>
+<script src="../js/slides.js"></script>
+<script src="../js/annotate.js"></script>
+</body>
+</html>
