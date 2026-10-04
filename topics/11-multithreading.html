@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify. Interactive slides, code tracers, demos and a quiz for Topic 11 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Multithreaded Programming", "description": "Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify.", "position": 11, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Multithreaded Programming", "description": "Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify.", "position": 11, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 23, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 11: Multithreaded Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html"}]}</script>
 <title>Multithreaded Programming – Topic 11 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Multithreaded Programming" aria-label="Multithreaded Programming" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="11" aria-hidden="true"></span>
 <span class="badge big">11</span>
 <p class="kicker">Topic 11 of 13 · Lectures 19–21</p>
 <h1>Multithreaded Programming</h1>
@@ -61,13 +62,16 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">Your music keeps playing while you scroll, download and type. How can one program do several things at the same time?</p><p>Each activity runs in its own <b>thread</b>: an independent path of execution inside the same program. Threads make programs responsive and let them use every CPU core.</p><p>But threads that share data can trip over each other. You will create threads, then break a counter on purpose, and fix it with synchronization.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 19–21</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Processes and threads</a></li><li><a href="#s=5">Thread life cycle</a></li><li><a href="#s=6">Creating threads: Thread and Runnable</a></li><li><a href="#s=9">Synchronization</a></li><li><a href="#s=12">Interthread communication: wait and notify</a></li></ol>
+<p class="kicker">Outline · Lectures 19–21</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Processes and threads</a></li><li><a href="#s=5">Thread life cycle</a></li><li><a href="#s=7">Creating threads: Thread and Runnable</a></li><li><a href="#s=10">Synchronization</a></li><li><a href="#s=13">Interthread communication: wait and notify</a></li></ol>
 </div></section>
 <section class="slide " data-title="Processes and threads" aria-label="Processes and threads" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 6</p><h2>Processes and threads</h2><figure class="fig" data-fig="threads-mem"><figcaption>Threads of one process share the heap but each has its own stack.</figcaption></figure><ul><li>A <b>process</b> is a running program with its own memory. A <b>thread</b> is a path of execution inside a process.</li><li>Threads share the heap (objects, static fields), so they communicate cheaply — and can interfere.</li><li>Every Java program starts with the <b>main</b> thread; the JVM also runs background threads such as the garbage collector.</li><li>On a multi-core CPU threads can truly run in parallel; on one core they take turns (time-slicing).</li></ul>
 </div></section>
 <section class="slide " data-title="The thread life cycle" aria-label="The thread life cycle" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 2 of 6</p><h2>The thread life cycle</h2><figure class="fig" data-fig="thread-states"><figcaption>A thread moves between these states; the scheduler decides which RUNNABLE thread actually uses a CPU.</figcaption></figure><div class="scrollx"><table class="doc"><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody><tr><td>NEW</td><td>Created with <code>new Thread(...)</code>, not started yet.</td></tr><tr><td>RUNNABLE</td><td>Running or ready to run.</td></tr><tr><td>BLOCKED</td><td>Waiting to enter a synchronized block held by another thread.</td></tr><tr><td>WAITING / TIMED_WAITING</td><td>After <code>wait()</code>, <code>join()</code> or <code>sleep(ms)</code>.</td></tr><tr><td>TERMINATED</td><td><code>run()</code> has finished.</td></tr></tbody></table></div>
+<p class="kicker">Concept 2 of 6</p><h2>The thread life cycle</h2><figure class="fig" data-fig="thread-states"><figcaption>The scheduler picks which Runnable thread becomes Running. stop(), suspend() and resume() are deprecated; avoid them in new code.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="The thread life cycle (continued)" aria-label="The thread life cycle (continued)" tabindex="-1"><div class="slide-inner">
+<h2>The thread life cycle</h2><div class="scrollx"><table class="doc"><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody><tr><td>New</td><td>Created with <code>new Thread(...)</code>, not started yet.</td></tr><tr><td>Runnable</td><td>After <code>start()</code>: ready, waiting for the CPU.</td></tr><tr><td>Running</td><td>The scheduler gave it the CPU; <code>run()</code> is executing.</td></tr><tr><td>Blocked</td><td>Idle after <code>sleep()</code>, <code>wait()</code> or <code>suspend()</code>; back to Runnable on <code>notify()</code>, <code>resume()</code> or time-out.</td></tr><tr><td>Dead</td><td><code>run()</code> finished, or the thread was stopped.</td></tr></tbody></table></div>
 </div></section>
 <section class="slide " data-title="Creating threads" aria-label="Creating threads" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>Creating threads</h2><div class="cols "><div><pre class="code small-code">class Worker extends Thread {                 // way 1
@@ -172,11 +176,15 @@ class Bank {
 <p class="kicker">Interactive</p><h2>Producer–consumer</h2><div data-demo="prodcons"></div>
 </div></section>
 <section class="slide " data-title="Deadlock" aria-label="Deadlock" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 6 of 6</p><h2>Deadlock</h2><div class="cols "><div><figure class="fig" data-fig="deadlock"><figcaption>Each thread holds one lock and waits forever for the other.</figcaption></figure></div><div><pre class="code small-code">// Thread 1                     // Thread 2
+<p class="kicker">Concept 6 of 6</p><h2>Deadlock</h2><figure class="fig" data-fig="deadlock"><figcaption>Each thread holds one lock and waits forever for the other.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Deadlock (continued)" aria-label="Deadlock (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Deadlock</h2><pre class="code small-code">// Thread 1                     // Thread 2
 synchronized (a) {              synchronized (b) {
     synchronized (b) { ... }        synchronized (a) { ... }
-}                               }</pre><ul><li>A <b>deadlock</b> happens when threads wait for each other in a cycle; none can continue.</li><li>Prevent it by always taking locks in the <b>same order</b>, holding locks briefly, or using timeouts (<code>tryLock</code>).</li></ul></div></div>
+}                               }</pre><ul><li>A <b>deadlock</b> happens when threads wait for each other in a cycle; none can continue.</li><li>Prevent it by always taking locks in the <b>same order</b>, holding locks briefly, or using timeouts (<code>tryLock</code>).</li></ul>
 </div></section>
+
 <section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">What is wrong? <code>Thread t = new Thread(task); t.run();</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">run() executes the task in the <b>current</b> thread like a normal method call. Use <code>t.start()</code> to create a new thread.</div></details></div>
 </div></section>
@@ -213,6 +221,7 @@ System.out.println(&quot;done&quot;);</pre></div></details></div>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

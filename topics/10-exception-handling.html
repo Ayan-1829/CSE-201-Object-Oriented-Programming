@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Exception Handling – Topic 10 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes. Interactive slides, code tracers, demos and a quiz for Topic 10 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Exception Handling", "description": "What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes.", "position": 10, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Exception Handling", "description": "What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes.", "position": 10, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 23, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 10: Exception Handling", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html"}]}</script>
 <title>Exception Handling – Topic 10 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Exception Handling" aria-label="Exception Handling" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="10" aria-hidden="true"></span>
 <span class="badge big">10</span>
 <p class="kicker">Topic 10 of 13 · Lectures 15–18</p>
 <h1>Exception Handling</h1>
@@ -61,7 +62,7 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A user types “abc” where your program expects a number. Should the whole program crash?</p><p>Without exception handling, yes: Java prints a stack trace and stops. With it, you can catch the problem, explain it to the user and carry on.</p><p>Java separates the code that does the work from the code that handles problems, and the compiler even forces you to deal with some kinds of failure.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 15–18</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">What is an exception</a></li><li><a href="#s=5">Exception types: checked, unchecked, errors</a></li><li><a href="#s=6">try, catch and finally</a></li><li><a href="#s=8">Multiple catch clauses</a></li><li><a href="#s=10">throw and throws</a></li><li><a href="#s=12">Custom exceptions</a></li></ol>
+<p class="kicker">Outline · Lectures 15–18</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">What is an exception</a></li><li><a href="#s=5">Exception types: checked, unchecked, errors</a></li><li><a href="#s=7">try, catch and finally</a></li><li><a href="#s=10">Multiple catch clauses</a></li><li><a href="#s=12">throw and throws</a></li><li><a href="#s=14">Custom exceptions</a></li></ol>
 </div></section>
 <section class="slide " data-title="What is an exception?" aria-label="What is an exception?" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 6</p><h2>What is an exception?</h2><div class="cols "><div><pre class="code small-code" data-mark="2">public class Crash {
@@ -78,10 +79,17 @@ Exception in thread &quot;main&quot; java.lang.ArithmeticException: / by zero
 	at Crash.main(Crash.java:6)</pre></div></div><div><ul><li>An <b>exception</b> is an object that describes an error that happened while the program was running.</li><li>When it is <b>thrown</b>, normal execution stops and Java looks back through the call stack for a matching <b>handler</b>.</li><li>If no method handles it, the thread ends and the <b>stack trace</b> shows where it happened — read it from the top.</li></ul></div></div>
 </div></section>
 <section class="slide " data-title="Types of exceptions" aria-label="Types of exceptions" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 2 of 6</p><h2>Types of exceptions</h2><div class="cols "><div><figure class="fig" data-fig="ex-tree"><figcaption>Everything that can be thrown extends Throwable.</figcaption></figure></div><div><div class="scrollx"><table class="doc"><thead><tr><th>Kind</th><th>Examples</th><th>Compiler forces handling?</th></tr></thead><tbody><tr><td><b>Checked</b> (Exception, not Runtime)</td><td>IOException, FileNotFoundException, SQLException, InterruptedException</td><td>Yes — catch it or declare <code>throws</code></td></tr><tr><td><b>Unchecked</b> (RuntimeException)</td><td>ArithmeticException, NullPointerException, ArrayIndexOutOfBounds, NumberFormatException</td><td>No — usually a bug to fix</td></tr><tr><td><b>Error</b></td><td>OutOfMemoryError, StackOverflowError</td><td>No — do not try to recover</td></tr></tbody></table></div></div></div>
+<p class="kicker">Concept 2 of 6</p><h2>Types of exceptions</h2><figure class="fig" data-fig="ex-tree"><figcaption>Everything that can be thrown extends Throwable.</figcaption></figure>
 </div></section>
+<section class="slide " data-title="Types of exceptions (continued)" aria-label="Types of exceptions (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Types of exceptions</h2><div class="scrollx"><table class="doc"><thead><tr><th>Kind</th><th>Examples</th><th>Compiler forces handling?</th></tr></thead><tbody><tr><td><b>Checked</b> (Exception, not Runtime)</td><td>IOException, FileNotFoundException, SQLException, InterruptedException</td><td>Yes — catch it or declare <code>throws</code></td></tr><tr><td><b>Unchecked</b> (RuntimeException)</td><td>ArithmeticException, NullPointerException, ArrayIndexOutOfBounds, NumberFormatException</td><td>No — usually a bug to fix</td></tr><tr><td><b>Error</b></td><td>OutOfMemoryError, StackOverflowError</td><td>No — do not try to recover</td></tr></tbody></table></div>
+</div></section>
+
 <section class="slide " data-title="try, catch and finally" aria-label="try, catch and finally" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 3 of 6</p><h2>try, catch and finally</h2><div class="cols "><div><figure class="fig" data-fig="ex-flow"><figcaption>Where execution goes after each part.</figcaption></figure></div><div><pre class="code small-code">try {
+<p class="kicker">Concept 3 of 6</p><h2>try, catch and finally</h2><figure class="fig" data-fig="ex-flow"><figcaption>Where execution goes after each part.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="try, catch and finally (continued)" aria-label="try, catch and finally (continued)" tabindex="-1"><div class="slide-inner">
+<h2>try, catch and finally</h2><pre class="code small-code">try {
     int n = Integer.parseInt(text);   // may throw
     System.out.println(100 / n);      // may throw
 } catch (NumberFormatException e) {
@@ -90,8 +98,9 @@ Exception in thread &quot;main&quot; java.lang.ArithmeticException: / by zero
     System.out.println(&quot;Cannot divide by zero&quot;);
 } finally {
     System.out.println(&quot;done&quot;);       // always runs
-}</pre><ul><li><b>try</b> wraps code that may throw. The rest of the try block is skipped after an exception.</li><li><b>catch</b> handles one type (and its subclasses). The first matching catch runs.</li><li><b>finally</b> runs whether or not an exception occurred — even after <code>return</code>. Use it for clean-up.</li></ul></div></div>
+}</pre><ul><li><b>try</b> wraps code that may throw. The rest of the try block is skipped after an exception.</li><li><b>catch</b> handles one type (and its subclasses). The first matching catch runs.</li><li><b>finally</b> runs whether or not an exception occurred — even after <code>return</code>. Use it for clean-up.</li></ul>
 </div></section>
+
 <section class="slide " data-title="Trace: three inputs, three paths" aria-label="Trace: three inputs, three paths" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: three inputs, three paths</h2><p class="muted">Choose an input above the code, then step through. Compare which lines run for "10", "0" and "abc".</p><div data-trace="t10-try"></div>
 </div></section>
@@ -213,6 +222,7 @@ Insufficient funds: short by 150.0</pre></div></div></div><ul><li>Extend <code>E
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

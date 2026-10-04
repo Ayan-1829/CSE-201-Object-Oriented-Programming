@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Access Control, static, final &amp; Nested Classes – Topic 6 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes. Interactive slides, code tracers, demos and a quiz for Topic 6 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/06-access-static-final.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Access Control, static, final & Nested Classes", "description": "Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes.", "position": 6, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 19, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/06-access-static-final.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Access Control, static, final & Nested Classes", "description": "Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes.", "position": 6, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 20, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/06-access-static-final.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 6: Access Control, static, final & Nested Classes", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html"}]}</script>
 <title>Access Control, static, final &amp; Nested Classes – Topic 6 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Access Control, static, final &amp; Nested Classes" aria-label="Access Control, static, final &amp; Nested Classes" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="6" aria-hidden="true"></span>
 <span class="badge big">6</span>
 <p class="kicker">Topic 6 of 13 · Lectures 8–9</p>
 <h1>Access Control, static, final & Nested Classes</h1>
@@ -61,7 +62,7 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">How does every <code>Student</code> object know how many students have been created so far — without any of them being in charge?</p><p>A <code>static</code> field belongs to the class itself, so there is exactly one copy shared by every object. Combined with access modifiers and <code>final</code>, it lets you control precisely who sees what, and what may never change.</p><p>We finish with nested classes: classes defined inside other classes to keep helper code close to where it is used.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 8–9</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Access modifiers</a></li><li><a href="#s=6">static fields and methods</a></li><li><a href="#s=10">final variables and constants</a></li><li><a href="#s=11">Nested and inner classes</a></li></ol>
+<p class="kicker">Outline · Lectures 8–9</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Access modifiers</a></li><li><a href="#s=6">static fields and methods</a></li><li><a href="#s=11">final variables and constants</a></li><li><a href="#s=12">Nested and inner classes</a></li></ol>
 </div></section>
 <section class="slide " data-title="Access modifiers" aria-label="Access modifiers" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 4</p><h2>Access modifiers</h2><div class="scrollx"><table class="doc"><thead><tr><th>Modifier</th><th>Same class</th><th>Same package</th><th>Subclass (other package)</th><th>Everywhere</th></tr></thead><tbody><tr><td><code>private</code></td><td>✓</td><td>✗</td><td>✗</td><td>✗</td></tr><tr><td><i>(none)</i> default / package-private</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td></tr><tr><td><code>protected</code></td><td>✓</td><td>✓</td><td>✓ (through inheritance)</td><td>✗</td></tr><tr><td><code>public</code></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr></tbody></table></div><ul><li>Top-level classes can only be <code>public</code> or default.</li><li>Good default: fields <code>private</code>, methods <code>public</code> only if other classes need them, helpers <code>private</code>.</li><li>Access is checked per <b>class</b>, not per object: a Student method may read another Student’s private fields.</li></ul>
@@ -70,7 +71,10 @@
 <p class="kicker">Interactive</p><h2>Access-modifier checker</h2><div data-demo="access"></div>
 </div></section>
 <section class="slide " data-title="static fields and methods" aria-label="static fields and methods" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 2 of 4</p><h2>static fields and methods</h2><div class="cols "><div><figure class="fig" data-fig="static-mem"><figcaption>One static count lives with the class; each object has its own id.</figcaption></figure></div><div><pre class="code small-code">class Counter {
+<p class="kicker">Concept 2 of 4</p><h2>static fields and methods</h2><figure class="fig" data-fig="static-mem"><figcaption>One static count lives with the class; each object has its own id.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="static fields and methods (continued)" aria-label="static fields and methods (continued)" tabindex="-1"><div class="slide-inner">
+<h2>static fields and methods</h2><pre class="code small-code">class Counter {
     static int count = 0;   // one per class
     int id;                 // one per object
     Counter() {
@@ -79,8 +83,9 @@
     }
     static int getCount() { return count; }
 }
-Counter.getCount();         // call via the class</pre><ul><li>A <b>static</b> member belongs to the class; use it through the class name: <code>Math.sqrt</code>, <code>Integer.parseInt</code>.</li><li>A static method has no <code>this</code>, so it cannot use instance fields or instance methods directly.</li></ul></div></div>
+Counter.getCount();         // call via the class</pre><ul><li>A <b>static</b> member belongs to the class; use it through the class name: <code>Math.sqrt</code>, <code>Integer.parseInt</code>.</li><li>A static method has no <code>this</code>, so it cannot use instance fields or instance methods directly.</li></ul>
 </div></section>
+
 <section class="slide " data-title="Trace: a shared static counter" aria-label="Trace: a shared static counter" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: a shared static counter</h2><p class="muted">The static area holds one <code>count</code>. Every constructor call increases it and copies the current value into that object’s own <code>id</code>.</p><div data-trace="t6-static"></div>
 </div></section>
@@ -183,6 +188,7 @@ lambda</pre></div></div></div>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Strings &amp; Big Numbers – Topic 12 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long. Interactive slides, code tracers, demos and a quiz for Topic 12 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/12-strings.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Strings & Big Numbers", "description": "The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long.", "position": 12, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/12-strings.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Strings & Big Numbers", "description": "The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long.", "position": 12, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 23, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/12-strings.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 12: Strings & Big Numbers", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html"}]}</script>
 <title>Strings &amp; Big Numbers – Topic 12 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Strings &amp; Big Numbers" aria-label="Strings &amp; Big Numbers" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="12" aria-hidden="true"></span>
 <span class="badge big">12</span>
 <p class="kicker">Topic 12 of 13 · Lectures 22–23</p>
 <h1>Strings & Big Numbers</h1>
@@ -61,16 +62,20 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">What is 30 factorial? A <code>long</code> gives you −8,764,578,968,847,253,504. Clearly wrong — so how do banks and cryptography handle numbers with hundreds of digits?</p><p>One answer is to store the digits in a <b>String</b> and do the arithmetic yourself, digit by digit, exactly as you learnt at school. Java’s <code>BigInteger</code> does the same thing internally.</p><p>First we study String itself: why <code>==</code> can lie, why strings never change, and the methods you will use in almost every program.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 22–23</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">The String class and the string pool</a></li><li><a href="#s=6">Comparing strings</a></li><li><a href="#s=7">String operations</a></li><li><a href="#s=10">StringBuilder and StringBuffer</a></li><li><a href="#s=12">Big number manipulation using String</a></li></ol>
+<p class="kicker">Outline · Lectures 22–23</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">The String class and the string pool</a></li><li><a href="#s=7">Comparing strings</a></li><li><a href="#s=8">String operations</a></li><li><a href="#s=11">StringBuilder and StringBuffer</a></li><li><a href="#s=13">Big number manipulation using String</a></li></ol>
 </div></section>
 <section class="slide " data-title="The String class and the string pool" aria-label="The String class and the string pool" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 1 of 5</p><h2>The String class and the string pool</h2><div class="cols "><div><figure class="fig" data-fig="string-pool"><figcaption>Literals are shared from the pool; new String(...) always creates a separate object.</figcaption></figure></div><div><pre class="code small-code">String a = &quot;Hi&quot;;               // pool
+<p class="kicker">Concept 1 of 5</p><h2>The String class and the string pool</h2><figure class="fig" data-fig="string-pool"><figcaption>Literals are shared from the pool; new String(...) always creates a separate object.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="The String class and the string pool (continued)" aria-label="The String class and the string pool (continued)" tabindex="-1"><div class="slide-inner">
+<h2>The String class and the string pool</h2><pre class="code small-code">String a = &quot;Hi&quot;;               // pool
 String b = &quot;Hi&quot;;               // same pooled object
 String c = new String(&quot;Hi&quot;);   // new heap object
 char[] cs = {&#x27;J&#x27;, &#x27;a&#x27;, &#x27;v&#x27;, &#x27;a&#x27;};
 String d = new String(cs);     // &quot;Java&quot;
-String e = String.valueOf(42); // &quot;42&quot;</pre><ul><li><code>String</code> is a class, but literals get special treatment: identical literals share one object in the <b>string pool</b>.</li><li>Strings are <b>immutable</b>: no method changes a String; methods return a new one.</li><li>Immutability makes strings safe to share between variables and threads.</li></ul></div></div>
+String e = String.valueOf(42); // &quot;42&quot;</pre><ul><li><code>String</code> is a class, but literals get special treatment: identical literals share one object in the <b>string pool</b>.</li><li>Strings are <b>immutable</b>: no method changes a String; methods return a new one.</li><li>Immutability makes strings safe to share between variables and threads.</li></ul>
 </div></section>
+
 <section class="slide " data-title="Trace: pool, heap and ==" aria-label="Trace: pool, heap and ==" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: pool, heap and ==</h2><p class="muted">Watch which variables share an object. <code>a + "!"</code> builds a brand-new String — the original "Hi" is untouched.</p><div data-trace="t12-pool"></div>
 </div></section>
@@ -215,6 +220,7 @@ System.out.println(w.length);            // 3</pre></div></details></div>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

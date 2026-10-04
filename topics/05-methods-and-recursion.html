@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Overloading, Objects as Parameters &amp; Recursion – Topic 5 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Methods and constructors that share a name, how Java passes arguments (always by value — even references), returning objects, and solving problems with recursion. Interactive slides, code tracers, demos and a quiz for Topic 5 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/05-methods-and-recursion.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Overloading, Objects as Parameters & Recursion", "description": "Methods and constructors that share a name, how Java passes arguments (always by value — even references), returning objects, and solving problems with recursion.", "position": 5, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/05-methods-and-recursion.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/05-methods-and-recursion.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Overloading, Objects as Parameters & Recursion", "description": "Methods and constructors that share a name, how Java passes arguments (always by value — even references), returning objects, and solving problems with recursion.", "position": 5, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/05-methods-and-recursion.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/05-methods-and-recursion.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 5: Overloading, Objects as Parameters & Recursion", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/05-methods-and-recursion.html"}]}</script>
 <title>Overloading, Objects as Parameters &amp; Recursion – Topic 5 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Overloading, Objects as Parameters &amp; Recursion" aria-label="Overloading, Objects as Parameters &amp; Recursion" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="5" aria-hidden="true"></span>
 <span class="badge big">5</span>
 <p class="kicker">Topic 5 of 13 · Lectures 7–8</p>
 <h1>Overloading, Objects as Parameters & Recursion</h1>
@@ -123,7 +124,10 @@ System.out.println(a.add(a).equals(new Fraction(1, 1)));</pre><div><div class="c
 true</pre></div></div></div><ul><li>A method can create an object and return its reference; the object outlives the method call.</li><li>Methods that return objects can be <b>chained</b>: <code>a.add(b).add(c)</code>.</li><li>Passing another object of the same class (<code>o</code>) lets a method read its private fields, because access is checked per class.</li></ul>
 </div></section>
 <section class="slide " data-title="Recursion" aria-label="Recursion" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 4 of 5</p><h2>Recursion</h2><div class="cols "><div><pre class="code small-code" data-mark="2">static int fact(int n) {
+<p class="kicker">Concept 4 of 5</p><h2>Recursion</h2><figure class="fig" data-fig="fib-tree"><figcaption>fib(4) calls fib(3) and fib(2) … the same values are computed many times.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Recursion (continued)" aria-label="Recursion (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Recursion</h2><pre class="code small-code" data-mark="2">static int fact(int n) {
     if (n &lt;= 1) return 1;          // base case
     return n * fact(n - 1);        // recursive case
 }
@@ -131,8 +135,9 @@ true</pre></div></div></div><ul><li>A method can create an object and return its
 static int fib(int n) {
     if (n &lt; 2) return n;
     return fib(n - 1) + fib(n - 2);
-}</pre><ul><li>A recursive method calls itself on a <b>smaller</b> problem.</li><li>Every recursion needs a <b>base case</b> that stops it; without one you get <code>StackOverflowError</code>.</li><li>Each call gets its own stack frame with its own <code>n</code>.</li></ul></div><div><figure class="fig" data-fig="fib-tree"><figcaption>fib(4) calls fib(3) and fib(2) … the same values are computed many times.</figcaption></figure></div></div>
+}</pre><ul><li>A recursive method calls itself on a <b>smaller</b> problem.</li><li>Every recursion needs a <b>base case</b> that stops it; without one you get <code>StackOverflowError</code>.</li><li>Each call gets its own stack frame with its own <code>n</code>.</li></ul>
 </div></section>
+
 <section class="slide " data-title="Trace: factorial on the call stack" aria-label="Trace: factorial on the call stack" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: factorial on the call stack</h2><p class="muted">The stack grows with every call until the base case, then the results multiply back up as the frames return.</p><div data-trace="t5-fact"></div>
 </div></section>
@@ -202,6 +207,7 @@ Time(int h, int m) { this.h = h; this.m = m; }</pre></div></details></div><div c
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

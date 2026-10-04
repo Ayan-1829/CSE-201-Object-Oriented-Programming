@@ -97,8 +97,8 @@ table.tt th,table.tt td{border:1px solid var(--line);padding:4px 10px;text-align
 table.tt th{background:var(--sheet-2);font-weight:600}
 table.tt tr.act td{background:var(--mark-soft);font-weight:600}
 table.tt td.hl{background:var(--blue-soft);color:var(--ac-ink);font-weight:600}
-table.doc{border-collapse:collapse;width:100%;font:500 15px/1.45 var(--f-head)}
-table.doc th,table.doc td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.doc{border-collapse:collapse;width:100%;max-width:100%;font:500 15px/1.45 var(--f-head)}
+table.doc th,table.doc td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
 table.doc th{font-weight:650;color:var(--ink-2);border-bottom:1.5px solid var(--ink)}
 table.doc td.m{font-family:var(--f-mono);font-size:14px}
 .steps li{margin-bottom:5px}
@@ -120,10 +120,10 @@ details.covers ul{columns:2;column-gap:28px;margin:10px 0 0;padding-left:20px;fo
 .concept li{margin-bottom:.3em}
 .concept table{margin:6px 0 14px}
 .formula{font:500 15.5px/1.6 var(--f-mono);background:var(--sheet-2);border:1px solid var(--line);border-radius:4px;padding:8px 12px;margin:8px 0 14px;overflow-x:auto}
-.fig{margin:14px 0 22px;padding:14px;background:var(--sheet);border:1px solid var(--line);border-radius:8px;max-width:100%;overflow-x:auto}
+.fig{box-sizing:border-box;width:100%;min-width:0;margin:14px 0 22px;padding:14px;background:var(--sheet);border:1px solid var(--line);border-radius:8px;max-width:100%;overflow-x:auto}
 .fig figcaption{font:450 13.5px var(--f-head);color:var(--ink-2);margin-top:8px}
 .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
-.flow span{border:1.5px solid var(--ink);background:var(--sheet-2);padding:8px 12px;border-radius:3px;font:600 14.5px var(--f-head)}
+.flow span{min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal;border:1.5px solid var(--ink);background:var(--sheet-2);padding:8px 12px;border-radius:3px;font:600 14.5px var(--f-head)}
 .flow i{font-style:normal;color:var(--ink-3);font-weight:700}
 .ex{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:14px 18px;margin-bottom:14px}
 .ex .qq{font:600 16px/1.4 var(--f-head);margin-bottom:6px}
@@ -724,3 +724,86 @@ body.anno-drawing .anno-page-svg{touch-action:none}
   .anno-page-hint{display:none}
   .anno-page-btn{width:46px}
 }
+
+/* ---------- classroom sizes: slide text readable from the back of a long room ---------- */
+/* worked examples and practice: question at full slide size, answers just below it */
+.slide .ex{padding:18px 22px;margin-bottom:18px}
+.slide .ex .qq{font-size:1em;line-height:1.4;margin-bottom:10px}
+.slide details.reveal summary{font-size:21px;padding:4px 0}
+.slide details.reveal .ans,.slide .ex li{font-size:.95em;line-height:1.45}
+.slide details.reveal .ans{padding:12px 16px}
+.slide details.reveal .ans pre.code{font-size:clamp(19px,1.25vw,22px)}
+/* quiz */
+.slide .qtext{font-size:1.05em}
+.slide .qopt{font-size:22px;padding:12px 18px}
+.slide .qhead{font-size:19px}
+.slide .qwhy{font-size:21px}
+/* tables, captions and side notes */
+.slide table.doc{font-size:21px}
+.slide table.doc td.m{font-size:20px}
+.slide .muted,.slide .small,.slide .hint,.slide figcaption{font-size:20px}
+.slide .kicker{font-size:19px}
+.slide .sumlist li{font-size:1em}
+/* code, traces and demos */
+.slide pre.code,.slide pre.code.small-code{font-size:clamp(18px,1.25vw,21px)}
+.slide .trace-code{font-size:19px!important}
+.slide .trace-title,.slide .trace-note,.slide .verdict,.slide .demo .sub,.slide .console-body,.slide .mem-sec h5,.slide .frame-empty,.slide .gc-tag,.slide .obj-h,.slide .trace-count{font-size:19px}
+.slide .console-h,.slide .obj-h small,.slide .mem-sec h5 small,.slide small{font-size:18px}
+.slide table.vars,.slide table.arr,.slide .tlog,.slide table.tt,.slide .demo table.tt{font-size:19px}
+.slide table.arr tr:first-child td{font-size:18px}
+.slide .pill,.slide .kv small,.slide .bar small,.slide .cell small,.slide .cell .ptr,.slide .g2h,.slide .arr-len,.slide .lane-op{font-size:18px}
+.slide .kv b,.slide .cell b,.slide .g2c,.slide .bar .bv{font-size:19px}
+.slide label.fld,.slide .tsw,.slide .tsw .val{font-size:18px}
+.slide .btn,.slide .btn.sm,.slide .seg button,.slide input[type=text],.slide input[type=number],.slide select,.slide textarea,.slide kbd{font-size:18px}
+.slide .objctl code{font-size:18px}
+.title-slide .hint{font-size:18px}
+.slide h4,.slide .tcard h4,.slide .vs>div h4,.slide .outline h4{font-size:22px}
+.slide .tabs button{font-size:19px}
+.slide .chip{font-size:18px}.slide .chip button{font-size:18px}
+.slide .frame-h,.slide .frame-h small{font-size:19px}
+.slide .ruler .rc{min-width:34px}.slide .ruler .rc b{font-size:20px}.slide .ruler .rc small{font-size:18px}
+.slide .fxbar,.slide .fxbtn{font-size:18px}
+.slide td code,.slide .trace-note code,.slide .verdict code{font-size:1em}
+
+/* ---------- topic illustrations (js/art.js): title slides and the topic list ---------- */
+.ta-svg{display:block;width:100%;height:auto;overflow:visible}
+.ta-bg{fill:var(--ac-soft)}
+.ta-card{fill:var(--sheet);stroke:var(--ink);stroke-width:2.5}
+.ta-ac{fill:var(--ac)}.ta-acc{fill:var(--accent)}.ta-ok{fill:var(--ok)}.ta-soft1{fill:var(--ac-soft);stroke:var(--ink);stroke-width:2.5}
+.ta-soft2{fill:var(--accent-soft);stroke:var(--ink);stroke-width:2.5}
+.ta-paper{fill:var(--sheet)}.ta-faint{fill:var(--line)}.ta-fill-ink{fill:var(--ink)}
+.ta-coffee{fill:var(--ink);opacity:.85}
+.ta-line,.ta-line-thin,.ta-line-acc,.ta-dash,.ta-steam,.ta-ring,.ta-stroke-acc,.ta-shackle,.ta-handle,.ta-cable,.ta-vein{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ta-line{stroke:var(--ink);stroke-width:3}.ta-line-thin{stroke:var(--ink);stroke-width:2;opacity:.6}
+.ta-line-acc{stroke:var(--accent);stroke-width:5}.ta-dash{stroke:var(--ink-2);stroke-width:3;stroke-dasharray:8 7}
+.ta-steam{stroke:var(--ac);stroke-width:6}.ta-ring{stroke:var(--ac);stroke-width:18}
+.ta-stroke-acc{stroke:var(--accent);stroke-width:14}.ta-shackle{stroke:var(--ink-2);stroke-width:18}
+.ta-handle{stroke:var(--ink);stroke-width:12}.ta-cable{stroke:var(--ink-2);stroke-width:6}
+.ta-lens{fill:var(--sheet);fill-opacity:.55;stroke:var(--ink);stroke-width:6}
+.ta-folder{fill:var(--accent-soft);stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round}
+.ta-warn{fill:var(--accent);stroke:var(--accent);stroke-width:22;stroke-linejoin:round}
+.ta-ok-line{fill:var(--ok-soft);stroke:var(--ok);stroke-width:4;stroke-linejoin:round}
+.ta-ok-fill{fill:var(--ok-soft);stroke:var(--ink);stroke-width:2.5}
+.ta-strand-ac,.ta-strand-acc,.ta-strand-ok{fill:none;stroke-width:11;stroke-linecap:round}
+.ta-strand-ac{stroke:var(--ac)}.ta-strand-acc{stroke:var(--accent)}.ta-strand-ok{stroke:var(--ok)}
+.ta-tip-ac{fill:var(--ac)}.ta-tip-acc{fill:var(--accent)}.ta-tip-ok{fill:var(--ok)}
+.ta-bar{fill:var(--sheet-2);stroke:var(--ink);stroke-width:2.5}
+.ta-dot1{fill:#EF6B5E}.ta-dot2{fill:#F4BF4F}.ta-dot3{fill:#61C454}
+.ta-leaf{fill:var(--ok)}.ta-vein{stroke:var(--sheet);stroke-width:3}
+.ta-t{font:700 22px var(--f-head);fill:var(--ink);text-anchor:middle}
+.ta-on-ac{fill:#fff}
+.ta-m{font:600 20px var(--f-mono);fill:var(--ink);text-anchor:middle}
+.ta-big{font-size:28px}
+.ta-s{font:600 16px var(--f-head);fill:var(--ink-2);text-anchor:middle}
+.ta-quote{font:700 120px var(--f-head);fill:var(--accent);text-anchor:middle}
+/* title slide: text on the left, illustration on the right */
+.title-slide .slide-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,400px);column-gap:48px;align-content:center}
+.title-slide .slide-inner>*{grid-column:1}
+.title-slide .slide-inner>.topic-art{grid-column:2;grid-row:1 / span 20;align-self:center;display:block}
+@media (max-width:860px){
+  .title-slide .slide-inner{grid-template-columns:1fr}
+  .title-slide .slide-inner>.topic-art{grid-column:1;grid-row:auto;width:min(220px,60vw);margin-bottom:8px}
+}
+/* topic list: small illustration on each card */
+.tlist a>span:not(.badge):not(.tart){flex:1;min-width:0}
+.tlist .tart{flex:none;width:84px;align-self:center;margin-left:4px}

@@ -21,9 +21,9 @@ function mountQuiz(root, qs, key) {
       if (done) return; done = true;
       const ok = k === q.a; if (ok) score++;
       btns.forEach((b, j) => { b.disabled = true; if (j === q.a) b.classList.add('right'); else if (j === k) b.classList.add('wrong'); });
-      why.append(h('div', { class: 'qwhy', role: 'status' }, h('b', null, ok ? 'Correct. ' : 'Not quite. '), q.w)); nextBtn.style.display = '';
-    } }, t));
-    box.append(h('div', { class: 'qhead' }, h('span', null, `Question ${i + 1} of ${qs.length}`), h('span', null, `Score ${score}`)), h('div', { class: 'qtext' }, q.q), ...btns, why, nextBtn);
+      why.append(h('div', { class: 'qwhy', role: 'status' }, h('b', null, ok ? 'Correct. ' : 'Not quite. '), h('span', { html: q.w }))); nextBtn.style.display = '';
+    }, html: t }));
+    box.append(h('div', { class: 'qhead' }, h('span', null, `Question ${i + 1} of ${qs.length}`), h('span', null, `Score ${score}`)), h('div', { class: 'qtext', html: q.q }), ...btns, why, nextBtn);
   }
   show();
 }

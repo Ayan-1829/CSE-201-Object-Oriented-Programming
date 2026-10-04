@@ -1,12 +1,40 @@
 /* ===================== figs.js : diagram generators + the figure registry ===================== */
 /* Every figure is drawn at runtime from a small spec, so all diagrams share one visual language
    and follow the light/dark theme through CSS variables. Mount with
-   <figure class="fig" data-fig="name"><figcaption>…</figcaption></figure>. */
+   <figure class="fig" data-fig="name"><figcaption>…</figcaption></figure>.
+   Text is measured in the fonts and sizes the slides use (18px titles, 16px labels) and long
+   text is wrapped onto several lines, so every box is sized to hold its words. Hand-placed
+   coordinates in the specs are multiplied by K to leave room for that text size. */
 const Figs = (() => {
   let uid = 0;
-  const tw = (s, mono) => String(s).length * (mono ? 7.55 : 7.2);
+  const K = 1.2;
+  const FONT = { t: "700 18px 'Bricolage Grotesque', system-ui, sans-serif", s: "700 16px 'Bricolage Grotesque', system-ui, sans-serif", m: "500 16px 'IBM Plex Mono', ui-monospace, Menlo, monospace" };
+  const LH = { t: 22, s: 20, m: 20 };
+  let ctx = null;
+  /* width of the widest line; kind: 't' title, 's' label, 'm' (or true) monospace */
+  const tw = (s, kind) => {
+    kind = kind === true || kind === 1 ? 'm' : kind || 't';
+    ctx = ctx || document.createElement('canvas').getContext('2d');
+    ctx.font = FONT[kind];
+    return Math.ceil(Math.max(...String(s).split('\n').map((l) => ctx.measureText(l).width)) * 1.03);
+  };
+  const kindOf = (cls) => (/fg-m/.test(cls) ? 'm' : /fg-t|fg-hdr/.test(cls) ? 't' : 's');
+  const nl = (s) => String(s).split('\n').length;
+  /* break s at spaces so that no line is wider than maxW; explicit \n breaks are kept */
+  function wrap(s, maxW, kind) {
+    return String(s).split('\n').map((line) => {
+      if (tw(line, kind) <= maxW) return line;
+      const out = []; let cur = '';
+      line.split(' ').forEach((w) => {
+        const next = cur ? cur + ' ' + w : w;
+        if (cur && tw(next, kind) > maxW) { out.push(cur); cur = w; } else cur = next;
+      });
+      if (cur) out.push(cur);
+      return out.join('\n');
+    }).join('\n');
+  }
   function root(w, hh, label) {
-    const svg = sv('svg', { viewBox: `0 0 ${Math.ceil(w)} ${Math.ceil(hh)}`, class: 'figsvg', role: 'img', 'aria-label': label || 'diagram', style: { maxWidth: Math.ceil(w) + 'px' } });
+    const svg = sv('svg', { viewBox: `0 0 ${Math.ceil(w)} ${Math.ceil(hh)}`, class: 'figsvg', role: 'img', 'aria-label': label || 'diagram', style: { width: Math.ceil(w) + 'px', maxWidth: 'none' } });
     const id = 'fg' + (++uid);
     svg.append(sv('defs', null,
       sv('marker', { id: id + 'a', viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' }, sv('path', { d: 'M0,0 L10,5 L0,10 z', class: 'fg-ah' })),
@@ -16,10 +44,16 @@ const Figs = (() => {
     svg.mid = id;
     return svg;
   }
-  const T = (x, y, s, cls, anchor, extra) => sv('text', Object.assign({ x, y, class: cls || 'fg-t', 'text-anchor': anchor || 'middle' }, extra || {}), s);
+  /* text; lines split on \n are centred vertically on y */
+  const T = (x, y, s, cls, anchor, extra) => {
+    const lines = String(s).split('\n'), lh = LH[kindOf(cls || 'fg-t')];
+    const y0 = y - (lines.length - 1) * lh / 2;
+    return sv('text', Object.assign({ x, y, class: cls || 'fg-t', 'text-anchor': anchor || 'middle' }, extra || {}),
+      lines.map((line, i) => sv('tspan', { x, y: y0 + i * lh }, line)));
+  };
   function label(svg, x, y, s, cls) {
-    const w = tw(s) + 10;
-    svg.append(sv('rect', { x: x - w / 2, y: y - 11, width: w, height: 18, rx: 4, class: 'fg-lblbg' }), T(x, y + 2, s, cls || 'fg-s'));
+    const w = tw(s, 's') + 14, n = nl(s);
+    svg.append(sv('rect', { x: x - w / 2, y: y - 11 - (n - 1) * 10, width: w, height: 22 + (n - 1) * 20, rx: 4, class: 'fg-lblbg' }), T(x, y + 5, s, cls || 'fg-s'));
   }
   function marker(svg, kind) { return `url(#${svg.mid}${kind})`; }
 
@@ -27,20 +61,20 @@ const Figs = (() => {
   /* items: [{id, kind:'class'|'abstract'|'interface'|'object', name, fields, methods, x, y, hl, w}]
      links: [{a, b, type:'extends'|'implements'|'assoc'|'has'|'instance'|'uses', t}] ; a = child/from */
   function uml(spec) {
-    const LH = 19, PAD = 12;
-    const items = spec.items.map((it) => Object.assign({}, it));
+    const RH = 24, PAD = 14;
+    const items = spec.items.map((it) => Object.assign({}, it, { x: it.x * K, y: it.y * K }));
     items.forEach((it) => {
       const titles = [it.kind === 'interface' ? '«interface»' : it.kind === 'abstract' ? '«abstract»' : null, it.name].filter(Boolean);
-      const rows = [...titles.map((t) => [t, false]), ...(it.fields || []).map((t) => [t, true]), ...(it.methods || []).map((t) => [t, true])];
-      it.w = it.w || Math.max(118, Math.ceil(Math.max(...rows.map(([t, m]) => tw(t, m))) + 2 * PAD));
-      it.titles = titles; it.headH = titles.length * LH + 10;
+      const widths = [...titles.map((t, k) => tw(t, k === titles.length - 1 ? 't' : 's')), ...(it.fields || []).map((t) => tw(t, 'm')), ...(it.methods || []).map((t) => tw(t, 'm'))];
+      it.w = Math.max(it.w ? it.w * K : 0, 130, Math.ceil(Math.max(...widths) + 2 * PAD));
+      it.titles = titles; it.headH = titles.length * RH + 12;
       const obj = it.kind === 'object';
-      it.fh = (it.fields || []).length ? it.fields.length * LH + 8 : (obj ? 0 : 10);
-      it.mh = (it.methods || []).length ? it.methods.length * LH + 8 : (obj || it.noMethods ? 0 : 10);
+      it.fh = (it.fields || []).length ? it.fields.length * RH + 10 : (obj ? 0 : 12);
+      it.mh = (it.methods || []).length ? it.methods.length * RH + 10 : (obj || it.noMethods ? 0 : 12);
       it.h = it.headH + it.fh + it.mh;
     });
     const by = {}; items.forEach((it) => { by[it.id] = it; });
-    const W = spec.w || Math.max(...items.map((it) => it.x + it.w)) + 14, H = spec.h || Math.max(...items.map((it) => it.y + it.h)) + 14;
+    const W = Math.max(spec.w ? spec.w * K : 0, Math.max(...items.map((it) => it.x + it.w)) + 14), H = Math.max(spec.h ? spec.h * K : 0, Math.max(...items.map((it) => it.y + it.h)) + 14);
     const svg = root(W, H, spec.label);
     (spec.links || []).forEach((l) => {
       const a = by[l.a], b = by[l.b];
@@ -58,11 +92,11 @@ const Figs = (() => {
       g.append(sv('rect', { x: it.x + 1, y: it.y + 1, width: it.w - 2, height: it.headH - 1, rx: obj ? 9 : 3, class: obj ? 'fg-objhead' : it.kind === 'interface' ? 'fg-ifhead' : 'fg-head' }));
       it.titles.forEach((t, k) => {
         const isName = k === it.titles.length - 1;
-        g.append(T(it.x + it.w / 2, it.y + 19 + k * LH, t, isName ? 'fg-t' + (it.kind === 'abstract' || it.kind === 'interface' ? ' fg-i' : '') : 'fg-s fg-i', 'middle', obj && isName ? { 'text-decoration': 'underline' } : null));
+        g.append(T(it.x + it.w / 2, it.y + 24 + k * RH, t, isName ? 'fg-t' + (it.kind === 'abstract' || it.kind === 'interface' ? ' fg-i' : '') : 'fg-s fg-i', 'middle', obj && isName ? { 'text-decoration': 'underline' } : null));
       });
       let y = it.y + it.headH;
-      if (it.fh) { g.append(sv('line', { x1: it.x, y1: y, x2: it.x + it.w, y2: y, class: 'fg-sep' })); (it.fields || []).forEach((f, k) => g.append(T(it.x + PAD, y + 17 + k * LH, f, 'fg-m', 'start'))); y += it.fh; }
-      if (it.mh) { g.append(sv('line', { x1: it.x, y1: y, x2: it.x + it.w, y2: y, class: 'fg-sep' })); (it.methods || []).forEach((m, k) => g.append(T(it.x + PAD, y + 17 + k * LH, m, 'fg-m' + (/^\s*\/?\*|abstract/.test(m) ? ' fg-i' : ''), 'start'))); }
+      if (it.fh) { g.append(sv('line', { x1: it.x, y1: y, x2: it.x + it.w, y2: y, class: 'fg-sep' })); (it.fields || []).forEach((f, k) => g.append(T(it.x + PAD, y + 22 + k * RH, f, 'fg-m', 'start'))); y += it.fh; }
+      if (it.mh) { g.append(sv('line', { x1: it.x, y1: y, x2: it.x + it.w, y2: y, class: 'fg-sep' })); (it.methods || []).forEach((m, k) => g.append(T(it.x + PAD, y + 22 + k * RH, m, 'fg-m' + (/^\s*\/?\*|abstract/.test(m) ? ' fg-i' : ''), 'start'))); }
       svg.append(g);
     });
     return svg;
@@ -73,28 +107,31 @@ const Figs = (() => {
     if (side === 'left') return [it.x, it.y + it.h / 2];
     return [it.x + it.w, it.y + it.h / 2];
   }
-  function route(a, b, l) {
+  function route(a0, b, l) {
     l = l || {};
+    const a = l.dx ? Object.assign({}, a0, { x: a0.x + l.dx * K }) : a0;
     if (b.y + b.h <= a.y - 8 && l.side !== 'h') { // b above a
-      const [x1, y1] = anchor(a, 'top'), [x2, y2] = anchor(b, 'bottom'), m = l.midY || (y1 + y2) / 2;
+      const [x1, y1] = anchor(a, 'top'), [x2, y2] = anchor(b, 'bottom'), m = l.midY ? l.midY * K : (y1 + y2) / 2;
       return { path: `M${x1},${y1} V${m} H${x2} V${y2}`, lx: x1, ly: (y1 + m) / 2 };
     }
     if (a.y + a.h <= b.y - 8 && l.side !== 'h') { // b below a
-      const [x1, y1] = anchor(a, 'bottom'), [x2, y2] = anchor(b, 'top'), m = l.midY || (y1 + y2) / 2;
+      const [x1, y1] = anchor(a, 'bottom'), [x2, y2] = anchor(b, 'top'), m = l.midY ? l.midY * K : (y1 + y2) / 2;
       return { path: `M${x1},${y1} V${m} H${x2} V${y2}`, lx: x2, ly: (m + y2) / 2 };
     }
     const right = b.x >= a.x + a.w;
     const [x1, y1] = anchor(a, right ? 'right' : 'left'), [x2, y2] = anchor(b, right ? 'left' : 'right'), m = (x1 + x2) / 2;
-    return { path: Math.abs(y1 - y2) < 2 ? `M${x1},${y1} H${x2}` : `M${x1},${y1} H${m} V${y2} H${x2}`, lx: m, ly: Math.min(y1, y2) - 12 };
+    return { path: Math.abs(y1 - y2) < 2 ? `M${x1},${y1} H${x2}` : `M${x1},${y1} H${m} V${y2} H${x2}`, lx: m, ly: Math.min(y1, y2) - 14 };
   }
 
   /* ---------------- top-down tree ---------------- */
   /* root: {t, s, c, k:[...]} */
   function tree(spec) {
-    const gapX = spec.gapX || 18, gapY = spec.gapY || 46, nh = spec.nodeH || 40;
+    const gapX = spec.gapX || 18, gapY = spec.gapY || 46;
     let leaf = 0; const nodes = [];
-    const measure = (n) => { n.w = Math.max(spec.minW || 96, Math.ceil(Math.max(tw(n.t) + 22, n.s ? tw(n.s) + 16 : 0))); (n.k || []).forEach(measure); };
+    const measure = (n) => { n.w = Math.max(spec.minW || 96, tw(n.t, n.m ? 'm' : 't') + 26, n.s ? tw(n.s, 's') + 20 : 0); (n.k || []).forEach(measure); };
     measure(spec.root);
+    const hasSub = (n) => !!n.s || (n.k || []).some(hasSub);
+    const nh = Math.max(spec.nodeH || 0, hasSub(spec.root) ? 56 : 42);
     const slot = spec.slot || Math.max(...(function all(n) { return [n.w, ...(n.k || []).flatMap(all)]; })(spec.root)) + gapX;
     (function place(n, d) {
       n.y = 10 + d * (nh + gapY);
@@ -111,8 +148,8 @@ const Figs = (() => {
     nodes.forEach((n) => {
       const g = sv('g', { class: 'fg-node' + (n.hl ? ' fg-hl' : '') });
       g.append(sv('rect', { x: n.cx - n.w / 2, y: n.y, width: n.w, height: nh, rx: spec.round ? nh / 2 : 7, class: 'fg-box ' + (n.c || spec.c || 'fg-c0') }));
-      if (n.s) { g.append(T(n.cx, n.y + 17, n.t, n.m ? 'fg-m' : 'fg-t'), T(n.cx, n.y + 32, n.s, 'fg-s')); }
-      else g.append(T(n.cx, n.y + nh / 2 + 5, n.t, n.m ? 'fg-m' : 'fg-t'));
+      if (n.s) { g.append(T(n.cx, n.y + nh / 2 - 4, n.t, n.m ? 'fg-m' : 'fg-t'), T(n.cx, n.y + nh / 2 + 16, n.s, 'fg-s')); }
+      else g.append(T(n.cx, n.y + nh / 2 + 6, n.t, n.m ? 'fg-m' : 'fg-t'));
       svg.append(g);
     });
     return svg;
@@ -121,40 +158,45 @@ const Figs = (() => {
   /* ---------------- indented tree (file-explorer style) ---------------- */
   /* rows: [[depth, text, cls, note]] */
   function itree(spec) {
-    const RH = spec.rowH || 30, IND = spec.indent || 30;
+    const RH = spec.rowH || 36, IND = spec.indent || 34, kt = spec.mono ? 'm' : 't';
     const rows = spec.rows.map(([d, t, c, note]) => ({ d, t, c, note }));
-    const W = spec.w || Math.max(...rows.map((r) => 16 + r.d * IND + tw(r.t, spec.mono) + 30 + (r.note ? tw(r.note) + 24 : 0))) + 10;
+    const W = Math.max(spec.w ? spec.w * K : 0, Math.max(...rows.map((r) => 12 + r.d * IND + tw(r.t, kt) + 24 + (r.note ? tw(r.note, 's') + 14 : 0))) + 12);
     const H = rows.length * RH + 12;
     const svg = root(W, H, spec.label);
     rows.forEach((r, i) => {
       r.x = 12 + r.d * IND; r.y = 8 + i * RH;
       let p = i - 1; while (p >= 0 && rows[p].d >= r.d) p--;
       if (p >= 0) {
-        const px = rows[p].x + 10, py = rows[p].y + RH - 6;
-        svg.append(sv('path', { d: `M${px},${py} V${r.y + RH / 2 - 2} H${r.x}`, class: 'fg-edge fg-thin' }));
+        const px = rows[p].x + 10, py = rows[p].y + RH - 5;
+        svg.append(sv('path', { d: `M${px},${py} V${r.y + RH / 2 - 1} H${r.x}`, class: 'fg-edge fg-thin' }));
       }
     });
     rows.forEach((r) => {
-      const w = tw(r.t, spec.mono) + 20;
-      svg.append(sv('rect', { x: r.x, y: r.y + 2, width: w, height: RH - 8, rx: 6, class: 'fg-box ' + (r.c || 'fg-c0') }));
-      svg.append(T(r.x + 10, r.y + RH / 2 + 3, r.t, spec.mono ? 'fg-m' : 'fg-t', 'start'));
-      if (r.note) svg.append(T(r.x + w + 12, r.y + RH / 2 + 3, r.note, 'fg-s', 'start'));
+      const w = tw(r.t, kt) + 22;
+      svg.append(sv('rect', { x: r.x, y: r.y + 3, width: w, height: RH - 8, rx: 6, class: 'fg-box ' + (r.c || 'fg-c0') }));
+      svg.append(T(r.x + 11, r.y + RH / 2 + 5, r.t, spec.mono ? 'fg-m' : 'fg-t', 'start'));
+      if (r.note) svg.append(T(r.x + w + 12, r.y + RH / 2 + 5, r.note, 'fg-s', 'start'));
     });
     return svg;
   }
 
   /* ---------------- positioned graph (flowcharts, state diagrams, pipelines) ---------------- */
   /* nodes: [{id, t, s, x, y (center), w, h, shape:'rect'|'round'|'diamond'|'circle'|'db', c}]
-     edges: [{a, b, t, from, to, curve, dash, hl, tri, via:[[x,y],...]}] */
+     edges: [{a, b, t, from, to, curve, dash, hl, tri, via:[[x,y],...], dx, dy}]
+     w / h are minimums: a node always grows to fit its text */
   function graph(spec) {
     const nodes = {};
     spec.nodes.forEach((n0) => {
-      const n = Object.assign({ shape: 'rect' }, n0);
-      n.w = n.w || Math.max(n.shape === 'diamond' ? 120 : 90, Math.ceil(Math.max(tw(n.t), n.s ? tw(n.s) : 0) + (n.shape === 'diamond' ? 56 : 26)));
-      n.h = n.h || (n.shape === 'diamond' ? 64 : n.s ? 48 : 38);
+      const n = Object.assign({ shape: 'rect' }, n0, { x: n0.x * K, y: n0.y * K });
+      const inner = Math.max(tw(n.t, n.m ? 'm' : 't'), n.s ? tw(n.s, 's') : 0);
+      n.textH = nl(n.t) * LH.t + (n.s ? nl(n.s) * LH.s : 0);
+      const needW = n.shape === 'diamond' ? inner * 1.7 + 30 : n.shape === 'circle' ? inner * 1.25 + 30 : inner + 30;
+      const needH = n.shape === 'diamond' ? n.textH * 2 + 36 : n.textH + (n.shape === 'db' ? 36 : 18);
+      n.w = Math.max(n0.w ? n0.w * K : 0, n.shape === 'diamond' ? 140 : 100, Math.ceil(needW));
+      n.h = Math.max(n0.h ? n0.h * K : 0, Math.ceil(needH));
       nodes[n.id] = n;
     });
-    const svg = root(spec.w, spec.h, spec.label);
+    const svg = root(spec.w * K, spec.h * K, spec.label);
     const side = (n, s) => {
       const hw = n.w / 2, hh = n.h / 2;
       return { top: [n.x, n.y - hh], bottom: [n.x, n.y + hh], left: [n.x - hw, n.y], right: [n.x + hw, n.y] }[s];
@@ -167,21 +209,22 @@ const Figs = (() => {
     (spec.edges || []).forEach((e) => {
       const a = nodes[e.a], b = nodes[e.b];
       const [fs, ts] = auto(a, b);
-      const p1 = side(a, e.from || fs), p2 = side(b, e.to || ts);
+      const p1 = e.p1 ? e.p1.map((v) => v * K) : side(a, e.from || fs), p2 = e.p2 ? e.p2.map((v) => v * K) : side(b, e.to || ts);
       let d, lx, ly;
       if (e.via) {
-        d = `M${p1[0]},${p1[1]} ` + e.via.map(([x, y]) => `L${x},${y}`).join(' ') + ` L${p2[0]},${p2[1]}`;
-        const mid = e.via[Math.floor((e.via.length - 1) / 2)]; lx = mid[0]; ly = mid[1];
+        const via = e.via.map(([x, y]) => [x * K, y * K]);
+        d = `M${p1[0]},${p1[1]} ` + via.map(([x, y]) => `L${x},${y}`).join(' ') + ` L${p2[0]},${p2[1]}`;
+        const mid = via[Math.floor((via.length - 1) / 2)]; lx = mid[0]; ly = mid[1];
       } else if (e.curve) {
         const mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2, dx = p2[0] - p1[0], dy = p2[1] - p1[1], len = Math.hypot(dx, dy) || 1;
-        const cx = mx - dy / len * e.curve, cy = my + dx / len * e.curve;
+        const cx = mx - dy / len * e.curve * K, cy = my + dx / len * e.curve * K;
         d = `M${p1[0]},${p1[1]} Q${cx},${cy} ${p2[0]},${p2[1]}`; lx = (mx + cx) / 2; ly = (my + cy) / 2;
       } else if (e.elbow) {
         d = e.elbow === 'hv' ? `M${p1[0]},${p1[1]} H${p2[0]} V${p2[1]}` : `M${p1[0]},${p1[1]} V${p2[1]} H${p2[0]}`;
         lx = e.elbow === 'hv' ? (p1[0] + p2[0]) / 2 : p1[0]; ly = e.elbow === 'hv' ? p1[1] : (p1[1] + p2[1]) / 2;
       } else { d = `M${p1[0]},${p1[1]} L${p2[0]},${p2[1]}`; lx = (p1[0] + p2[0]) / 2; ly = (p1[1] + p2[1]) / 2; }
       svg.append(sv('path', { d, class: 'fg-edge' + (e.dash ? ' fg-dash' : '') + (e.hl ? ' fg-acc' : ''), 'marker-end': e.noArrow ? null : marker(svg, e.tri ? 't' : e.hl ? 'r' : 'a'), 'marker-start': e.both ? marker(svg, e.hl ? 'r' : 'a') : null }));
-      if (e.t) label(svg, lx + (e.dx || 0), ly + (e.dy || 0), e.t, e.hl ? 'fg-s fg-acc-t' : 'fg-s');
+      if (e.t) label(svg, lx + (e.dx || 0) * K, ly + (e.dy || 0) * K, e.t, e.hl ? 'fg-s fg-acc-t' : 'fg-s');
     });
     Object.values(nodes).forEach((n) => {
       const g = sv('g', { class: 'fg-node' + (n.hl ? ' fg-hl' : '') });
@@ -192,12 +235,13 @@ const Figs = (() => {
       else if (n.shape === 'db') {
         g.append(sv('path', { d: `M${x0},${y0 + 8} V${y0 + n.h - 8} A${n.w / 2},8 0 0 0 ${x0 + n.w},${y0 + n.h - 8} V${y0 + 8}`, class: cls }));
         g.append(sv('ellipse', { cx: n.x, cy: y0 + 8, rx: n.w / 2, ry: 8, class: cls }));
-      } else g.append(sv('rect', { x: x0, y: y0, width: n.w, height: n.h, rx: n.shape === 'round' ? n.h / 2 : 8, class: cls }));
-      if (n.s) g.append(T(n.x, n.y - 3, n.t, n.m ? 'fg-m' : 'fg-t'), T(n.x, n.y + 14, n.s, 'fg-s'));
-      else g.append(T(n.x, n.y + 5, n.t, n.m ? 'fg-m' : 'fg-t'));
+      } else g.append(sv('rect', { x: x0, y: y0, width: n.w, height: n.h, rx: n.shape === 'round' ? Math.min(n.h / 2, 24) : 8, class: cls }));
+      const top = n.y - n.textH / 2 + (n.shape === 'db' ? 6 : 0), tL = nl(n.t);
+      g.append(T(n.x, top + tL * LH.t / 2 + 6, n.t, n.m ? 'fg-m' : 'fg-t'));
+      if (n.s) g.append(T(n.x, top + tL * LH.t + nl(n.s) * LH.s / 2 + 5, n.s, 'fg-s'));
       svg.append(g);
     });
-    (spec.notes || []).forEach(([x, y, t, cls, anchorS]) => svg.append(T(x, y, t, cls || 'fg-s', anchorS || 'middle')));
+    (spec.notes || []).forEach(([x, y, t, cls, anchorS]) => svg.append(T(x * K, y * K, t, cls || 'fg-s', anchorS || 'middle')));
     return svg;
   }
 
@@ -206,103 +250,115 @@ const Figs = (() => {
      statics: [{title, rows}] drawn at the top of the heap column ; regions: [{title, ids}] dashed boxes
      a value {ref:'id'} draws an arrow to that object */
   function memfig(spec) {
-    const RH = 24, SW = spec.stackW || 220, colX = spec.colX || [SW + 110, SW + 110 + (spec.colGap || 250)];
-    const svg = root(spec.w || 760, 10, spec.label);
+    const RH = 30;
+    const vtext = (v) => (v === null ? 'null' : typeof v === 'string' ? '"' + v + '"' : v && v.raw !== undefined ? v.raw : String(v));
+    const vw = (v) => (v && v.ref ? 16 : tw(vtext(v), 'm'));
+    const SW = Math.max(spec.stackW ? spec.stackW * K : 220, ...spec.frames.map((f) => Math.max(tw(f.name) + 28, ...f.vars.map(([k, v]) => tw(k, 'm') + vw(v) + 60))));
+    const colGap = spec.colGap ? spec.colGap * K : 300;
+    const colX = spec.colX ? spec.colX.map((x) => x * K) : [SW + 90, SW + 90 + colGap];
+    const svg = root(spec.w ? spec.w * K : 980, 10, spec.label);
     const layer = sv('g'), edges = sv('g'), top = sv('g');
     svg.append(edges, layer, top);
     const pos = {}, anchors = [];
-    const vtext = (v) => (v === null ? 'null' : typeof v === 'string' ? '"' + v + '"' : v && v.raw !== undefined ? v.raw : String(v));
     /* stack */
-    let y = 34;
-    layer.append(T(10, 20, spec.stackTitle || 'Stack', 'fg-hdr', 'start'));
+    let y = 40;
+    layer.append(T(10, 24, spec.stackTitle || 'Stack', 'fg-hdr', 'start'));
     spec.frames.forEach((f) => {
-      const hgt = 26 + f.vars.length * RH + 6;
+      const hgt = 30 + f.vars.length * RH + 8;
       layer.append(sv('rect', { x: 10, y, width: SW, height: hgt, rx: 8, class: 'fg-box fg-c4' }));
-      layer.append(T(22, y + 18, f.name, 'fg-t', 'start'));
+      layer.append(T(22, y + 22, f.name, 'fg-t', 'start'));
       f.vars.forEach(([k, v], i) => {
-        const ry = y + 26 + i * RH;
-        layer.append(sv('rect', { x: 18, y: ry, width: SW - 16, height: RH - 4, rx: 4, class: 'fg-box fg-c0' }));
-        layer.append(T(28, ry + 15, k, 'fg-m', 'start'));
-        if (v && v.ref) { anchors.push({ x: 10 + SW - 18, y: ry + (RH - 4) / 2, to: v.ref, hl: v.hl }); top.append(sv('circle', { cx: 10 + SW - 18, cy: ry + (RH - 4) / 2, r: 4, class: 'fg-dot' })); }
-        else layer.append(T(10 + SW - 14, ry + 15, vtext(v), 'fg-m', 'end'));
+        const ry = y + 30 + i * RH;
+        layer.append(sv('rect', { x: 18, y: ry, width: SW - 16, height: RH - 6, rx: 4, class: 'fg-box fg-c0' }));
+        layer.append(T(28, ry + 17, k, 'fg-m', 'start'));
+        if (v && v.ref) { anchors.push({ x: 10 + SW - 18, y: ry + (RH - 6) / 2, to: v.ref, hl: v.hl }); top.append(sv('circle', { cx: 10 + SW - 18, cy: ry + (RH - 6) / 2, r: 4, class: 'fg-dot' })); }
+        else layer.append(T(10 + SW - 14, ry + 17, vtext(v), 'fg-m', 'end'));
       });
-      y += hgt + 10;
+      y += hgt + 12;
     });
     const stackBottom = y;
     /* heap */
-    const colY = spec.regions ? [62, 62] : [34, 34];
-    layer.append(T(colX[0], 20, spec.heapTitle || 'Heap', 'fg-hdr', 'start'));
+    const colY = spec.regions ? [72, 72] : [40, 40];
+    layer.append(T(colX[0], 24, spec.heapTitle || 'Heap', 'fg-hdr', 'start'));
     (spec.statics || []).forEach((s) => {
-      const w = s.w || Math.max(200, tw(s.title) + 30), hgt = 26 + s.rows.length * RH + 6;
+      const w = s.w ? s.w * K : Math.max(220, tw(s.title) + 30, ...s.rows.map(([k, v]) => tw(k, 'm') + vw(v) + 50)), hgt = 30 + s.rows.length * RH + 8;
       pos['static:' + s.title] = { x: colX[0], y: colY[0], w, h: hgt };
       layer.append(sv('rect', { x: colX[0], y: colY[0], width: w, height: hgt, rx: 8, class: 'fg-box fg-c2' }));
-      layer.append(T(colX[0] + 12, colY[0] + 18, s.title, 'fg-t', 'start'));
-      s.rows.forEach(([k, v], i) => { const ry = colY[0] + 26 + i * RH; layer.append(T(colX[0] + 14, ry + 15, k, 'fg-m', 'start'), T(colX[0] + w - 12, ry + 15, vtext(v), 'fg-m', 'end')); });
-      colY[0] += hgt + 18;
+      layer.append(T(colX[0] + 12, colY[0] + 22, s.title, 'fg-t', 'start'));
+      s.rows.forEach(([k, v], i) => { const ry = colY[0] + 30 + i * RH; layer.append(T(colX[0] + 14, ry + 19, k, 'fg-m', 'start'), T(colX[0] + w - 12, ry + 19, vtext(v), 'fg-m', 'end')); });
+      colY[0] += hgt + 20;
     });
     spec.objs.forEach((o) => {
-      const col = o.col || 0, x = o.x !== undefined ? o.x : colX[col], oy = o.y !== undefined ? o.y : colY[col];
+      const col = o.col || 0, x = o.x !== undefined ? o.x * K : colX[col], oy = o.y !== undefined ? o.y * K : colY[col];
       let w, hgt;
       if (o.cells) {
-        const cw = o.cw || 40; w = Math.max(o.cells.length * cw + 16, tw(o.title) + 24); hgt = 26 + 44;
+        const cw = Math.max(o.cw ? o.cw * K : 52, ...o.cells.map((v) => vw(v) + 16));
+        w = Math.max(o.cells.length * cw + 16, tw(o.title) + 24); hgt = 90;
         layer.append(sv('rect', { x, y: oy, width: w, height: hgt, rx: 8, class: 'fg-box ' + (o.garbage ? 'fg-gc' : o.c || 'fg-c1') }));
-        layer.append(T(x + 12, oy + 18, o.title, 'fg-t', 'start'));
+        layer.append(T(x + 12, oy + 22, o.title, 'fg-t', 'start'));
         o.cells.forEach((v, i) => {
           const cx = x + 8 + i * cw;
-          layer.append(T(cx + cw / 2, oy + 36, String(i), 'fg-s'));
-          layer.append(sv('rect', { x: cx, y: oy + 41, width: cw, height: 24, class: 'fg-box fg-c0' + (o.hl && o.hl.includes(i) ? ' fg-cellhl' : '') }));
-          if (v && v.ref) { anchors.push({ x: cx + cw / 2, y: oy + 53, to: v.ref, down: true }); top.append(sv('circle', { cx: cx + cw / 2, cy: oy + 53, r: 4, class: 'fg-dot' })); }
-          else layer.append(T(cx + cw / 2, oy + 58, vtext(v), 'fg-m'));
+          layer.append(T(cx + cw / 2, oy + 45, String(i), 'fg-s'));
+          layer.append(sv('rect', { x: cx, y: oy + 51, width: cw, height: 30, class: 'fg-box fg-c0' + (o.hl && o.hl.includes(i) ? ' fg-cellhl' : '') }));
+          if (v && v.ref) { anchors.push({ x: cx + cw / 2, y: oy + 66, to: v.ref, down: true }); top.append(sv('circle', { cx: cx + cw / 2, cy: oy + 66, r: 4, class: 'fg-dot' })); }
+          else layer.append(T(cx + cw / 2, oy + 72, vtext(v), 'fg-m'));
         });
       } else {
         const rows = o.rows || [];
-        w = o.w || Math.max(170, tw(o.title) + 30, ...rows.map(([k, v]) => tw(k, 1) + tw(vtext(v), 1) + 44));
-        hgt = 26 + rows.length * RH + (rows.length ? 6 : 4);
+        w = o.w ? o.w * K : Math.max(190, tw(o.title) + 30, ...rows.map(([k, v]) => tw(k, 'm') + vw(v) + 54));
+        hgt = 30 + rows.length * RH + (rows.length ? 8 : 4);
         layer.append(sv('rect', { x, y: oy, width: w, height: hgt, rx: 8, class: 'fg-box ' + (o.garbage ? 'fg-gc' : o.c || 'fg-c1') }));
-        layer.append(T(x + 12, oy + 18, o.title, 'fg-t', 'start'));
+        layer.append(T(x + 12, oy + 22, o.title, 'fg-t', 'start'));
         rows.forEach(([k, v], i) => {
-          const ry = oy + 26 + i * RH;
-          layer.append(T(x + 14, ry + 15, k, 'fg-m', 'start'));
-          if (v && v.ref) { anchors.push({ x: x + w - 16, y: ry + 10, to: v.ref }); top.append(sv('circle', { cx: x + w - 16, cy: ry + 10, r: 4, class: 'fg-dot' })); }
-          else layer.append(T(x + w - 12, ry + 15, vtext(v), 'fg-m', 'end'));
+          const ry = oy + 30 + i * RH;
+          layer.append(T(x + 14, ry + 19, k, 'fg-m', 'start'));
+          if (v && v.ref) { anchors.push({ x: x + w - 16, y: ry + 14, to: v.ref }); top.append(sv('circle', { cx: x + w - 16, cy: ry + 14, r: 4, class: 'fg-dot' })); }
+          else layer.append(T(x + w - 12, ry + 19, vtext(v), 'fg-m', 'end'));
         });
       }
-      if (o.garbage) layer.append(T(x + w / 2, oy + hgt + 15, o.garbageText || 'unreachable → garbage', 'fg-s fg-acc-t'));
+      if (o.garbage) layer.append(T(x + w / 2, oy + hgt + 19, o.garbageText || 'unreachable → garbage', 'fg-s fg-acc-t'));
       pos[o.id] = { x, y: oy, w, h: hgt };
-      if (o.y === undefined) colY[col] = oy + hgt + (o.garbage ? 30 : 18);
+      if (o.y === undefined) colY[col] = oy + hgt + (o.garbage ? 36 : 20);
     });
     (spec.regions || []).forEach((r) => {
       const bs = r.ids.map((id) => pos[id]);
-      const x0 = Math.min(...bs.map((b) => b.x)) - 10, y0 = Math.min(...bs.map((b) => b.y)) - 24, x1 = Math.max(...bs.map((b) => b.x + b.w)) + 10, y1 = Math.max(...bs.map((b) => b.y + b.h)) + 10;
+      const x0 = Math.min(...bs.map((b) => b.x)) - 10, y0 = Math.min(...bs.map((b) => b.y)) - 28, x1 = Math.max(...bs.map((b) => b.x + b.w), x0 + tw(r.title, 's') + 10) + 10, y1 = Math.max(...bs.map((b) => b.y + b.h)) + 10;
       layer.insertBefore(sv('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, rx: 12, class: 'fg-region' }), layer.firstChild);
-      layer.append(T(x0 + 10, y0 + 15, r.title, 'fg-s fg-acc-t', 'start'));
+      layer.append(T(x0 + 10, y0 + 19, r.title, 'fg-s fg-acc-t', 'start'));
+      pos['region:' + r.title] = { x: x0, y: y0, w: x1 - x0, h: y1 - y0, region: 1 };
     });
     anchors.forEach((a) => {
       const t = pos[a.to]; if (!t) return;
-      let tx = t.x, ty = t.y + 13, d;
+      let tx = t.x, ty = t.y + 17, d;
       if (a.down) { tx = t.x; ty = t.y + t.h / 2; d = `M${a.x},${a.y} C${a.x},${ty} ${tx - 40},${ty} ${tx},${ty}`; }
       else if (tx < a.x) { tx = t.x + t.w; d = `M${a.x},${a.y} C${a.x + 40},${a.y} ${tx + 40},${ty} ${tx},${ty}`; }
       else d = `M${a.x},${a.y} C${a.x + Math.max(40, (tx - a.x) / 2)},${a.y} ${tx - Math.max(40, (tx - a.x) / 2)},${ty} ${tx},${ty}`;
       edges.append(sv('path', { d, class: 'fg-edge fg-ref' + (a.hl ? ' fg-acc' : ''), 'marker-end': marker(svg, a.hl ? 'r' : 'a') }));
     });
-    const H = Math.max(stackBottom, colY[0], colY[1], ...Object.values(pos).map((p) => p.y + p.h + 30)) + 4;
-    const W = spec.w || Math.max(...Object.values(pos).map((p) => p.x + p.w), SW + 20) + 16;
-    svg.setAttribute('viewBox', `0 0 ${Math.ceil(W)} ${Math.ceil(H)}`); svg.style.maxWidth = Math.ceil(W) + 'px';
+    const H = Math.max(stackBottom, colY[0], colY[1], ...Object.values(pos).map((p) => p.y + p.h + 34)) + 4;
+    const W = Math.max(spec.w ? spec.w * K : 0, Math.max(...Object.values(pos).map((p) => p.x + p.w), SW + 20) + 16);
+    svg.setAttribute('viewBox', `0 0 ${Math.ceil(W)} ${Math.ceil(H)}`); svg.style.width = Math.ceil(W) + 'px';
     return svg;
   }
 
   /* ---------------- boxes with nested children (JDK/JRE/JVM, nested classes, capsules) ---------------- */
-  /* boxes: [{x,y,w,h,t,s,c,rx,dash,ta:'start'|'middle', ty}] drawn in order; notes: [[x,y,text,cls,anchor]] ; arrows [[x1,y1,x2,y2,hl]] */
+  /* boxes: [{x,y,w,h,t,s,c,rx,dash,ta:'start'|'middle', ty, mid}] drawn in order; text wraps to the box width;
+     ty = baseline of the first title line, mid = centre the text block vertically instead
+     notes: [[x,y,text,cls,anchor]] ; arrows [[x1,y1,x2,y2,hl,dash]] */
   function boxes(spec) {
-    const svg = root(spec.w, spec.h, spec.label);
-    spec.boxes.forEach((b) => {
-      svg.append(sv('rect', { x: b.x, y: b.y, width: b.w, height: b.h, rx: b.rx === undefined ? 10 : b.rx, class: 'fg-box ' + (b.c || 'fg-c0') + (b.dash ? ' fg-dashbox' : '') }));
-      const ta = b.ta || 'start', tx = ta === 'middle' ? b.x + b.w / 2 : b.x + 12;
-      if (b.t) svg.append(T(tx, b.y + (b.ty || 20), b.t, b.m ? 'fg-m' : 'fg-t', ta));
-      if (b.s) svg.append(T(tx, b.y + (b.ty || 20) + 16, b.s, 'fg-s', ta));
+    const svg = root(spec.w * K, spec.h * K, spec.label);
+    spec.boxes.forEach((b0) => {
+      const b = Object.assign({}, b0, { x: b0.x * K, y: b0.y * K, w: b0.w * K, h: b0.h * K });
+      svg.append(sv('rect', { x: b.x, y: b.y, width: b.w, height: b.h, rx: b.rx === undefined ? 10 : b.rx * K, class: 'fg-box ' + (b.c || 'fg-c0') + (b.dash ? ' fg-dashbox' : '') }));
+      const ta = b.ta || 'start', tx = ta === 'middle' ? b.x + b.w / 2 : b.x + 14, room = b.w - 28;
+      const t = b.t ? wrap(b.t, room, b.m ? 'm' : 't') : '', s = b.s ? wrap(b.s, room, 's') : '';
+      const tL = t ? nl(t) : 0, sL = s ? nl(s) : 0, tlh = b.m ? LH.m : LH.t;
+      const first = b.mid ? b.y + b.h / 2 - (tL * tlh + sL * LH.s) / 2 + 15 : b.y + (b.ty ? b.ty * K : 26);
+      if (t) svg.append(T(tx, first + (tL - 1) * tlh / 2, t, b.m ? 'fg-m' : 'fg-t', ta));
+      if (s) svg.append(T(tx, first + (tL ? (tL - 1) * tlh + 21 : 0) + (sL - 1) * LH.s / 2, s, 'fg-s', ta));
     });
-    (spec.arrows || []).forEach(([x1, y1, x2, y2, hl, dash]) => svg.append(sv('path', { d: `M${x1},${y1} L${x2},${y2}`, class: 'fg-edge' + (hl ? ' fg-acc' : '') + (dash ? ' fg-dash' : ''), 'marker-end': marker(svg, hl ? 'r' : 'a') })));
-    (spec.notes || []).forEach(([x, y, t, cls, a]) => svg.append(T(x, y, t, cls || 'fg-s', a || 'middle')));
+    (spec.arrows || []).forEach(([x1, y1, x2, y2, hl, dash]) => svg.append(sv('path', { d: `M${x1 * K},${y1 * K} L${x2 * K},${y2 * K}`, class: 'fg-edge' + (hl ? ' fg-acc' : '') + (dash ? ' fg-dash' : ''), 'marker-end': marker(svg, hl ? 'r' : 'a') })));
+    (spec.notes || []).forEach(([x, y, t, cls, a]) => svg.append(T(x * K, y * K, t, cls || 'fg-s', a || 'middle')));
     return svg;
   }
 
@@ -314,22 +370,23 @@ const R_ = (id, hl) => ({ ref: id, hl });
 const FIGS = {
   /* ---------- 1. introduction ---------- */
   paradigm: () => Figs.boxes({
-    w: 860, h: 300, label: 'Procedural program with shared global data versus an object-oriented program where each object bundles its own data and methods',
+    w: 860, h: 350, label: 'Procedural program with shared global data versus an object-oriented program where each object bundles its own data and methods',
     boxes: [
-      { x: 10, y: 10, w: 400, h: 280, t: 'Procedural (structured) program', c: 'fg-c4' },
+      { x: 10, y: 10, w: 400, h: 330, t: 'Procedural (structured) program', c: 'fg-c4' },
       { x: 130, y: 60, w: 160, h: 56, t: 'Global data', s: 'balance, name, rate', c: 'fg-c2', ta: 'middle' },
-      { x: 30, y: 190, w: 105, h: 44, t: 'deposit()', ta: 'middle', ty: 27 },
-      { x: 158, y: 190, w: 105, h: 44, t: 'withdraw()', ta: 'middle', ty: 27 },
-      { x: 286, y: 190, w: 105, h: 44, t: 'report()', ta: 'middle', ty: 27 },
-      { x: 450, y: 10, w: 400, h: 280, t: 'Object-oriented program', c: 'fg-c4' },
-      { x: 470, y: 50, w: 175, h: 110, t: 'Account object', s: 'data: balance, owner', c: 'fg-c1' },
-      { x: 480, y: 100, w: 155, h: 50, t: 'deposit()  withdraw()', s: 'methods guard the data', c: 'fg-c0' },
-      { x: 660, y: 50, w: 175, h: 110, t: 'Customer object', s: 'data: name, phone', c: 'fg-c1' },
-      { x: 670, y: 100, w: 155, h: 50, t: 'call()  update()', s: 'its own behaviour', c: 'fg-c0' },
-      { x: 565, y: 185, w: 175, h: 90, t: 'Loan object', s: 'data: amount, rate', c: 'fg-c1' },
-      { x: 575, y: 232, w: 155, h: 34, t: 'monthlyPay()', c: 'fg-c0', ty: 22 }],
-    arrows: [[82, 190, 170, 118], [210, 190, 210, 118], [338, 190, 252, 118], [645, 110, 658, 110, true], [650, 185, 700, 162, true]],
-    notes: [[210, 160, 'every function can read and change every piece of data', 'fg-s'], [800, 200, 'objects send', 'fg-s fg-acc-t'], [800, 216, 'messages', 'fg-s fg-acc-t']]
+      { x: 30, y: 190, w: 105, h: 44, t: 'deposit()', ta: 'middle', mid: 1 },
+      { x: 158, y: 190, w: 105, h: 44, t: 'withdraw()', ta: 'middle', mid: 1 },
+      { x: 286, y: 190, w: 105, h: 44, t: 'report()', ta: 'middle', mid: 1 },
+      { x: 35, y: 250, w: 350, h: 68, t: 'Every function can read and change\nevery piece of data.', c: 'fg-c2', ta: 'middle', mid: 1 },
+      { x: 450, y: 10, w: 400, h: 330, t: 'Object-oriented program', c: 'fg-c4' },
+      { x: 470, y: 50, w: 175, h: 140, t: 'Account object', s: 'data: balance, owner', c: 'fg-c1' },
+      { x: 480, y: 100, w: 155, h: 80, t: 'deposit()\nwithdraw()', s: 'methods guard the data', c: 'fg-c0', mid: 1 },
+      { x: 660, y: 50, w: 175, h: 140, t: 'Customer object', s: 'data: name, phone', c: 'fg-c1' },
+      { x: 670, y: 100, w: 155, h: 80, t: 'call()\nupdate()', s: 'its own behaviour', c: 'fg-c0', mid: 1 },
+      { x: 565, y: 220, w: 175, h: 95, t: 'Loan object', s: 'data: amount, rate', c: 'fg-c1' },
+      { x: 575, y: 268, w: 155, h: 36, t: 'monthlyPay()', c: 'fg-c0', mid: 1 }],
+    arrows: [[82, 190, 170, 118], [210, 190, 210, 118], [338, 190, 252, 118], [645, 140, 658, 140, true], [650, 220, 700, 192, true]],
+    notes: [[800, 240, 'objects send\nmessages', 'fg-s fg-acc-t']]
   }),
   'class-objects': () => Figs.uml({
     label: 'A Car class used as a blueprint for two Car objects', items: [
@@ -353,7 +410,7 @@ const FIGS = {
       { id: 'w', t: 'JVM on Windows', x: 720, y: 45 },
       { id: 'm', t: 'JVM on macOS', x: 720, y: 125 },
       { id: 'l', t: 'JVM on Linux', x: 720, y: 205 }],
-    edges: [{ a: 's', b: 'b', t: 'javac Hello.java', hl: 1 }, { a: 'b', b: 'w', t: 'java Hello' }, { a: 'b', b: 'm', t: 'java Hello' }, { a: 'b', b: 'l', t: 'java Hello' }],
+    edges: [{ a: 's', b: 'b', t: 'javac Hello.java', hl: 1 }, { a: 'b', b: 'w' }, { a: 'b', b: 'm', t: 'java Hello' }, { a: 'b', b: 'l' }],
     notes: [[380, 190, 'same .class file everywhere:', 'fg-s'], [380, 206, '“write once, run anywhere”', 'fg-s fg-acc-t']]
   }),
   widening: () => Figs.graph({
@@ -427,15 +484,15 @@ const FIGS = {
     objs: [{ id: 'a', title: 'Student', rows: [['name', 'Ann'], ['id', 101], ['cgpa', { raw: '3.75' }]] }, { id: 'b', title: 'Student', rows: [['name', 'Bob'], ['id', 102], ['cgpa', { raw: '3.2' }]] }]
   }),
   capsule: () => Figs.boxes({
-    w: 700, h: 280, label: 'Encapsulation: private fields are only reachable through the public methods of the object',
+    w: 700, h: 310, label: 'Encapsulation: private fields are only reachable through the public methods of the object',
     boxes: [
       { x: 160, y: 20, w: 380, h: 240, rx: 120, t: 'BankAccount object', c: 'fg-c1', ta: 'middle', ty: 30 },
-      { x: 250, y: 105, w: 200, h: 70, t: 'private double balance', s: 'hidden inside the capsule', c: 'fg-c3', ta: 'middle', m: 1, ty: 30 },
-      { x: 20, y: 60, w: 150, h: 36, t: '+ deposit(amt)', c: 'fg-c2', ta: 'middle', m: 1, ty: 23 },
-      { x: 20, y: 184, w: 150, h: 36, t: '+ withdraw(amt)', c: 'fg-c2', ta: 'middle', m: 1, ty: 23 },
-      { x: 530, y: 122, w: 160, h: 36, t: '+ getBalance()', c: 'fg-c2', ta: 'middle', m: 1, ty: 23 }],
+      { x: 250, y: 105, w: 200, h: 70, t: 'private double balance', s: 'hidden inside the capsule', c: 'fg-c3', ta: 'middle', m: 1, mid: 1 },
+      { x: 20, y: 60, w: 150, h: 36, t: '+ deposit(amt)', c: 'fg-c2', ta: 'middle', m: 1, mid: 1 },
+      { x: 20, y: 184, w: 150, h: 36, t: '+ withdraw(amt)', c: 'fg-c2', ta: 'middle', m: 1, mid: 1 },
+      { x: 530, y: 122, w: 160, h: 36, t: '+ getBalance()', c: 'fg-c2', ta: 'middle', m: 1, mid: 1 }],
     arrows: [[170, 80, 250, 125, true], [170, 202, 250, 158, true], [450, 140, 528, 140, true]],
-    notes: [[350, 205, 'outside code: account.balance = -500;  ✗ compile error', 'fg-s fg-acc-t']]
+    notes: [[350, 290, 'outside code: account.balance = -500;  ✗ compile error', 'fg-s fg-acc-t']]
   }),
   'gc-fig': () => Figs.memfig({
     label: 'After s2 = null, the second Student has no references and becomes garbage', frames: [{ name: 'main', vars: [['s1', R_('a')], ['s2', null]] }],
@@ -495,9 +552,9 @@ const FIGS = {
   }),
   'uml-multilevel': () => Figs.uml({
     label: 'Vehicle, Car, ElectricCar multilevel hierarchy', items: [
-      { id: 'v', name: 'Vehicle', fields: ['# wheels : int'], methods: ['+ Vehicle()', '+ move() : void'], x: 10, y: 10 },
-      { id: 'c', name: 'Car', fields: ['# seats : int'], methods: ['+ Car()', '+ honk() : void'], x: 10, y: 170 },
-      { id: 'e', name: 'ElectricCar', fields: ['- battery : int'], methods: ['+ ElectricCar()', '+ charge() : void'], x: 10, y: 330, hl: 1 }],
+      { id: 'v', name: 'Vehicle', fields: ['# wheels : int'], methods: ['+ Vehicle()', '+ move() : void'], x: 10, y: 10, w: 160 },
+      { id: 'c', name: 'Car', fields: ['# seats : int'], methods: ['+ Car()', '+ honk() : void'], x: 10, y: 170, w: 160 },
+      { id: 'e', name: 'ElectricCar', fields: ['- battery : int'], methods: ['+ ElectricCar()', '+ charge() : void'], x: 10, y: 330, w: 160, hl: 1 }],
     links: [{ a: 'c', b: 'v', type: 'extends' }, { a: 'e', b: 'c', type: 'extends' }]
   }),
   'object-tree': () => Figs.tree({
@@ -542,10 +599,10 @@ const FIGS = {
   'iface-multi': () => Figs.uml({
     label: 'Duck extends Bird and implements Flyable and Swimmable', items: [
       { id: 'b', name: 'Bird', methods: ['+ layEggs() : void'], x: 10, y: 10 },
-      { id: 'f', kind: 'interface', name: 'Flyable', methods: ['+ fly() : void'], x: 230, y: 10 },
+      { id: 'f', kind: 'interface', name: 'Flyable', methods: ['+ fly() : void'], x: 230, y: 10, w: 150 },
       { id: 's', kind: 'interface', name: 'Swimmable', methods: ['+ swim() : void'], x: 450, y: 10 },
-      { id: 'd', name: 'Duck', methods: ['+ fly() : void', '+ swim() : void'], x: 230, y: 190, hl: 1 }],
-    links: [{ a: 'd', b: 'b', type: 'extends' }, { a: 'd', b: 'f', type: 'implements' }, { a: 'd', b: 's', type: 'implements' }]
+      { id: 'd', name: 'Duck', methods: ['+ fly() : void', '+ swim() : void'], x: 230, y: 190, w: 150, hl: 1 }],
+    links: [{ a: 'd', b: 'b', type: 'extends', dx: -45, midY: 150 }, { a: 'd', b: 'f', type: 'implements' }, { a: 'd', b: 's', type: 'implements', dx: 45, midY: 150 }]
   }),
 
   /* ---------- 10. exceptions ---------- */
@@ -571,29 +628,33 @@ const FIGS = {
 
   /* ---------- 11. threads ---------- */
   'threads-mem': () => Figs.boxes({
-    w: 760, h: 270, label: 'Threads in one process share the heap but each has its own stack and program counter',
+    w: 760, h: 255, label: 'Threads in one process share the heap but each has its own stack and program counter',
     boxes: [
-      { x: 10, y: 10, w: 740, h: 250, t: 'Process: one running Java program (one JVM)', c: 'fg-c4' },
+      { x: 10, y: 10, w: 740, h: 235, t: 'Process: one running Java program (one JVM)', c: 'fg-c4' },
       { x: 30, y: 50, w: 700, h: 60, t: 'Shared heap', s: 'all objects: Account, Counter, buffers … visible to every thread', c: 'fg-c2' },
-      { x: 30, y: 130, w: 215, h: 115, t: 'main thread', s: 'own stack + PC', c: 'fg-c1' },
-      { x: 272, y: 130, w: 215, h: 115, t: 'Thread-0', s: 'own stack + PC', c: 'fg-c1' },
-      { x: 515, y: 130, w: 215, h: 115, t: 'Thread-1', s: 'own stack + PC', c: 'fg-c1' }],
-    notes: [[137, 200, 'main() frame', 'fg-m'], [379, 200, 'run() frame', 'fg-m'], [622, 200, 'run() frame', 'fg-m']]
+      { x: 30, y: 130, w: 215, h: 100, t: 'main thread', c: 'fg-c1' },
+      { x: 272, y: 130, w: 215, h: 100, t: 'Thread-0', c: 'fg-c1' },
+      { x: 515, y: 130, w: 215, h: 100, t: 'Thread-1', c: 'fg-c1' }],
+    notes: [[137, 185, 'stack: main()\n+ PC', 'fg-m'], [379, 185, 'stack: run()\n+ PC', 'fg-m'], [622, 185, 'stack: run()\n+ PC', 'fg-m']]
   }),
   'thread-states': () => Figs.graph({
-    w: 960, h: 330, label: 'Java thread states and the transitions between them',
+    w: 760, h: 420, label: 'Thread life cycle: New, Runnable, Running, Blocked and Dead, with the method calls that move a thread between them',
     nodes: [
-      { id: 'n', t: 'NEW', x: 70, y: 150, shape: 'round', c: 'fg-c4' },
-      { id: 'r', t: 'RUNNABLE', s: 'ready or running', x: 290, y: 150, shape: 'round', c: 'fg-c1', w: 170 },
-      { id: 'b', t: 'BLOCKED', s: 'waiting for a lock', x: 690, y: 50, shape: 'round', c: 'fg-c2', w: 170 },
-      { id: 'w', t: 'WAITING', s: 'wait() / join()', x: 690, y: 150, shape: 'round', c: 'fg-c2', w: 170 },
-      { id: 'tw', t: 'TIMED_WAITING', s: 'sleep(ms)', x: 690, y: 260, shape: 'round', c: 'fg-c2', w: 170 },
-      { id: 't', t: 'TERMINATED', x: 885, y: 150, shape: 'round', c: 'fg-c3', w: 120 }],
-    edges: [{ a: 'n', b: 'r', t: 'start()', hl: 1 },
-      { a: 'r', b: 'b', from: 'right', to: 'left', both: 1, t: 'lock busy ⇄ lock acquired' },
-      { a: 'r', b: 'w', from: 'right', to: 'left', both: 1, t: 'wait() ⇄ notify()' },
-      { a: 'r', b: 'tw', from: 'right', to: 'left', both: 1, t: 'sleep() ⇄ time up' },
-      { a: 'r', b: 't', from: 'top', to: 'top', via: [[290, 100], [290, 8], [885, 8]], t: 'run() finishes', hl: 1 }]
+      { id: 'n', t: 'New', s: 'new Thread(…)', x: 300, y: 40, c: 'fg-c4', w: 130 },
+      { id: 'r', t: 'Runnable', s: 'ready, waiting for CPU', x: 300, y: 145, shape: 'circle', c: 'fg-c1', w: 190, h: 56 },
+      { id: 'u', t: 'Running', s: 'executing run()', x: 300, y: 265, shape: 'circle', c: 'fg-c1', w: 190, h: 56, hl: 1 },
+      { id: 'b', t: 'Blocked', s: 'idle, not runnable', x: 300, y: 380, c: 'fg-c2', w: 180 },
+      { id: 'd', t: 'Dead', s: 'killed or finished', x: 640, y: 210, c: 'fg-c3', w: 160, h: 80 }],
+    edges: [
+      { a: 'n', b: 'r', t: 'start()', hl: 1 },
+      { a: 'r', b: 'u', p1: [275, 172], p2: [275, 238], t: 'run()', hl: 1, dx: -32 },
+      { a: 'u', b: 'r', p1: [325, 238], p2: [325, 172], t: 'yield()', dx: 38 },
+      { a: 'u', b: 'b', t: 'sleep() · wait() · suspend()' },
+      { a: 'b', b: 'r', from: 'left', to: 'left', via: [[130, 380], [130, 262], [130, 145]], t: 'resume()\nnotify()' },
+      { a: 'n', b: 'd', from: 'right', to: 'top', t: 'stop()' },
+      { a: 'r', b: 'd', from: 'right', p2: [560, 190], t: 'stop()' },
+      { a: 'u', b: 'd', from: 'right', p2: [560, 230], t: 'end of execution' },
+      { a: 'b', b: 'd', from: 'right', to: 'bottom', t: 'stop()' }]
   }),
   deadlock: () => Figs.graph({
     w: 620, h: 250, label: 'Deadlock: each thread holds one lock and waits for the other',
@@ -612,7 +673,7 @@ const FIGS = {
 
   /* ---------- 13. GUI and JDBC ---------- */
   'fx-tree': () => Figs.tree({
-    label: 'A JavaFX scene graph', minW: 92, gapY: 36, root: {
+    label: 'A JavaFX scene graph', minW: 92, gapX: 10, gapY: 36, root: {
       t: 'Stage', s: 'the window', c: 'fg-c4', k: [{
         t: 'Scene', s: 'content of the window', c: 'fg-c2', k: [{
           t: 'BorderPane', s: 'root node', c: 'fg-c1', k: [
@@ -623,15 +684,15 @@ const FIGS = {
     }
   }),
   'jdbc-flow': () => Figs.graph({
-    w: 900, h: 300, label: 'The steps of a JDBC query',
+    w: 900, h: 250, label: 'The steps of a JDBC query',
     nodes: [
-      { id: 'a', t: 'Java program', x: 90, y: 60, c: 'fg-c4' },
-      { id: 'c', t: 'Connection', s: 'DriverManager.getConnection(url)', x: 330, y: 60, c: 'fg-c1' },
+      { id: 'a', t: 'Java program', x: 70, y: 60, c: 'fg-c4' },
+      { id: 'c', t: 'Connection', s: 'DriverManager.getConnection(url)', x: 340, y: 60, c: 'fg-c1' },
       { id: 'p', t: 'PreparedStatement', s: 'con.prepareStatement(sql)', x: 650, y: 60, c: 'fg-c1' },
       { id: 'r', t: 'ResultSet', s: 'ps.executeQuery()', x: 650, y: 200, c: 'fg-c2' },
-      { id: 'l', t: 'while (rs.next()) { … }', x: 330, y: 200, c: 'fg-c0', m: 1 },
-      { id: 'd', t: 'Database', s: 'MySQL / SQLite', x: 830, y: 130, shape: 'db', w: 110, h: 80, c: 'fg-c2' },
-      { id: 'x', t: 'close()', s: 'try-with-resources', x: 90, y: 200, c: 'fg-c3' }],
+      { id: 'l', t: 'while (rs.next()) { … }', x: 340, y: 200, c: 'fg-c0', m: 1 },
+      { id: 'd', t: 'Database', s: 'MySQL / SQLite', x: 835, y: 130, shape: 'db', w: 110, h: 80, c: 'fg-c2' },
+      { id: 'x', t: 'close()', s: 'try-with-resources', x: 70, y: 200, c: 'fg-c3' }],
     edges: [{ a: 'a', b: 'c', t: '1 connect' }, { a: 'c', b: 'p', t: '2 prepare' }, { a: 'p', b: 'r', t: '3 execute' }, { a: 'r', b: 'l', t: '4 read rows' }, { a: 'l', b: 'x', t: '5 close' },
       { a: 'p', b: 'd', dash: 1, from: 'right', to: 'top', elbow: 'hv' }, { a: 'd', b: 'r', dash: 1, from: 'bottom', to: 'right', elbow: 'vh' }]
   }),

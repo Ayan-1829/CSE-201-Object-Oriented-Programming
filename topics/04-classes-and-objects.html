@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Classes, Objects &amp; Encapsulation – Topic 4 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects. Interactive slides, code tracers, demos and a quiz for Topic 4 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/04-classes-and-objects.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Classes, Objects & Encapsulation", "description": "Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects.", "position": 4, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/04-classes-and-objects.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Classes, Objects & Encapsulation", "description": "Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects.", "position": 4, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/04-classes-and-objects.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 4: Classes, Objects & Encapsulation", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html"}]}</script>
 <title>Classes, Objects &amp; Encapsulation – Topic 4 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Classes, Objects &amp; Encapsulation" aria-label="Classes, Objects &amp; Encapsulation" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="4" aria-hidden="true"></span>
 <span class="badge big">4</span>
 <p class="kicker">Topic 4 of 13 · Lectures 4–6</p>
 <h1>Classes, Objects & Encapsulation</h1>
@@ -61,7 +62,7 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">If <code>Student s2 = s1;</code> and then you change <code>s2</code>’s CGPA, whose CGPA did you just change?</p><p>Both — because <code>s1</code> and <code>s2</code> are two names for one object. Understanding the difference between an object and a reference to it is the single most important idea in Java.</p><p>This topic builds classes from scratch: fields, methods, constructors, encapsulation with private fields, the <code>this</code> keyword and garbage collection.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 4–6</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Class and object</a></li><li><a href="#s=4">Fields and methods</a></li><li><a href="#s=6">Constructors</a></li><li><a href="#s=7">Garbage collection</a></li><li><a href="#s=8">Encapsulation: private fields, getters and setters</a></li><li><a href="#s=10">Instance variable hiding and this</a></li></ol>
+<p class="kicker">Outline · Lectures 4–6</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Class and object</a></li><li><a href="#s=4">Fields and methods</a></li><li><a href="#s=6">Constructors</a></li><li><a href="#s=7">Garbage collection</a></li><li><a href="#s=8">Encapsulation: private fields, getters and setters</a></li><li><a href="#s=11">Instance variable hiding and this</a></li></ol>
 </div></section>
 <section class="slide " data-title="Class and object" aria-label="Class and object" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 6</p><h2>Class and object</h2><div class="cols "><div><figure class="fig class-object-visual"><img class="class-object-image" src="../img/class-to-objects.svg" alt="A Student class blueprint produces two distinct student objects, Ann and Bob, each with their own name, ID and CGPA."><figcaption>One class describes the fields; each call to <code>new Student()</code> creates an object with its own values.</figcaption></figure></div><div><pre class="code small-code">public class Student {
@@ -90,7 +91,10 @@ s3.setCgpa(3.9);          // changes Ann</pre><ol><li><code>new</code> allocates
 <p class="kicker">Interactive</p><h2>Object factory</h2><div data-demo="objects"></div>
 </div></section>
 <section class="slide " data-title="Encapsulation" aria-label="Encapsulation" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 3 of 6</p><h2>Encapsulation</h2><div class="cols "><div><figure class="fig" data-fig="capsule"><figcaption>Outside code cannot touch the private fields; it must go through the public methods.</figcaption></figure></div><div><pre class="code small-code">public class Account {
+<p class="kicker">Concept 3 of 6</p><h2>Encapsulation</h2><figure class="fig" data-fig="capsule"><figcaption>Outside code cannot touch the private fields; it must go through the public methods.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Encapsulation (continued)" aria-label="Encapsulation (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Encapsulation</h2><pre class="code small-code">public class Account {
     private double balance;        // hidden
 
     public double getBalance() { return balance; }
@@ -103,8 +107,9 @@ s3.setCgpa(3.9);          // changes Ann</pre><ol><li><code>new</code> allocates
         balance += amt;
     }
 }
-// acc.balance = -500;   ✗ compile error: private</pre><ul><li>Make fields <code>private</code>; provide <code>public</code> <b>getters</b> and <b>setters</b> only where needed.</li><li>Setters can <b>validate</b>, so an object can never get into an invalid state.</li><li>You can change the inside later without breaking code that uses the class.</li></ul></div></div>
+// acc.balance = -500;   ✗ compile error: private</pre><ul><li>Make fields <code>private</code>; provide <code>public</code> <b>getters</b> and <b>setters</b> only where needed.</li><li>Setters can <b>validate</b>, so an object can never get into an invalid state.</li><li>You can change the inside later without breaking code that uses the class.</li></ul>
 </div></section>
+
 <section class="slide " data-title="Constructors" aria-label="Constructors" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 4 of 6</p><h2>Constructors</h2><div class="cols "><div><pre class="code small-code">public class Student {
     private String name;
@@ -208,6 +213,7 @@ class Box2 {
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

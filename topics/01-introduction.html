@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Introducing OOP &amp; Java Basics – Topic 1 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions. Interactive slides, code tracers, demos and a quiz for Topic 1 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/01-introduction.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Introducing OOP & Java Basics", "description": "What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions.", "position": 1, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 25, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/01-introduction.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Introducing OOP & Java Basics", "description": "What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions.", "position": 1, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 29, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/01-introduction.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 1: Introducing OOP & Java Basics", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html"}]}</script>
 <title>Introducing OOP &amp; Java Basics – Topic 1 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Introducing OOP &amp; Java Basics" aria-label="Introducing OOP &amp; Java Basics" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="1" aria-hidden="true"></span>
 <span class="badge big">1</span>
 <p class="kicker">Topic 1 of 13 · Lecture 1</p>
 <h1>Introducing OOP & Java Basics</h1>
@@ -61,17 +62,28 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A banking app stores two million accounts. Where does each balance live — and who is allowed to change it?</p><p>In a structured program, every function can reach every piece of data, so one careless line anywhere can corrupt a balance. Object-oriented programming (OOP) groups each account’s data together with the only methods allowed to touch it.</p><p>This topic introduces that idea and the Java basics we will use to express it: types, variables, operators and decisions.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lecture 1</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">What is object-oriented programming</a></li><li><a href="#s=4">OOP vs. structured programming</a></li><li><a href="#s=5">Classes, objects and the four pillars</a></li><li><a href="#s=6">The Java platform: JDK, JRE, JVM</a></li><li><a href="#s=7">First program and program structure</a></li><li><a href="#s=8">Data types</a></li><li><a href="#s=9">Variables, literals and type conversion</a></li><li><a href="#s=11">Operators and precedence</a></li><li><a href="#s=15">if, if-else and else-if ladder</a></li><li><a href="#s=17">switch statement</a></li></ol>
+<p class="kicker">Outline · Lecture 1</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">What is object-oriented programming</a></li><li><a href="#s=4">OOP vs. structured programming</a></li><li><a href="#s=5">Classes, objects and the four pillars</a></li><li><a href="#s=7">The Java platform: JDK, JRE, JVM</a></li><li><a href="#s=10">First program and program structure</a></li><li><a href="#s=11">Data types</a></li><li><a href="#s=12">Variables, literals and type conversion</a></li><li><a href="#s=14">Operators and precedence</a></li><li><a href="#s=18">if, if-else and else-if ladder</a></li><li><a href="#s=21">switch statement</a></li></ol>
 </div></section>
 <section class="slide " data-title="Two ways to organise a program" aria-label="Two ways to organise a program" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 8</p><h2>Two ways to organise a program</h2><figure class="fig" data-fig="paradigm"><figcaption>Structured code shares global data between functions; OOP packs data and behaviour into objects.</figcaption></figure><div class="vs"><div><h4>Structured (procedural) programming</h4><ul><li>The program is a list of <b>functions</b> that run top-down.</li><li>Data is separate from the functions, often <b>shared globally</b>.</li><li>Languages: C, Pascal, Fortran.</li><li>Works well for small, linear tasks.</li></ul></div><div><h4>Object-oriented programming</h4><ul><li>The program is a set of <b>objects</b> that send messages to each other.</li><li>Each object keeps its <b>own data</b> private and exposes methods.</li><li>Languages: Java, C++, C#, Python.</li><li>Scales to large systems that change over time.</li></ul></div></div>
 </div></section>
 <section class="slide " data-title="Classes, objects and the four pillars" aria-label="Classes, objects and the four pillars" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 2 of 8</p><h2>Classes, objects and the four pillars</h2><div class="cols "><div><figure class="fig" data-fig="class-objects"><figcaption>A class is a blueprint; each object is one thing built from it, with its own field values.</figcaption></figure></div><div><div class="scrollx"><table class="doc"><thead><tr><th>Pillar</th><th>In one sentence</th></tr></thead><tbody><tr><td><b>Encapsulation</b></td><td>Keep an object’s data private; allow changes only through its methods.</td></tr><tr><td><b>Inheritance</b></td><td>Build a new class from an existing one and reuse its code (Student <i>is a</i> Person).</td></tr><tr><td><b>Polymorphism</b></td><td>One call, many behaviours: <code>shape.area()</code> works for circles and rectangles.</td></tr><tr><td><b>Abstraction</b></td><td>Show what an object does, hide how it does it.</td></tr></tbody></table></div></div></div>
+<p class="kicker">Concept 2 of 8</p><h2>Classes, objects and the four pillars</h2><figure class="fig" data-fig="class-objects"><figcaption>A class is a blueprint; each object is one thing built from it, with its own field values.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Classes, objects and the four pillars (continued)" aria-label="Classes, objects and the four pillars (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Classes, objects and the four pillars</h2><div class="scrollx"><table class="doc"><thead><tr><th>Pillar</th><th>In one sentence</th></tr></thead><tbody><tr><td><b>Encapsulation</b></td><td>Keep an object’s data private; allow changes only through its methods.</td></tr><tr><td><b>Inheritance</b></td><td>Build a new class from an existing one and reuse its code (Student <i>is a</i> Person).</td></tr><tr><td><b>Polymorphism</b></td><td>One call, many behaviours: <code>shape.area()</code> works for circles and rectangles.</td></tr><tr><td><b>Abstraction</b></td><td>Show what an object does, hide how it does it.</td></tr></tbody></table></div>
+</div></section>
+
+<section class="slide " data-title="The Java platform: JDK, JRE and JVM" aria-label="The Java platform: JDK, JRE and JVM" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 8</p><h2>The Java platform: JDK, JRE and JVM</h2><figure class="fig" data-fig="jdk-jre-jvm"><figcaption>The JDK (developer kit) includes the JRE (runtime), which includes the JVM (virtual machine).</figcaption></figure>
 </div></section>
 <section class="slide " data-title="The Java platform: JDK, JRE and JVM" aria-label="The Java platform: JDK, JRE and JVM" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 3 of 8</p><h2>The Java platform: JDK, JRE and JVM</h2><div class="fig2 r2"><figure class="fig" data-fig="jdk-jre-jvm"><figcaption>The JDK (developer kit) includes the JRE (runtime), which includes the JVM (virtual machine).</figcaption></figure><figure class="fig" data-fig="jvm-pipeline"><figcaption>“Write once, run anywhere”: the same bytecode runs on every JVM.</figcaption></figure></div><ul><li><code>javac Hello.java</code> compiles source code into <b>bytecode</b> (<code>Hello.class</code>).</li><li><code>java Hello</code> starts a JVM that loads, verifies and runs the bytecode, compiling hot code to machine code (JIT).</li></ul>
+<p class="kicker">Concept 3 of 8</p><h2>The Java platform: JDK, JRE and JVM</h2><figure class="fig" data-fig="jvm-pipeline"><figcaption>“Write once, run anywhere”: the same bytecode runs on every JVM.</figcaption></figure>
 </div></section>
+<section class="slide " data-title="The Java platform: JDK, JRE and JVM (continued)" aria-label="The Java platform: JDK, JRE and JVM (continued)" tabindex="-1"><div class="slide-inner">
+<h2>The Java platform: JDK, JRE and JVM</h2><ul><li><code>javac Hello.java</code> compiles source code into <b>bytecode</b> (<code>Hello.class</code>).</li><li><code>java Hello</code> starts a JVM that loads, verifies and runs the bytecode, compiling hot code to machine code (JIT).</li></ul>
+</div></section>
+
 <section class="slide " data-title="Your first Java program" aria-label="Your first Java program" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>Your first Java program</h2><div class="codeout"><pre class="code" data-mark="2">public class Hello {
     public static void main(String[] args) {
@@ -128,7 +140,10 @@ Sum = 15
 Avg = 7.5</pre></div></div></div><ul><li><code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code> (one word), <code>nextLine()</code> (whole line).</li><li>Why the brackets in <code>"Sum = " + (a + b)</code>? Without them, <code>"Sum = " + a</code> becomes a String first and you would print <code>Sum = 78</code>.</li></ul>
 </div></section>
 <section class="slide " data-title="Decisions: if, else if, else" aria-label="Decisions: if, else if, else" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 7 of 8</p><h2>Decisions: if, else if, else</h2><div class="cols "><div><figure class="fig" data-fig="if-flow"><figcaption>An if-else chooses exactly one of two paths.</figcaption></figure></div><div><pre class="code small-code" data-mark="4-5">int marks = 72;
+<p class="kicker">Concept 7 of 8</p><h2>Decisions: if, else if, else</h2><figure class="fig" data-fig="if-flow"><figcaption>An if-else chooses exactly one of two paths.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Decisions: if, else if, else (continued)" aria-label="Decisions: if, else if, else (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Decisions: if, else if, else</h2><pre class="code small-code" data-mark="4-5">int marks = 72;
 if (marks &gt;= 80) {
     System.out.println(&quot;A+&quot;);
 } else if (marks &gt;= 70) {
@@ -137,8 +152,9 @@ if (marks &gt;= 80) {
     System.out.println(&quot;A-&quot;);
 } else {
     System.out.println(&quot;Below A-&quot;);
-}</pre><ul><li>Conditions are checked <b>top to bottom</b>; the first true branch runs and the rest are skipped.</li><li>The condition must be a <code>boolean</code> — <code>if (x = 5)</code> does not compile in Java.</li></ul></div></div>
+}</pre><ul><li>Conditions are checked <b>top to bottom</b>; the first true branch runs and the rest are skipped.</li><li>The condition must be a <code>boolean</code> — <code>if (x = 5)</code> does not compile in Java.</li></ul>
 </div></section>
+
 <section class="slide " data-title="if-else ladder in action" aria-label="if-else ladder in action" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>if-else ladder in action</h2><div data-demo="grades"></div>
 </div></section>
@@ -193,6 +209,7 @@ else
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

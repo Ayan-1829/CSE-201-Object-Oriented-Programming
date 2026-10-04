@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Iterative Statements – Topic 2 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue. Interactive slides, code tracers, demos and a quiz for Topic 2 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/02-loops.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Iterative Statements", "description": "Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue.", "position": 2, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/02-loops.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Iterative Statements", "description": "Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue.", "position": 2, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/02-loops.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 2: Iterative Statements", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html"}]}</script>
 <title>Iterative Statements – Topic 2 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Iterative Statements" aria-label="Iterative Statements" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="2" aria-hidden="true"></span>
 <span class="badge big">2</span>
 <p class="kicker">Topic 2 of 13 · Lecture 2</p>
 <h1>Iterative Statements</h1>
@@ -61,10 +62,13 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">How would you print the multiplication table from 1 × 1 to 12 × 12 without writing 144 println lines?</p><p>A loop lets the computer repeat a block of code while a condition stays true. With one loop inside another, those 144 lines shrink to about five.</p><p>In this topic you will learn the four loop forms in Java, when each is the right choice, and how to leave or skip part of a loop early.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lecture 2</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">while loop</a></li><li><a href="#s=4">do-while loop</a></li><li><a href="#s=5">for loop</a></li><li><a href="#s=9">for-each loop</a></li><li><a href="#s=10">Nested loops</a></li><li><a href="#s=12">break, labeled break and continue</a></li><li><a href="#s=14">Choosing the right loop</a></li></ol>
+<p class="kicker">Outline · Lecture 2</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">while loop</a></li><li><a href="#s=4">do-while loop</a></li><li><a href="#s=6">for loop</a></li><li><a href="#s=10">for-each loop</a></li><li><a href="#s=11">Nested loops</a></li><li><a href="#s=13">break, labeled break and continue</a></li><li><a href="#s=15">Choosing the right loop</a></li></ol>
 </div></section>
 <section class="slide " data-title="while and do-while" aria-label="while and do-while" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 1 of 5</p><h2>while and do-while</h2><div class="cols "><div><figure class="fig" data-fig="loop-flow"><figcaption>while checks first, so its body may run zero times; do-while always runs its body at least once.</figcaption></figure></div><div><pre class="code small-code">int n = 1;
+<p class="kicker">Concept 1 of 5</p><h2>while and do-while</h2><figure class="fig" data-fig="loop-flow"><figcaption>while checks first, so its body may run zero times; do-while always runs its body at least once.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="while and do-while (continued)" aria-label="while and do-while (continued)" tabindex="-1"><div class="slide-inner">
+<h2>while and do-while</h2><pre class="code small-code">int n = 1;
 while (n &lt;= 3) {           // check, then run
     System.out.println(n);
     n++;
@@ -73,8 +77,9 @@ while (n &lt;= 3) {           // check, then run
 int choice;
 do {                       // run, then check
     choice = readMenu();
-} while (choice != 0);     // note the semicolon</pre><ul><li>Use <b>while</b> when you might not need to run at all (reading until end of input).</li><li>Use <b>do-while</b> for menus and input validation: ask at least once.</li><li>Forgetting <code>n++</code> gives an <b>infinite loop</b>.</li></ul></div></div>
+} while (choice != 0);     // note the semicolon</pre><ul><li>Use <b>while</b> when you might not need to run at all (reading until end of input).</li><li>Use <b>do-while</b> for menus and input validation: ask at least once.</li><li>Forgetting <code>n++</code> gives an <b>infinite loop</b>.</li></ul>
 </div></section>
+
 <section class="slide " data-title="The for loop" aria-label="The for loop" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 2 of 5</p><h2>The for loop</h2><div class="cols "><div><pre class="code small-code">//   init       condition   update
 for (int i = 1; i &lt;= 5;     i++) {
@@ -194,6 +199,7 @@ while (n &gt; 0) { n /= 10; count++; }</pre></div></details></div><div class="ex
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

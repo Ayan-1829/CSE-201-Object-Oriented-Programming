@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Packages &amp; Interfaces – Topic 9 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes. Interactive slides, code tracers, demos and a quiz for Topic 9 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/09-packages-and-interfaces.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Packages & Interfaces", "description": "Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes.", "position": 9, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 20, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/09-packages-and-interfaces.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Packages & Interfaces", "description": "Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes.", "position": 9, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/09-packages-and-interfaces.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 9: Packages & Interfaces", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html"}]}</script>
 <title>Packages &amp; Interfaces – Topic 9 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Packages &amp; Interfaces" aria-label="Packages &amp; Interfaces" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="9" aria-hidden="true"></span>
 <span class="badge big">9</span>
 <p class="kicker">Topic 9 of 13 · Lectures 13–14</p>
 <h1>Packages & Interfaces</h1>
@@ -61,10 +62,13 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">An Employee and an Invoice have nothing in common — except that the accounts office must pay both. How can one loop pay them all?</p><p>Neither class should extend the other. Instead both can promise, through an <b>interface</b>, that they have a <code>getPayment()</code> method. The loop only needs that promise.</p><p>First, though, we organise classes into <b>packages</b> — and see how packages change what <code>protected</code> and default access mean.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 13–14</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Packages and import</a></li><li><a href="#s=5">Access protection</a></li><li><a href="#s=7">Defining and implementing interfaces</a></li><li><a href="#s=10">Multiple interfaces</a></li><li><a href="#s=12">Interfaces vs. classes</a></li></ol>
+<p class="kicker">Outline · Lectures 13–14</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Packages and import</a></li><li><a href="#s=6">Access protection</a></li><li><a href="#s=8">Defining and implementing interfaces</a></li><li><a href="#s=12">Multiple interfaces</a></li><li><a href="#s=14">Interfaces vs. classes</a></li></ol>
 </div></section>
 <section class="slide " data-title="Packages" aria-label="Packages" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 1 of 5</p><h2>Packages</h2><div class="cols "><div><figure class="fig" data-fig="pkg-tree"><figcaption>Package names mirror the folder structure. Reverse domain names keep them unique.</figcaption></figure></div><div><pre class="code small-code">// file: src/bd/edu/green/cse/model/Student.java
+<p class="kicker">Concept 1 of 5</p><h2>Packages</h2><figure class="fig" data-fig="pkg-tree"><figcaption>Package names mirror the folder structure. Reverse domain names keep them unique.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Packages (continued)" aria-label="Packages (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Packages</h2><pre class="code small-code">// file: src/bd/edu/green/cse/model/Student.java
 package bd.edu.green.cse.model;   // first line
 
 public class Student { ... }
@@ -74,8 +78,9 @@ package bd.edu.green.cse.app;
 import bd.edu.green.cse.model.Student;   // one class
 import java.util.*;                      // whole package
 
-public class Main { ... }</pre><ul><li>A package groups related classes and gives them a <b>namespace</b>: two classes may both be called <code>Date</code> in different packages.</li><li><code>java.lang</code> (String, Math, System) is imported automatically.</li><li>Compile and run from the <code>src</code> folder using the full package path and name.</li></ul></div></div>
+public class Main { ... }</pre><ul><li>A package groups related classes and gives them a <b>namespace</b>: two classes may both be called <code>Date</code> in different packages.</li><li><code>java.lang</code> (String, Math, System) is imported automatically.</li><li>Compile and run from the <code>src</code> folder using the full package path and name.</li></ul>
 </div></section>
+
 <section class="slide " data-title="Access protection across packages" aria-label="Access protection across packages" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 2 of 5</p><h2>Access protection across packages</h2><div class="scrollx"><table class="doc"><thead><tr><th>Access from…</th><th>private</th><th>default</th><th>protected</th><th>public</th></tr></thead><tbody><tr><td>the same class</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>another class in the same package</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>a subclass in the same package</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>a subclass in another package</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td></tr><tr><td>an unrelated class in another package</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td></tr></tbody></table></div><div class="callout"><b>Subtle point:</b> A subclass in another package can use an inherited protected member through <code>this</code> (or its own type), but not through a reference to a plain superclass object.</div>
 </div></section>
@@ -83,7 +88,10 @@ public class Main { ... }</pre><ul><li>A package groups related classes and give
 <p class="kicker">Interactive</p><h2>Access-modifier checker</h2><div data-demo="access"></div>
 </div></section>
 <section class="slide " data-title="Interfaces" aria-label="Interfaces" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 3 of 5</p><h2>Interfaces</h2><div class="cols "><div><figure class="fig" data-fig="uml-iface"><figcaption>UML: a dashed line with a hollow triangle means “implements”.</figcaption></figure></div><div><pre class="code small-code">interface Payable {
+<p class="kicker">Concept 3 of 5</p><h2>Interfaces</h2><figure class="fig" data-fig="uml-iface"><figcaption>UML: a dashed line with a hollow triangle means “implements”.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Interfaces (continued)" aria-label="Interfaces (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Interfaces</h2><pre class="code small-code">interface Payable {
     double getPayment();          // public abstract
 }
 class Invoice implements Payable {
@@ -91,8 +99,9 @@ class Invoice implements Payable {
     Invoice(int q, double p) { qty = q; price = p; }
     @Override
     public double getPayment() { return qty * price; }
-}</pre><ul><li>An interface declares <b>what</b> a class can do; implementing classes decide <b>how</b>.</li><li>Interface methods are <code>public abstract</code> by default; fields are <code>public static final</code> constants.</li><li>You cannot create an object of an interface, but you can use it as a <b>type</b>: <code>Payable p = new Invoice(3, 250);</code></li></ul></div></div>
+}</pre><ul><li>An interface declares <b>what</b> a class can do; implementing classes decide <b>how</b>.</li><li>Interface methods are <code>public abstract</code> by default; fields are <code>public static final</code> constants.</li><li>You cannot create an object of an interface, but you can use it as a <b>type</b>: <code>Payable p = new Invoice(3, 250);</code></li></ul>
 </div></section>
+
 <section class="slide " data-title="Trace: paying through an interface" aria-label="Trace: paying through an interface" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: paying through an interface</h2><p class="muted">The array’s type is <code>Payable[]</code>, yet each call runs the method of the real object.</p><div data-trace="t9-iface"></div>
 </div></section>
@@ -186,6 +195,7 @@ class Circle implements Resizable {
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

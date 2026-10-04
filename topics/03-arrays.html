@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms. Interactive slides, code tracers, demos and a quiz for Topic 3 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Arrays, Sorting & Searching", "description": "Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms.", "position": 3, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Arrays, Sorting & Searching", "description": "Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms.", "position": 3, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 25, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 3: Arrays, Sorting & Searching", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html"}]}</script>
 <title>Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="Arrays, Sorting &amp; Searching" aria-label="Arrays, Sorting &amp; Searching" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="3" aria-hidden="true"></span>
 <span class="badge big">3</span>
 <p class="kicker">Topic 3 of 13 · Lecture 3</p>
 <h1>Arrays, Sorting & Searching</h1>
@@ -61,10 +62,13 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A class has 60 students. Do you really need 60 separate variables to store their marks?</p><p>An array stores many values of the same type under one name, each reached by an index. Once marks sit in an array, one loop can find the highest, the average or sort them.</p><p>You will also see a surprise: arrays are objects, so copying an array variable does not copy the array.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lecture 3</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Arrays: declaration, creation, length</a></li><li><a href="#s=6">Array references and copying</a></li><li><a href="#s=8">Multidimensional arrays</a></li><li><a href="#s=10">Sorting: bubble, selection, insertion</a></li><li><a href="#s=12">Searching: linear and binary</a></li></ol>
+<p class="kicker">Outline · Lecture 3</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Arrays: declaration, creation, length</a></li><li><a href="#s=7">Array references and copying</a></li><li><a href="#s=10">Multidimensional arrays</a></li><li><a href="#s=14">Sorting: bubble, selection, insertion</a></li><li><a href="#s=16">Searching: linear and binary</a></li></ol>
 </div></section>
 <section class="slide " data-title="Declaring and creating arrays" aria-label="Declaring and creating arrays" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 1 of 5</p><h2>Declaring and creating arrays</h2><div class="cols "><div><pre class="code small-code">int[] marks = new int[5];         // 5 zeros
+<p class="kicker">Concept 1 of 5</p><h2>Declaring and creating arrays</h2><figure class="fig" data-fig="array-mem"><figcaption>The variable holds a reference; the array object with its elements lives on the heap.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Declaring and creating arrays (continued)" aria-label="Declaring and creating arrays (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Declaring and creating arrays</h2><div class="cols "><div><pre class="code small-code">int[] marks = new int[5];         // 5 zeros
 marks[0] = 78;
 marks[4] = 91;
 
@@ -73,23 +77,35 @@ String[] days = new String[7];    // 7 nulls
 
 System.out.println(marks.length); // 5
 System.out.println(cgpa[2]);      // 2.8
-marks[5] = 10;  // ArrayIndexOutOfBoundsException!</pre></div><div><figure class="fig" data-fig="array-mem"><figcaption>The variable holds a reference; the array object with its elements lives on the heap.</figcaption></figure><ul><li>Indexes run from <code>0</code> to <code>length − 1</code>.</li><li>New arrays are filled with default values: 0, 0.0, false or null.</li><li><code>length</code> is a field, not a method — no brackets.</li></ul></div></div>
+marks[5] = 10;  // ArrayIndexOutOfBoundsException!</pre></div><div><ul><li>Indexes run from <code>0</code> to <code>length − 1</code>.</li><li>New arrays are filled with default values: 0, 0.0, false or null.</li><li><code>length</code> is a field, not a method — no brackets.</li></ul></div></div>
 </div></section>
+
 <section class="slide " data-title="Trace: finding the highest mark" aria-label="Trace: finding the highest mark" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: finding the highest mark</h2><p class="muted">The loop compares every element with the best value so far. Watch <code>max</code> change only when a larger mark appears.</p><div data-trace="t3-max"></div>
 </div></section>
 <section class="slide " data-title="Arrays are objects: copying a reference" aria-label="Arrays are objects: copying a reference" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 2 of 5</p><h2>Arrays are objects: copying a reference</h2><div class="cols "><div><figure class="fig" data-fig="array-alias"><figcaption><code>int[] b = a;</code> copies the reference, not the elements. <code>a.clone()</code> makes a real copy.</figcaption></figure></div><div><ul><li><code>b = a</code> → both names refer to the <b>same</b> array (aliases). A change through <code>b</code> is visible through <code>a</code>.</li><li><code>a.clone()</code> or <code>Arrays.copyOf(a, a.length)</code> creates a new array with the same values.</li><li><code>a == b</code> compares references. Use <code>Arrays.equals(a, b)</code> to compare contents.</li></ul></div></div>
+<p class="kicker">Concept 2 of 5</p><h2>Arrays are objects: copying a reference</h2><figure class="fig" data-fig="array-alias"><figcaption><code>int[] b = a;</code> copies the reference, not the elements. <code>a.clone()</code> makes a real copy.</figcaption></figure>
 </div></section>
+<section class="slide " data-title="Arrays are objects: copying a reference (continued)" aria-label="Arrays are objects: copying a reference (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Arrays are objects: copying a reference</h2><ul><li><code>b = a</code> → both names refer to the <b>same</b> array (aliases). A change through <code>b</code> is visible through <code>a</code>.</li><li><code>a.clone()</code> or <code>Arrays.copyOf(a, a.length)</code> creates a new array with the same values.</li><li><code>a == b</code> compares references. Use <code>Arrays.equals(a, b)</code> to compare contents.</li></ul>
+</div></section>
+
 <section class="slide " data-title="Trace: aliases and copies" aria-label="Trace: aliases and copies" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: aliases and copies</h2><p class="muted">Colour-matched arrows show which variables share an array. The last step creates a new array for <code>a</code> — does <code>b</code> change?</p><div data-trace="t3-alias"></div>
 </div></section>
 <section class="slide " data-title="Multidimensional and jagged arrays" aria-label="Multidimensional and jagged arrays" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 3 of 5</p><h2>Multidimensional and jagged arrays</h2><div class="fig2 "><figure class="fig" data-fig="array-2d"><figcaption>A 2-D array is an array of row arrays: m[i] is a whole row.</figcaption></figure><figure class="fig" data-fig="array-jagged"><figcaption>Rows can have different lengths (a jagged array).</figcaption></figure></div><pre class="code small-code">int[][] m = { {1, 2, 3}, {4, 5, 6} };      // 2 rows × 3 columns
+<p class="kicker">Concept 3 of 5</p><h2>Multidimensional and jagged arrays</h2><figure class="fig" data-fig="array-2d"><figcaption>A 2-D array is an array of row arrays: m[i] is a whole row.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Multidimensional and jagged arrays" aria-label="Multidimensional and jagged arrays" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>Multidimensional and jagged arrays</h2><figure class="fig" data-fig="array-jagged"><figcaption>Rows can have different lengths (a jagged array).</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Multidimensional and jagged arrays (continued)" aria-label="Multidimensional and jagged arrays (continued)" tabindex="-1"><div class="slide-inner">
+<h2>Multidimensional and jagged arrays</h2><pre class="code small-code">int[][] m = { {1, 2, 3}, {4, 5, 6} };      // 2 rows × 3 columns
 System.out.println(m.length + &quot; &quot; + m[0].length);   // 2 3
 int[][] t = new int[3][];                  // rows created later
 t[0] = new int[1];  t[1] = new int[2];  t[2] = new int[3];</pre>
 </div></section>
+
 <section class="slide " data-title="2-D array explorer" aria-label="2-D array explorer" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>2-D array explorer</h2><div data-demo="grid2d"></div>
 </div></section>
@@ -178,6 +194,7 @@ double avg = s / a.length;</pre></div></details></div><div class="ex"><div class
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>

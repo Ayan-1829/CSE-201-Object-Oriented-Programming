@@ -28,7 +28,7 @@
 <meta name="twitter:title" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework. Interactive slides, code tracers, demos and a quiz for Topic 13 of Object Oriented Programming (Java).">
 <meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "GUI, Graphics, Databases & Spring", "description": "Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework.", "position": 13, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png", "isAccessibleForFree": true}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "GUI, Graphics, Databases & Spring", "description": "Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework.", "position": 13, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 13: GUI, Graphics, Databases & Spring", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html"}]}</script>
 <title>GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
 <div class="deck-progress"><i id="progress-fill"></i></div>
 <main class="deck" id="deck">
 <section class="slide title-slide" data-title="GUI, Graphics, Databases &amp; Spring" aria-label="GUI, Graphics, Databases &amp; Spring" tabindex="-1"><div class="slide-inner">
+<span class="topic-art" data-art="13" aria-hidden="true"></span>
 <span class="badge big">13</span>
 <p class="kicker">Topic 13 of 13 · Lecture 24</p>
 <h1>GUI, Graphics, Databases & Spring</h1>
@@ -61,10 +62,13 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">Every app you use has buttons, text boxes and pictures, and saves your data somewhere. How much of that can you already build with the OOP you know?</p><p>All of it. A JavaFX window is a tree of objects; a button click is an event object delivered to a method; a database row becomes a Java object. Classes, inheritance, interfaces and lambdas are everywhere.</p><p>This last topic tours the libraries you will use for real projects: JavaFX for interfaces and graphics, JDBC for databases and Spring for back-end services.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lecture 24</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">JavaFX application structure</a></li><li><a href="#s=5">Components and layouts</a></li><li><a href="#s=7">Event handling</a></li><li><a href="#s=8">Simple interface design</a></li><li><a href="#s=9">Graphical drawing</a></li><li><a href="#s=10">Animation</a></li><li><a href="#s=11">Database connection with JDBC</a></li><li><a href="#s=14">Introduction to Spring</a></li></ol>
+<p class="kicker">Outline · Lecture 24</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">JavaFX application structure</a></li><li><a href="#s=6">Components and layouts</a></li><li><a href="#s=8">Event handling</a></li><li><a href="#s=9">Simple interface design</a></li><li><a href="#s=10">Graphical drawing</a></li><li><a href="#s=11">Animation</a></li><li><a href="#s=12">Database connection with JDBC</a></li><li><a href="#s=15">Introduction to Spring</a></li></ol>
 </div></section>
 <section class="slide " data-title="A JavaFX application" aria-label="A JavaFX application" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 1 of 5</p><h2>A JavaFX application</h2><div class="cols "><div><pre class="code small-code">public class HelloFX extends Application {
+<p class="kicker">Concept 1 of 5</p><h2>A JavaFX application</h2><figure class="fig" data-fig="fx-tree"><figcaption>Stage (window) → Scene → scene graph of nodes: layout panes containing controls.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="A JavaFX application (continued)" aria-label="A JavaFX application (continued)" tabindex="-1"><div class="slide-inner">
+<h2>A JavaFX application</h2><div class="cols "><div><pre class="code small-code">public class HelloFX extends Application {
     @Override
     public void start(Stage stage) {
         Label msg = new Label(&quot;Hello, JavaFX&quot;);
@@ -77,8 +81,9 @@
         stage.show();
     }
     public static void main(String[] args) { launch(args); }
-}</pre></div><div><figure class="fig" data-fig="fx-tree"><figcaption>Stage (window) → Scene → scene graph of nodes: layout panes containing controls.</figcaption></figure><ul><li>Extend <code>Application</code> and override <code>start(Stage)</code>; <code>launch()</code> calls it for you.</li><li>Everything you see is a <b>Node</b> object in a tree.</li></ul></div></div>
+}</pre></div><div><ul><li>Extend <code>Application</code> and override <code>start(Stage)</code>; <code>launch()</code> calls it for you.</li><li>Everything you see is a <b>Node</b> object in a tree.</li></ul></div></div>
 </div></section>
+
 <section class="slide " data-title="Components (controls)" aria-label="Components (controls)" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 2 of 5</p><h2>Components (controls)</h2><div class="scrollx"><table class="doc"><thead><tr><th>Control</th><th>Use</th><th>Useful methods</th></tr></thead><tbody><tr><td class="m">Label</td><td>Show text</td><td class="m">setText, setFont</td></tr><tr><td class="m">Button</td><td>Trigger an action</td><td class="m">setOnAction</td></tr><tr><td class="m">TextField / PasswordField</td><td>Type one line</td><td class="m">getText, setPromptText</td></tr><tr><td class="m">TextArea</td><td>Several lines</td><td class="m">getText, appendText</td></tr><tr><td class="m">CheckBox</td><td>Yes/no option</td><td class="m">isSelected</td></tr><tr><td class="m">RadioButton + ToggleGroup</td><td>One choice of many</td><td class="m">getSelectedToggle</td></tr><tr><td class="m">ComboBox / ChoiceBox</td><td>Drop-down list</td><td class="m">getItems().addAll, getValue</td></tr><tr><td class="m">ListView / TableView</td><td>Lists and tables of objects</td><td class="m">getItems, getSelectionModel</td></tr><tr><td class="m">ImageView</td><td>Show a picture</td><td class="m">new ImageView(new Image(url))</td></tr></tbody></table></div>
 </div></section>
@@ -221,6 +226,7 @@ gc.fillOval(60, 60, 80, 80);   // top-left corner, width, height</pre></div></de
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
 <noscript><p style="padding:20px">This lesson needs JavaScript for the slides and the interactive examples.</p></noscript>
 <script src="../js/core.js"></script>
+<script src="../js/art.js"></script>
 <script src="../js/java.js"></script>
 <script src="../js/tracer.js"></script>
 <script src="../js/figs.js"></script>
