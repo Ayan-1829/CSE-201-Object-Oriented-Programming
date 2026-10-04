@@ -20,15 +20,17 @@
 <meta property="og:title" content="Inheritance – Topic 7 | Object Oriented Programming Notes">
 <meta property="og:description" content="Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class. Interactive slides, code tracers, demos and a quiz for Topic 7 of Object Oriented Programming (Java).">
 <meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html">
-<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png?v=2">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Inheritance – Topic 7 | Object Oriented Programming Notes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Inheritance – Topic 7 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class. Interactive slides, code tracers, demos and a quiz for Topic 7 of Object Oriented Programming (Java).">
-<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Inheritance", "description": "Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class.", "position": 7, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 21, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png", "isAccessibleForFree": true}</script>
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png?v=2">
+<meta name="twitter:image:alt" content="Inheritance – Topic 7 | Object Oriented Programming Notes">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Inheritance", "description": "Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class.", "position": 7, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/07-inheritance.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 7: Inheritance", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html"}]}</script>
 <title>Inheritance – Topic 7 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +64,7 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A university system has Students, Teachers and Staff. All of them have a name, age, phone number and address. Do you really write those four fields three times?</p><p>Inheritance lets you put the shared parts in one <b>superclass</b> (Person) and have each <b>subclass</b> add only what is different. Fix a bug in Person and all three classes are fixed.</p><p>You will also see exactly which constructors run, and in what order, when you create an object at the bottom of a hierarchy.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 9–10</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Inheritance basics and UML</a></li><li><a href="#s=8">Using super</a></li><li><a href="#s=10">Multilevel hierarchy and constructor order</a></li><li><a href="#s=12">The Object class</a></li></ol>
+<p class="kicker">Outline · Lectures 9–10</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Inheritance basics and UML</a></li><li><a href="#s=8">Using super</a></li><li><a href="#s=11">Multilevel hierarchy and constructor order</a></li><li><a href="#s=13">The Object class</a></li></ol>
 </div></section>
 <section class="slide " data-title="Inheritance: the is-a relationship" aria-label="Inheritance: the is-a relationship" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 6</p><h2>Inheritance: the is-a relationship</h2><figure class="fig" data-fig="uml-inherit"><figcaption>UML: the hollow triangle points from the subclass to its superclass.</figcaption></figure>
@@ -126,6 +128,9 @@ class Teacher extends Person {
 Person[] people = { new Student(&quot;Mitu&quot;, 221), new Teacher(&quot;Dr. Karim&quot;, &quot;CSE&quot;) };
 for (Person p : people) System.out.println(p.introduce());</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">I am Mitu, ID 221
 I am Dr. Karim from CSE</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="Trace: super(…) and super.introduce()" aria-label="Trace: super(…) and super.introduce()" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: super(…) and super.introduce()</h2><p class="muted">Follow one object through two constructors, then see an override call the superclass version with super.</p><div data-trace="t7-super"></div>
 </div></section>
 <section class="slide " data-title="Multilevel hierarchies and constructor order" aria-label="Multilevel hierarchies and constructor order" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 5 of 6</p><h2>Multilevel hierarchies and constructor order</h2><div class="cols "><div><figure class="fig" data-fig="uml-multilevel"><figcaption>A three-level hierarchy: ElectricCar → Car → Vehicle.</figcaption></figure></div><div><pre class="code small-code">class Vehicle {

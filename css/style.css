@@ -492,6 +492,45 @@ table.arr td.hl{background:var(--mark-soft);font-weight:700}
 .trace-ctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-end}
 .trace-ctl input[type=range]{width:100%;flex-basis:100%}
 .trace-count{font:600 13px var(--f-head);color:var(--ink-2);min-width:88px;text-align:center}
+.trace-ctl .speed{min-width:3.2em;font-variant-numeric:tabular-nums}
+/* reference arrows */
+.trace-state{position:relative}
+.trace.has-arrows .trace-state{padding-right:22px}
+.trace.has-arrows .heap{padding-top:9px}
+.trace-arrows{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:3}
+.trace-arrows.back{z-index:1}
+.trace.has-arrows .obj{position:relative;z-index:2}
+.arw path{fill:none;stroke-width:2;stroke-linecap:round;opacity:.9}
+.arw polygon,.arw circle{opacity:.95}
+.arw.dim{opacity:.4}
+.arw.rc0 path{stroke:var(--rc0)}.arw.rc1 path{stroke:var(--rc1)}.arw.rc2 path{stroke:var(--rc2)}.arw.rc3 path{stroke:var(--rc3)}.arw.rc4 path{stroke:var(--rc4)}.arw.rc5 path{stroke:var(--rc5)}
+.arw.rc0 polygon,.arw.rc0 circle{fill:var(--rc0)}.arw.rc1 polygon,.arw.rc1 circle{fill:var(--rc1)}.arw.rc2 polygon,.arw.rc2 circle{fill:var(--rc2)}.arw.rc3 polygon,.arw.rc3 circle{fill:var(--rc3)}.arw.rc4 polygon,.arw.rc4 circle{fill:var(--rc4)}.arw.rc5 polygon,.arw.rc5 circle{fill:var(--rc5)}
+.arw.draw path{stroke-dasharray:1;stroke-dashoffset:1;animation:arw-draw .55s ease-out forwards}
+.arw.draw polygon{opacity:0;animation:arw-head .2s .45s ease-out forwards}
+@keyframes arw-draw{to{stroke-dashoffset:0}}
+@keyframes arw-head{to{opacity:.95}}
+/* motion cues */
+.cl.arrive{animation:line-arrive .35s ease-out}
+@keyframes line-arrive{from{box-shadow:inset 8px 0 0 var(--accent)}to{box-shadow:inset 0 0 0 var(--accent)}}
+.frame.fresh{animation:pop .3s ease-out}
+.obj.changed{animation:object-change .7s ease-out}
+.console.flash .console-body{animation:console-flash .6s ease-out}
+@keyframes console-flash{0%{box-shadow:inset 0 0 0 2px var(--accent)}100%{box-shadow:inset 0 0 0 2px transparent}}
+/* threads: one stack per thread */
+.threads{display:flex;flex-direction:column;gap:8px}
+.thread{border:1px solid var(--line);border-radius:9px;padding:6px;background:var(--sheet);transition:box-shadow .2s,border-color .2s}
+.thread.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.thread.chg .ts{animation:object-change .7s ease-out}
+.thread-h{display:flex;align-items:center;gap:10px;margin-bottom:6px;font:700 13px var(--f-mono);color:var(--ink)}
+.ts{font:700 10.5px var(--f-head);letter-spacing:.03em;padding:2px 7px;border-radius:99px;background:var(--sheet-2);color:var(--ink-2);border:1px solid var(--line)}
+.ts-runnable{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.ts-blocked{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.ts-waiting,.ts-timedwaiting{background:var(--accent-soft);color:var(--accent-ink);border-color:transparent}
+.ts-terminated{opacity:.75}
+.thread.empty .thread-h{margin-bottom:0}
+.tnote{font:450 12.5px var(--f-head);color:var(--ink-3)}
+.slide .tnote{font-size:15px}
+.slide .thread-h{font-size:17px}.slide .ts{font-size:14px}
 
 /* ---- figures ---- */
 .fig-box{overflow-x:auto}

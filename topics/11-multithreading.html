@@ -20,15 +20,17 @@
 <meta property="og:title" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
 <meta property="og:description" content="Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify. Interactive slides, code tracers, demos and a quiz for Topic 11 of Object Oriented Programming (Java).">
 <meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html">
-<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png?v=2">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify. Interactive slides, code tracers, demos and a quiz for Topic 11 of Object Oriented Programming (Java).">
-<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Multithreaded Programming", "description": "Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify.", "position": 11, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 23, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png", "isAccessibleForFree": true}</script>
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png?v=2">
+<meta name="twitter:image:alt" content="Multithreaded Programming – Topic 11 | Object Oriented Programming Notes">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Multithreaded Programming", "description": "Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify.", "position": 11, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 26, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/11-multithreading.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 11: Multithreaded Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html"}]}</script>
 <title>Multithreaded Programming – Topic 11 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +64,7 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">Your music keeps playing while you scroll, download and type. How can one program do several things at the same time?</p><p>Each activity runs in its own <b>thread</b>: an independent path of execution inside the same program. Threads make programs responsive and let them use every CPU core.</p><p>But threads that share data can trip over each other. You will create threads, then break a counter on purpose, and fix it with synchronization.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lectures 19–21</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Processes and threads</a></li><li><a href="#s=5">Thread life cycle</a></li><li><a href="#s=7">Creating threads: Thread and Runnable</a></li><li><a href="#s=10">Synchronization</a></li><li><a href="#s=13">Interthread communication: wait and notify</a></li></ol>
+<p class="kicker">Outline · Lectures 19–21</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Processes and threads</a></li><li><a href="#s=5">Thread life cycle</a></li><li><a href="#s=7">Creating threads: Thread and Runnable</a></li><li><a href="#s=11">Synchronization</a></li><li><a href="#s=16">Interthread communication: wait and notify</a></li></ol>
 </div></section>
 <section class="slide " data-title="Processes and threads" aria-label="Processes and threads" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 6</p><h2>Processes and threads</h2><figure class="fig" data-fig="threads-mem"><figcaption>Threads of one process share the heap but each has its own stack.</figcaption></figure><ul><li>A <b>process</b> is a running program with its own memory. A <b>thread</b> is a path of execution inside a process.</li><li>Threads share the heap (objects, static fields), so they communicate cheaply — and can interfere.</li><li>Every Java program starts with the <b>main</b> thread; the JVM also runs background threads such as the garbage collector.</li><li>On a multi-core CPU threads can truly run in parallel; on one core they take turns (time-slicing).</li></ul>
@@ -100,6 +102,9 @@ Lambda
 W step 3
 main ends</pre></div><ul><li>Put the thread’s work in <code>run()</code>, but call <code>start()</code> — start creates the new thread, which then calls run.</li><li>Implementing <code>Runnable</code> keeps your class free to extend something else.</li><li>The order of lines from different threads can change on every run.</li></ul></div></div>
 </div></section>
+<section class="slide " data-title="Trace: two threads, two stacks" aria-label="Trace: two threads, two stacks" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: two threads, two stacks</h2><p class="muted">Every thread has its own call stack. Watch the states change from NEW to RUNNABLE to TERMINATED, and main WAIT in join().</p><div data-trace="t11-threads"></div>
+</div></section>
 <section class="slide " data-title="Two threads, many outputs" aria-label="Two threads, many outputs" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Two threads, many outputs</h2><div data-demo="interleave"></div>
 </div></section>
@@ -134,6 +139,9 @@ Thread a = new Thread(job), b = new Thread(job);
 a.start(); b.start(); a.join(); b.join();
 System.out.println(c.get());   // expected 200000</pre><div class="console"><div class="console-h">Typical output — different every run</div><pre class="console-body">137462</pre></div></div><div><ul><li><code>count++</code> is three steps: <b>read</b> count, <b>add</b> 1, <b>write</b> it back.</li><li>If both threads read the same old value, one increment is <b>lost</b>.</li><li>A bug whose result depends on timing is a <b>race condition</b>. It may pass a hundred tests and fail in the exam demo.</li></ul></div></div>
 </div></section>
+<section class="slide " data-title="Trace: how count++ loses an update" aria-label="Trace: how count++ loses an update" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: how count++ loses an update</h2><p class="muted">count++ is read, add, write. Compare the two schedules: in the interleaved one, both threads read 0.</p><div data-trace="t11-race"></div>
+</div></section>
 <section class="slide " data-title="Race-condition lab" aria-label="Race-condition lab" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Race-condition lab</h2><div data-demo="race"></div>
 </div></section>
@@ -153,6 +161,9 @@ class Bank {
         }
     }
 }</pre></div><div><ul><li>Every object has a <b>monitor lock</b>. Only one thread at a time can hold it.</li><li>A <code>synchronized</code> method locks <code>this</code> (a static synchronized method locks the class).</li><li>Other threads trying to enter become <b>BLOCKED</b> until the lock is released.</li><li>Keep synchronized sections short; for simple counters <code>AtomicInteger</code> is an alternative.</li></ul></div></div>
+</div></section>
+<section class="slide " data-title="Trace: a lock makes B wait" aria-label="Trace: a lock makes B wait" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: a lock makes B wait</h2><p class="muted">With synchronized, B is BLOCKED while A holds the lock, so it can never read a stale value.</p><div data-trace="t11-sync"></div>
 </div></section>
 <section class="slide " data-title="Interthread communication: wait and notify" aria-label="Interthread communication: wait and notify" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 5 of 6</p><h2>Interthread communication: wait and notify</h2><div class="cols "><div><pre class="code small-code">class Buffer {

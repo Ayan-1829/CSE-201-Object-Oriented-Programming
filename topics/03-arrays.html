@@ -20,15 +20,17 @@
 <meta property="og:title" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
 <meta property="og:description" content="Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms. Interactive slides, code tracers, demos and a quiz for Topic 3 of Object Oriented Programming (Java).">
 <meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html">
-<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png?v=2">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms. Interactive slides, code tracers, demos and a quiz for Topic 3 of Object Oriented Programming (Java).">
-<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Arrays, Sorting & Searching", "description": "Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms.", "position": 3, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 25, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png", "isAccessibleForFree": true}</script>
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png?v=2">
+<meta name="twitter:image:alt" content="Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Arrays, Sorting & Searching", "description": "Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms.", "position": 3, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 27, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/03-arrays.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 3: Arrays, Sorting & Searching", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html"}]}</script>
 <title>Arrays, Sorting &amp; Searching – Topic 3 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +64,7 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">A class has 60 students. Do you really need 60 separate variables to store their marks?</p><p>An array stores many values of the same type under one name, each reached by an index. Once marks sit in an array, one loop can find the highest, the average or sort them.</p><p>You will also see a surprise: arrays are objects, so copying an array variable does not copy the array.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lecture 3</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Arrays: declaration, creation, length</a></li><li><a href="#s=7">Array references and copying</a></li><li><a href="#s=10">Multidimensional arrays</a></li><li><a href="#s=14">Sorting: bubble, selection, insertion</a></li><li><a href="#s=16">Searching: linear and binary</a></li></ol>
+<p class="kicker">Outline · Lecture 3</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">Arrays: declaration, creation, length</a></li><li><a href="#s=7">Array references and copying</a></li><li><a href="#s=10">Multidimensional arrays</a></li><li><a href="#s=14">Sorting: bubble, selection, insertion</a></li><li><a href="#s=17">Searching: linear and binary</a></li></ol>
 </div></section>
 <section class="slide " data-title="Declaring and creating arrays" aria-label="Declaring and creating arrays" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 5</p><h2>Declaring and creating arrays</h2><figure class="fig" data-fig="array-mem"><figcaption>The variable holds a reference; the array object with its elements lives on the heap.</figcaption></figure>
@@ -115,6 +117,9 @@ for (int pass = 0; pass &lt; a.length - 1; pass++)
     for (int j = 0; j &lt; a.length - 1 - pass; j++)
         if (a[j] &gt; a[j + 1]) { int t = a[j]; a[j] = a[j + 1]; a[j + 1] = t; }</pre><div class="callout"><b>Library:</b> In real programs use <code>Arrays.sort(a)</code>, which is fast (O(n log n)).</div>
 </div></section>
+<section class="slide " data-title="Trace: bubble sort, swap by swap" aria-label="Trace: bubble sort, swap by swap" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: bubble sort, swap by swap</h2><p class="muted">Watch each pair being compared. The highlighted cells are the two neighbours; after every pass one more value is in its final place.</p><div data-trace="t3-bubble"></div>
+</div></section>
 <section class="slide " data-title="Sorting visualizer" aria-label="Sorting visualizer" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Sorting visualizer</h2><div data-demo="sorting"></div>
 </div></section>
@@ -138,6 +143,9 @@ static int binary(int[] a, int key) {  // a must be sorted
 </div></section>
 <section class="slide " data-title="Linear vs binary search" aria-label="Linear vs binary search" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Linear vs binary search</h2><div data-demo="searching"></div>
+</div></section>
+<section class="slide " data-title="Trace: binary search halves the range" aria-label="Trace: binary search halves the range" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: binary search halves the range</h2><p class="muted">Pick a key. The highlighted cells are the part of the array that can still contain it; it halves on every look.</p><div data-trace="t3-binary"></div>
 </div></section>
 <section class="slide " data-title="Useful java.util.Arrays methods" aria-label="Useful java.util.Arrays methods" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>Useful java.util.Arrays methods</h2><div class="codeout"><pre class="code">import java.util.Arrays;

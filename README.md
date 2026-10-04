@@ -8,7 +8,7 @@
 
 <a href="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/"><img alt="Live site: open" src="https://img.shields.io/badge/Live_site-open-155E63?style=for-the-badge&logo=githubpages&logoColor=white"></a>
 <img alt="Topics: 13" src="https://img.shields.io/badge/Topics-13-555555?style=for-the-badge">
-<img alt="Slides: 296" src="https://img.shields.io/badge/Slides-296-555555?style=for-the-badge">
+<img alt="Slides: 309" src="https://img.shields.io/badge/Slides-309-555555?style=for-the-badge">
 <img alt="Build step: none" src="https://img.shields.io/badge/Build_step-none-555555?style=for-the-badge&logo=html5&logoColor=white">
 
 ### [🌐 Open the live site →](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/)
@@ -30,23 +30,23 @@
 
 ## 📚 Topics
 
-13 decks · 296 slides. Each title opens the live deck.
+13 decks · 309 slides. Each title opens the live deck.
 
 | # | Topic | Slides |
 |:--:|---|:--:|
 | **1** | [Introducing OOP & Java Basics](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/01-introduction.html) | 29 |
 | **2** | [Iterative Statements](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/02-loops.html) | 22 |
-| **3** | [Arrays, Sorting & Searching](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html) | 25 |
+| **3** | [Arrays, Sorting & Searching](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/03-arrays.html) | 27 |
 | **4** | [Classes, Objects & Encapsulation](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/04-classes-and-objects.html) | 22 |
-| **5** | [Overloading, Objects as Parameters & Recursion](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/05-methods-and-recursion.html) | 22 |
-| **6** | [Access Control, static, final & Nested Classes](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html) | 20 |
-| **7** | [Inheritance](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html) | 21 |
+| **5** | [Overloading, Objects as Parameters & Recursion](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/05-methods-and-recursion.html) | 23 |
+| **6** | [Access Control, static, final & Nested Classes](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/06-access-static-final.html) | 21 |
+| **7** | [Inheritance](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/07-inheritance.html) | 22 |
 | **8** | [Overriding, Polymorphism & Abstract Classes](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/08-polymorphism-and-abstraction.html) | 22 |
-| **9** | [Packages & Interfaces](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html) | 22 |
-| **10** | [Exception Handling](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html) | 23 |
-| **11** | [Multithreaded Programming](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html) | 23 |
-| **12** | [Strings & Big Numbers](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html) | 23 |
-| **13** | [GUI, Graphics, Databases & Spring](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html) | 22 |
+| **9** | [Packages & Interfaces](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/09-packages-and-interfaces.html) | 23 |
+| **10** | [Exception Handling](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html) | 24 |
+| **11** | [Multithreaded Programming](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/11-multithreading.html) | 26 |
+| **12** | [Strings & Big Numbers](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/12-strings.html) | 24 |
+| **13** | [GUI, Graphics, Databases & Spring](https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html) | 24 |
 
 ## ⌨️ Using the slides
 

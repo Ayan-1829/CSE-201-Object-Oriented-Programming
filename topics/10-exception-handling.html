@@ -20,15 +20,17 @@
 <meta property="og:title" content="Exception Handling – Topic 10 | Object Oriented Programming Notes">
 <meta property="og:description" content="What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes. Interactive slides, code tracers, demos and a quiz for Topic 10 of Object Oriented Programming (Java).">
 <meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html">
-<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png?v=2">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Exception Handling – Topic 10 | Object Oriented Programming Notes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Exception Handling – Topic 10 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes. Interactive slides, code tracers, demos and a quiz for Topic 10 of Object Oriented Programming (Java).">
-<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Exception Handling", "description": "What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes.", "position": 10, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 23, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png", "isAccessibleForFree": true}</script>
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png?v=2">
+<meta name="twitter:image:alt" content="Exception Handling – Topic 10 | Object Oriented Programming Notes">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Exception Handling", "description": "What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes.", "position": 10, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 24, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/10-exception-handling.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 10: Exception Handling", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/10-exception-handling.html"}]}</script>
 <title>Exception Handling – Topic 10 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -162,6 +164,9 @@ try {
     System.out.println(e.getMessage());
 }</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">Withdrew 200.0, left 300.0
 Insufficient funds: short by 150.0</pre></div></div></div><ul><li>Extend <code>Exception</code> for a checked exception, <code>RuntimeException</code> for an unchecked one.</li><li>Pass a message to <code>super(msg)</code>; add fields for extra details.</li></ul>
+</div></section>
+<section class="slide " data-title="Trace: throwing a custom exception" aria-label="Trace: throwing a custom exception" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: throwing a custom exception</h2><p class="muted">A custom exception is an ordinary object. Watch it get created, thrown, and caught two frames up.</p><div data-trace="t10-custom"></div>
 </div></section>
 <section class="slide " data-title="try-with-resources" aria-label="try-with-resources" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>try-with-resources</h2><div class="codeout"><pre class="code">try (BufferedReader br = new BufferedReader(new FileReader(&quot;marks.txt&quot;))) {

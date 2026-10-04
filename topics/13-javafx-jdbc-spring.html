@@ -20,15 +20,17 @@
 <meta property="og:title" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
 <meta property="og:description" content="Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework. Interactive slides, code tracers, demos and a quiz for Topic 13 of Object Oriented Programming (Java).">
 <meta property="og:url" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html">
-<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png">
+<meta property="og:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png?v=2">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
 <meta name="twitter:description" content="Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework. Interactive slides, code tracers, demos and a quiz for Topic 13 of Object Oriented Programming (Java).">
-<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "GUI, Graphics, Databases & Spring", "description": "Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework.", "position": 13, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 22, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png", "isAccessibleForFree": true}</script>
+<meta name="twitter:image" content="https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png?v=2">
+<meta name="twitter:image:alt" content="GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "GUI, Graphics, Databases & Spring", "description": "Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework.", "position": 13, "educationalLevel": "Undergraduate", "learningResourceType": "Lecture slides", "about": "Object Oriented Programming", "inLanguage": "en", "numberOfItems": 24, "isPartOf": {"@type": "Course", "name": "Object Oriented Programming", "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/", "courseCode": "CSE 201"}, "url": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html", "image": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png", "isAccessibleForFree": true}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Object Oriented Programming", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/index.html"}, {"@type": "ListItem", "position": 2, "name": "Topic 13: GUI, Graphics, Databases & Spring", "item": "https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/topics/13-javafx-jdbc-spring.html"}]}</script>
 <title>GUI, Graphics, Databases &amp; Spring – Topic 13 | Object Oriented Programming Notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +64,7 @@
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">Every app you use has buttons, text boxes and pictures, and saves your data somewhere. How much of that can you already build with the OOP you know?</p><p>All of it. A JavaFX window is a tree of objects; a button click is an event object delivered to a method; a database row becomes a Java object. Classes, inheritance, interfaces and lambdas are everywhere.</p><p>This last topic tours the libraries you will use for real projects: JavaFX for interfaces and graphics, JDBC for databases and Spring for back-end services.</p></div>
 </div></section>
 <section class="slide " data-title="Topics in this chapter" aria-label="Topics in this chapter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Outline · Lecture 24</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">JavaFX application structure</a></li><li><a href="#s=6">Components and layouts</a></li><li><a href="#s=8">Event handling</a></li><li><a href="#s=9">Simple interface design</a></li><li><a href="#s=10">Graphical drawing</a></li><li><a href="#s=11">Animation</a></li><li><a href="#s=12">Database connection with JDBC</a></li><li><a href="#s=15">Introduction to Spring</a></li></ol>
+<p class="kicker">Outline · Lecture 24</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">JavaFX application structure</a></li><li><a href="#s=6">Components and layouts</a></li><li><a href="#s=8">Event handling</a></li><li><a href="#s=9">Simple interface design</a></li><li><a href="#s=11">Graphical drawing</a></li><li><a href="#s=12">Animation</a></li><li><a href="#s=13">Database connection with JDBC</a></li><li><a href="#s=17">Introduction to Spring</a></li></ol>
 </div></section>
 <section class="slide " data-title="A JavaFX application" aria-label="A JavaFX application" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 1 of 5</p><h2>A JavaFX application</h2><figure class="fig" data-fig="fx-tree"><figcaption>Stage (window) → Scene → scene graph of nodes: layout panes containing controls.</figcaption></figure>
@@ -131,6 +133,9 @@ stage.setScene(new Scene(g));</pre><div><div class="console"><div class="console
 │         A                     │
 └───────────────────────────────┘</pre></div></div></div><p>Layout pane + controls + one event handler with exception handling: every OOP idea in one small form.</p>
 </div></section>
+<section class="slide " data-title="Trace: an event handler runs later" aria-label="Trace: an event handler runs later" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: an event handler runs later</h2><p class="muted">Registering a handler runs nothing. Choose what the user types, then watch the click call the lambda.</p><div data-trace="t13-grade"></div>
+</div></section>
 <section class="slide " data-title="Drawing graphics on a Canvas" aria-label="Drawing graphics on a Canvas" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive · code example</p><h2>Drawing graphics on a Canvas</h2><div class="cols wl"><div><pre class="code small-code">Canvas canvas = new Canvas(400, 250);
 GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -150,6 +155,9 @@ gc.setFill(Color.BLACK);       gc.fillText(&quot;My house&quot;, 110, 215);</pre
 </div></section>
 <section class="slide " data-title="Connecting to a database with JDBC" aria-label="Connecting to a database with JDBC" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 4 of 5</p><h2>Connecting to a database with JDBC</h2><figure class="fig" data-fig="jdbc-flow"><figcaption>The standard JDBC steps.</figcaption></figure><ol><li>Add the driver (e.g. MySQL Connector/J) to the project.</li><li><code>DriverManager.getConnection(url, user, password)</code> opens a <code>Connection</code>.</li><li>Create a <code>PreparedStatement</code> with <code>?</code> placeholders and fill them with <code>setString</code>, <code>setInt</code>, …</li><li><code>executeQuery()</code> returns a <code>ResultSet</code> (SELECT); <code>executeUpdate()</code> returns a row count (INSERT/UPDATE/DELETE).</li><li>Close everything — try-with-resources does it for you.</li></ol>
+</div></section>
+<section class="slide " data-title="Trace: a ResultSet cursor, row by row" aria-label="Trace: a ResultSet cursor, row by row" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: a ResultSet cursor, row by row</h2><p class="muted">Follow the objects JDBC creates and the cursor moving through the result, then everything closing in reverse order.</p><div data-trace="t13-jdbc"></div>
 </div></section>
 <section class="slide " data-title="JDBC query walk-through" aria-label="JDBC query walk-through" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>JDBC query walk-through</h2><div data-demo="jdbc"></div>
