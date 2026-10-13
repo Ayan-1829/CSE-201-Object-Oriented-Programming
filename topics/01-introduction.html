@@ -67,7 +67,10 @@
 <p class="kicker">Outline · Lecture 1</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">What is object-oriented programming</a></li><li><a href="#s=4">OOP vs. structured programming</a></li><li><a href="#s=5">Classes, objects and the four pillars</a></li><li><a href="#s=7">The Java platform: JDK, JRE, JVM</a></li><li><a href="#s=10">First program and program structure</a></li><li><a href="#s=11">Data types</a></li><li><a href="#s=12">Variables, literals and type conversion</a></li><li><a href="#s=14">Operators and precedence</a></li><li><a href="#s=18">if, if-else and else-if ladder</a></li><li><a href="#s=21">switch statement</a></li></ol>
 </div></section>
 <section class="slide " data-title="Two ways to organise a program" aria-label="Two ways to organise a program" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 1 of 8</p><h2>Two ways to organise a program</h2><figure class="fig" data-fig="paradigm"><figcaption>Structured code shares global data between functions; OOP packs data and behaviour into objects.</figcaption></figure><div class="vs"><div><h4>Structured (procedural) programming</h4><ul><li>The program is a list of <b>functions</b> that run top-down.</li><li>Data is separate from the functions, often <b>shared globally</b>.</li><li>Languages: C, Pascal, Fortran.</li><li>Works well for small, linear tasks.</li></ul></div><div><h4>Object-oriented programming</h4><ul><li>The program is a set of <b>objects</b> that send messages to each other.</li><li>Each object keeps its <b>own data</b> private and exposes methods.</li><li>Languages: Java, C++, C#, Python.</li><li>Scales to large systems that change over time.</li></ul></div></div>
+<p class="kicker">Concept 1 of 8</p><h2>Two ways to organise a program</h2><figure class="fig" data-fig="paradigm"><figcaption>Structured code shares global data between functions; OOP packs data and behaviour into objects.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Two ways to organise a program (cont.)" aria-label="Two ways to organise a program (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 8</p><h2>Two ways to organise a program (cont.)</h2><div class="vs"><div><h4>Structured (procedural) programming</h4><ul><li>The program is a list of <b>functions</b> that run top-down.</li><li>Data is separate from the functions, often <b>shared globally</b>.</li><li>Languages: C, Pascal, Fortran.</li><li>Works well for small, linear tasks.</li></ul></div><div><h4>Object-oriented programming</h4><ul><li>The program is a set of <b>objects</b> that send messages to each other.</li><li>Each object keeps its <b>own data</b> private and exposes methods.</li><li>Languages: Java, C++, C#, Python.</li><li>Scales to large systems that change over time.</li></ul></div></div>
 </div></section>
 <section class="slide " data-title="Classes, objects and the four pillars" aria-label="Classes, objects and the four pillars" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 2 of 8</p><h2>Classes, objects and the four pillars</h2><figure class="fig" data-fig="class-objects"><figcaption>A class is a blueprint; each object is one thing built from it, with its own field values.</figcaption></figure>
@@ -100,7 +103,10 @@ OOP in Java</pre></div></div></div><ul><li>The file name must match the public c
 <p class="kicker">Concept 4 of 8</p><h2>Primitive data types</h2><div class="scrollx"><table class="doc"><thead><tr><th>Type</th><th>Size</th><th>Range / example</th><th>Default</th></tr></thead><tbody><tr><td class="m">byte</td><td>8 bits</td><td>−128 to 127</td><td class="m">0</td></tr><tr><td class="m">short</td><td>16 bits</td><td>−32,768 to 32,767</td><td class="m">0</td></tr><tr><td class="m">int</td><td>32 bits</td><td>about ±2.1 billion (2<sup>31</sup> − 1 = 2,147,483,647)</td><td class="m">0</td></tr><tr><td class="m">long</td><td>64 bits</td><td>±9.2 × 10<sup>18</sup> — write <code>10_000_000_000L</code></td><td class="m">0L</td></tr><tr><td class="m">float</td><td>32 bits</td><td>~7 significant digits — write <code>3.14f</code></td><td class="m">0.0f</td></tr><tr><td class="m">double</td><td>64 bits</td><td>~15 significant digits — <code>3.14</code></td><td class="m">0.0</td></tr><tr><td class="m">char</td><td>16 bits</td><td>one Unicode character — <code>'A'</code> (value 65)</td><td class="m">'\u0000'</td></tr><tr><td class="m">boolean</td><td>—</td><td><code>true</code> or <code>false</code> only</td><td class="m">false</td></tr></tbody></table></div><div class="callout"><b>Note:</b> <code>String</code> is <b>not</b> a primitive — it is a class. Primitives hold a value directly; everything else is an object reached through a reference.</div>
 </div></section>
 <section class="slide " data-title="Variables, literals and type conversion" aria-label="Variables, literals and type conversion" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 5 of 8</p><h2>Variables, literals and type conversion</h2><figure class="fig" data-fig="widening"><figcaption>Widening conversions happen automatically (no data lost). Going the other way needs an explicit cast.</figcaption></figure><div class="cols "><div><pre class="code small-code">int age = 20;            // declare + initialise
+<p class="kicker">Concept 5 of 8</p><h2>Variables, literals and type conversion</h2><figure class="fig" data-fig="widening"><figcaption>Widening conversions happen automatically (no data lost). Going the other way needs an explicit cast.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Variables, literals and type conversion (cont.)" aria-label="Variables, literals and type conversion (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 8</p><h2>Variables, literals and type conversion (cont.)</h2><div class="cols "><div><pre class="code small-code">int age = 20;            // declare + initialise
 final double PI = 3.14159; // constant
 char grade = &#x27;A&#x27;;
 boolean passed = true;
@@ -118,7 +124,10 @@ char next = (char) (grade + 1);  // &#x27;B&#x27;</pre></div><div><ul><li>Castin
 <p class="kicker">Concept 6 of 8</p><h2>Operators</h2><div class="scrollx"><table class="doc"><thead><tr><th>Group</th><th>Operators</th><th>Example → result</th></tr></thead><tbody><tr><td>Arithmetic</td><td class="m">+ − * / %</td><td><code>17 / 5</code> → 3, <code>17 % 5</code> → 2, <code>17.0 / 5</code> → 3.4</td></tr><tr><td>Increment / decrement</td><td class="m">++ −−</td><td><code>x++</code> uses then adds; <code>++x</code> adds then uses</td></tr><tr><td>Relational</td><td class="m">== != &lt; &gt; &lt;= &gt;=</td><td><code>5 &gt;= 5</code> → true</td></tr><tr><td>Logical</td><td class="m">&amp;&amp; || !</td><td><code>a &gt; 0 &amp;&amp; b &gt; 0</code> (short-circuit)</td></tr><tr><td>Assignment</td><td class="m">= += −= *= /= %=</td><td><code>x += 3</code> is <code>x = x + 3</code></td></tr><tr><td>Ternary</td><td class="m">cond ? a : b</td><td><code>m &gt;= 40 ? "Pass" : "Fail"</code></td></tr><tr><td>Bitwise / shift</td><td class="m">&amp; | ^ ~ &lt;&lt; &gt;&gt;</td><td><code>5 &amp; 3</code> → 1, <code>1 &lt;&lt; 4</code> → 16</td></tr></tbody></table></div><div class="callout"><b>Precedence:</b> Precedence, high to low: <code>++ -- !</code> → <code>* / %</code> → <code>+ -</code> → relational → <code>== !=</code> → <code>&amp;&amp;</code> → <code>||</code> → <code>?:</code> → assignment. Use parentheses when in doubt.</div>
 </div></section>
 <section class="slide " data-title="Trace: evaluating expressions" aria-label="Trace: evaluating expressions" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: evaluating expressions</h2><p class="muted">Press <b>Next</b> to run one line at a time and watch every variable change. Predict each value before you click.</p><div data-trace="t1-expr"></div>
+<p class="kicker">Step through the code</p><h2>Trace: evaluating expressions</h2><p class="muted">Press <b>Next</b> to run one line at a time and watch every variable change. Predict each value before you click.</p>
+</div></section>
+<section class="slide " data-title="Trace: evaluating expressions (cont.)" aria-label="Trace: evaluating expressions (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: evaluating expressions (cont.)</h2><div data-trace="t1-expr"></div>
 </div></section>
 <section class="slide " data-title="Operator playground" aria-label="Operator playground" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Operator playground</h2><div data-demo="operators"></div>
@@ -139,7 +148,10 @@ public class AddTwo {
 }</pre><div><div class="console"><div class="console-h">Console (user typed 7 and 8)</div><pre class="console-body">First number: 7
 Second number: 8
 Sum = 15
-Avg = 7.5</pre></div></div></div><ul><li><code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code> (one word), <code>nextLine()</code> (whole line).</li><li>Why the brackets in <code>"Sum = " + (a + b)</code>? Without them, <code>"Sum = " + a</code> becomes a String first and you would print <code>Sum = 78</code>.</li></ul>
+Avg = 7.5</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="Reading input with Scanner (cont.)" aria-label="Reading input with Scanner (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Reading input with Scanner (cont.)</h2><ul><li><code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code> (one word), <code>nextLine()</code> (whole line).</li><li>Why the brackets in <code>"Sum = " + (a + b)</code>? Without them, <code>"Sum = " + a</code> becomes a String first and you would print <code>Sum = 78</code>.</li></ul>
 </div></section>
 <section class="slide " data-title="Decisions: if, else if, else" aria-label="Decisions: if, else if, else" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 7 of 8</p><h2>Decisions: if, else if, else</h2><figure class="fig" data-fig="if-flow"><figcaption>An if-else chooses exactly one of two paths.</figcaption></figure>
@@ -205,7 +217,7 @@ else
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 25</span>
+  <span class="counter" id="counter">1 / 33</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

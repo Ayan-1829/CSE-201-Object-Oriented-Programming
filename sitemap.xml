@@ -102,4 +102,8 @@
     <priority>0.9</priority>
     <image:image><image:loc>https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/img/og/13-javafx-jdbc-spring.png</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://ayan-1829.github.io/CSE-201-Object-Oriented-Programming/course.html</loc>
+    <priority>0.6</priority>
+  </url>
 </urlset>

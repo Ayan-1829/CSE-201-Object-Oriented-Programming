@@ -83,7 +83,10 @@ marks[5] = 10;  // ArrayIndexOutOfBoundsException!</pre></div><div><ul><li>Index
 </div></section>
 
 <section class="slide " data-title="Trace: finding the highest mark" aria-label="Trace: finding the highest mark" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: finding the highest mark</h2><p class="muted">The loop compares every element with the best value so far. Watch <code>max</code> change only when a larger mark appears.</p><div data-trace="t3-max"></div>
+<p class="kicker">Step through the code</p><h2>Trace: finding the highest mark</h2><p class="muted">The loop compares every element with the best value so far. Watch <code>max</code> change only when a larger mark appears.</p>
+</div></section>
+<section class="slide " data-title="Trace: finding the highest mark (cont.)" aria-label="Trace: finding the highest mark (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: finding the highest mark (cont.)</h2><div data-trace="t3-max"></div>
 </div></section>
 <section class="slide " data-title="Arrays are objects: copying a reference" aria-label="Arrays are objects: copying a reference" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 2 of 5</p><h2>Arrays are objects: copying a reference</h2><figure class="fig" data-fig="array-alias"><figcaption><code>int[] b = a;</code> copies the reference, not the elements. <code>a.clone()</code> makes a real copy.</figcaption></figure>
@@ -93,7 +96,10 @@ marks[5] = 10;  // ArrayIndexOutOfBoundsException!</pre></div><div><ul><li>Index
 </div></section>
 
 <section class="slide " data-title="Trace: aliases and copies" aria-label="Trace: aliases and copies" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: aliases and copies</h2><p class="muted">Colour-matched arrows show which variables share an array. The last step creates a new array for <code>a</code> — does <code>b</code> change?</p><div data-trace="t3-alias"></div>
+<p class="kicker">Step through the code</p><h2>Trace: aliases and copies</h2><p class="muted">Colour-matched arrows show which variables share an array. The last step creates a new array for <code>a</code> — does <code>b</code> change?</p>
+</div></section>
+<section class="slide " data-title="Trace: aliases and copies (cont.)" aria-label="Trace: aliases and copies (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: aliases and copies (cont.)</h2><div data-trace="t3-alias"></div>
 </div></section>
 <section class="slide " data-title="Multidimensional and jagged arrays" aria-label="Multidimensional and jagged arrays" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 3 of 5</p><h2>Multidimensional and jagged arrays</h2><figure class="fig" data-fig="array-2d"><figcaption>A 2-D array is an array of row arrays: m[i] is a whole row.</figcaption></figure>
@@ -118,7 +124,10 @@ for (int pass = 0; pass &lt; a.length - 1; pass++)
         if (a[j] &gt; a[j + 1]) { int t = a[j]; a[j] = a[j + 1]; a[j + 1] = t; }</pre><div class="callout"><b>Library:</b> In real programs use <code>Arrays.sort(a)</code>, which is fast (O(n log n)).</div>
 </div></section>
 <section class="slide " data-title="Trace: bubble sort, swap by swap" aria-label="Trace: bubble sort, swap by swap" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: bubble sort, swap by swap</h2><p class="muted">Watch each pair being compared. The highlighted cells are the two neighbours; after every pass one more value is in its final place.</p><div data-trace="t3-bubble"></div>
+<p class="kicker">Step through the code</p><h2>Trace: bubble sort, swap by swap</h2><p class="muted">Watch each pair being compared. The highlighted cells are the two neighbours; after every pass one more value is in its final place.</p>
+</div></section>
+<section class="slide " data-title="Trace: bubble sort, swap by swap (cont.)" aria-label="Trace: bubble sort, swap by swap (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: bubble sort, swap by swap (cont.)</h2><div data-trace="t3-bubble"></div>
 </div></section>
 <section class="slide " data-title="Sorting visualizer" aria-label="Sorting visualizer" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Sorting visualizer</h2><div data-demo="sorting"></div>
@@ -145,7 +154,10 @@ static int binary(int[] a, int key) {  // a must be sorted
 <p class="kicker">Interactive</p><h2>Linear vs binary search</h2><div data-demo="searching"></div>
 </div></section>
 <section class="slide " data-title="Trace: binary search halves the range" aria-label="Trace: binary search halves the range" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: binary search halves the range</h2><p class="muted">Pick a key. The highlighted cells are the part of the array that can still contain it; it halves on every look.</p><div data-trace="t3-binary"></div>
+<p class="kicker">Step through the code</p><h2>Trace: binary search halves the range</h2><p class="muted">Pick a key. The highlighted cells are the part of the array that can still contain it; it halves on every look.</p>
+</div></section>
+<section class="slide " data-title="Trace: binary search halves the range (cont.)" aria-label="Trace: binary search halves the range (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: binary search halves the range (cont.)</h2><div data-trace="t3-binary"></div>
 </div></section>
 <section class="slide " data-title="Useful java.util.Arrays methods" aria-label="Useful java.util.Arrays methods" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>Useful java.util.Arrays methods</h2><div class="codeout"><pre class="code">import java.util.Arrays;
@@ -196,7 +208,7 @@ double avg = s / a.length;</pre></div></details></div><div class="ex"><div class
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 21</span>
+  <span class="counter" id="counter">1 / 31</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

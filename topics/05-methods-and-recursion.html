@@ -97,16 +97,22 @@ c.add(&quot;OO&quot;, &quot;P&quot;);   // &quot;OOP&quot;  → add(String, Stri
 }</pre></div><div><ul><li>Several constructors give callers several ways to create an object.</li><li><code>this(...)</code> calls another constructor of the same class, so the real work is written once.</li><li><code>this(...)</code> must be the <b>first statement</b> in the constructor.</li></ul></div></div>
 </div></section>
 <section class="slide " data-title="Trace: constructor chaining with this(...)" aria-label="Trace: constructor chaining with this(...)" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: constructor chaining with this(...)</h2><p class="muted">Watch the call stack grow as one constructor hands over to another.</p><div data-trace="t5-ctor"></div>
+<p class="kicker">Step through the code</p><h2>Trace: constructor chaining with this(...)</h2><p class="muted">Watch the call stack grow as one constructor hands over to another.</p>
+</div></section>
+<section class="slide " data-title="Trace: constructor chaining with this(...) (cont.)" aria-label="Trace: constructor chaining with this(...) (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: constructor chaining with this(...) (cont.)</h2><div data-trace="t5-ctor"></div>
 </div></section>
 <section class="slide " data-title="Passing arguments: always by value" aria-label="Passing arguments: always by value" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 3 of 5</p><h2>Passing arguments: always by value</h2><div class="cols "><div><figure class="fig" data-fig="pass-ref"><figcaption>The method receives a copy of the reference, so both arrows point at the same object.</figcaption></figure></div><div><ul><li>Java copies the <b>value</b> of each argument into the parameter.</li><li>For a primitive, the value is the number itself: changing the parameter never affects the caller.</li><li>For an object, the value is a <b>reference</b>: the method can change the object’s <b>fields</b> through it…</li><li>…but assigning a <b>new object</b> to the parameter only changes the method’s copy of the arrow.</li></ul></div></div>
+<p class="kicker">Concept 3 of 5</p><h2>Passing arguments: always by value</h2><figure class="fig" data-fig="pass-ref"><figcaption>The method receives a copy of the reference, so both arrows point at the same object.</figcaption></figure><ul><li>Java copies the <b>value</b> of each argument into the parameter.</li><li>For a primitive, the value is the number itself: changing the parameter never affects the caller.</li><li>For an object, the value is a <b>reference</b>: the method can change the object’s <b>fields</b> through it…</li><li>…but assigning a <b>new object</b> to the parameter only changes the method’s copy of the arrow.</li></ul>
 </div></section>
 <section class="slide " data-title="Trace: what can a method change?" aria-label="Trace: what can a method change?" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: what can a method change?</h2><p class="muted">Three methods try to change the caller’s data. Before stepping, predict the final line: <code>k</code> and <code>p.x</code>.</p><div data-trace="t5-pass"></div>
+<p class="kicker">Step through the code</p><h2>Trace: what can a method change?</h2><p class="muted">Three methods try to change the caller’s data. Before stepping, predict the final line: <code>k</code> and <code>p.x</code>.</p>
+</div></section>
+<section class="slide " data-title="Trace: what can a method change? (cont.)" aria-label="Trace: what can a method change? (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: what can a method change? (cont.)</h2><div data-trace="t5-pass"></div>
 </div></section>
 <section class="slide " data-title="Returning objects" aria-label="Returning objects" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>Returning objects</h2><div class="codeout"><pre class="code" data-mark="7-9">class Fraction {
+<p class="kicker">Code example</p><h2>Returning objects</h2>class Fraction {
     private final int num, den;
     Fraction(int n, int d) {
         int g = gcd(Math.abs(n), Math.abs(d));
@@ -122,8 +128,8 @@ c.add(&quot;OO&quot;, &quot;P&quot;);   // &quot;OOP&quot;  → add(String, Stri
 Fraction a = new Fraction(1, 2), b = new Fraction(1, 3);
 Fraction c = a.add(b);
 System.out.println(a + &quot; + &quot; + b + &quot; = &quot; + c);
-System.out.println(a.add(a).equals(new Fraction(1, 1)));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">1/2 + 1/3 = 5/6
-true</pre></div></div></div><ul><li>A method can create an object and return its reference; the object outlives the method call.</li><li>Methods that return objects can be <b>chained</b>: <code>a.add(b).add(c)</code>.</li><li>Passing another object of the same class (<code>o</code>) lets a method read its private fields, because access is checked per class.</li></ul>
+System.out.println(a.add(a).equals(new Fraction(1, 1)));<div class="console"><div class="console-h">Output</div><pre class="console-body">1/2 + 1/3 = 5/6
+true</pre></div><ul><li>A method can create an object and return its reference; the object outlives the method call.</li><li>Methods that return objects can be <b>chained</b>: <code>a.add(b).add(c)</code>.</li><li>Passing another object of the same class (<code>o</code>) lets a method read its private fields, because access is checked per class.</li></ul>
 </div></section>
 <section class="slide " data-title="Recursion" aria-label="Recursion" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 4 of 5</p><h2>Recursion</h2><figure class="fig" data-fig="fib-tree"><figcaption>fib(4) calls fib(3) and fib(2) … the same values are computed many times.</figcaption></figure>
@@ -141,10 +147,13 @@ static int fib(int n) {
 </div></section>
 
 <section class="slide " data-title="Trace: factorial on the call stack" aria-label="Trace: factorial on the call stack" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: factorial on the call stack</h2><p class="muted">The stack grows with every call until the base case, then the results multiply back up as the frames return.</p><div data-trace="t5-fact"></div>
+<p class="kicker">Step through the code</p><h2>Trace: factorial on the call stack</h2><p class="muted">The stack grows with every call until the base case, then the results multiply back up as the frames return.</p>
+</div></section>
+<section class="slide " data-title="Trace: factorial on the call stack (cont.)" aria-label="Trace: factorial on the call stack (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: factorial on the call stack (cont.)</h2><div data-trace="t5-fact"></div>
 </div></section>
 <section class="slide " data-title="More recursive methods" aria-label="More recursive methods" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>More recursive methods</h2><div class="codeout"><pre class="code">static int sumDigits(int n) {
+<p class="kicker">Code example</p><h2>More recursive methods</h2>static int sumDigits(int n) {
     return n &lt; 10 ? n : n % 10 + sumDigits(n / 10);
 }
 static long power(long b, int e) {       // fast: halves e
@@ -159,17 +168,20 @@ static String reverse(String s) {
 static void hanoi(int n, char from, char to, char via) {
     if (n == 0) return;
     hanoi(n - 1, from, via, to);
-    System.out.println(&quot;disk &quot; + n + &quot;: &quot; + from + &quot; -&gt; &quot; + to);
+    System.out.println(&quot;disk &quot; + n + &quot;: &quot; + from + &quot; -&gt;&quot; + to);
     hanoi(n - 1, via, to, from);
 }
-System.out.println(sumDigits(4096) + &quot; &quot; + power(2, 10) + &quot; &quot; + reverse(&quot;java&quot;));
-hanoi(2, &#x27;A&#x27;, &#x27;C&#x27;, &#x27;B&#x27;);</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">19 1024 avaj
+System.out.println(sumDigits(4096) + &quot;&quot; + power(2, 10) + &quot;&quot; + reverse(&quot;java&quot;));
+hanoi(2, &#x27;A&#x27;, &#x27;C&#x27;, &#x27;B&#x27;);<div class="console"><div class="console-h">Output</div><pre class="console-body">19 1024 avaj
 disk 1: A -&gt; B
 disk 2: A -&gt; C
-disk 1: B -&gt; C</pre></div></div></div>
+disk 1: B -&gt; C</pre></div>
 </div></section>
 <section class="slide " data-title="Trace: Tower of Hanoi on the call stack" aria-label="Trace: Tower of Hanoi on the call stack" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: Tower of Hanoi on the call stack</h2><p class="muted">Each call gets its own frame with its own n, from, to and via. Watch the stack grow to the base case and shrink again.</p><div data-trace="t5-hanoi"></div>
+<p class="kicker">Step through the code</p><h2>Trace: Tower of Hanoi on the call stack</h2><p class="muted">Each call gets its own frame with its own n, from, to and via. Watch the stack grow to the base case and shrink again.</p>
+</div></section>
+<section class="slide " data-title="Trace: Tower of Hanoi on the call stack (cont.)" aria-label="Trace: Tower of Hanoi on the call stack (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: Tower of Hanoi on the call stack (cont.)</h2><div data-trace="t5-hanoi"></div>
 </div></section>
 <section class="slide " data-title="Recursion or iteration?" aria-label="Recursion or iteration?" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 5 of 5</p><h2>Recursion or iteration?</h2><div class="scrollx"><table class="doc"><thead><tr><th></th><th>Recursion</th><th>Iteration (loop)</th></tr></thead><tbody><tr><td>Code</td><td>Short and close to the maths definition</td><td>Often longer, uses explicit variables</td></tr><tr><td>Memory</td><td>One stack frame per call (deep recursion → StackOverflowError)</td><td>Constant extra memory</td></tr><tr><td>Speed</td><td>Call overhead; naive fib repeats work (exponential!)</td><td>Usually faster</td></tr><tr><td>Natural for</td><td>Trees, divide and conquer, backtracking, Tower of Hanoi</td><td>Counting, scanning arrays</td></tr></tbody></table></div><div class="callout"><b>Rule of thumb:</b> Any recursion can be rewritten as a loop (possibly with an explicit stack). Choose whichever is clearer; switch to a loop when the depth could be huge.</div>
@@ -206,7 +218,7 @@ Time(int h, int m) { this.h = h; this.m = m; }</pre></div></details></div><div c
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 21</span>
+  <span class="counter" id="counter">1 / 27</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

@@ -67,7 +67,7 @@
 <p class="kicker">Outline · Lectures 15–18</p><h2>Topics in this chapter</h2><p class="muted">Select a topic to jump to the slide that explains it.</p><ol class="outline-list"><li><a href="#s=4">What is an exception</a></li><li><a href="#s=5">Exception types: checked, unchecked, errors</a></li><li><a href="#s=7">try, catch and finally</a></li><li><a href="#s=10">Multiple catch clauses</a></li><li><a href="#s=12">throw and throws</a></li><li><a href="#s=14">Custom exceptions</a></li></ol>
 </div></section>
 <section class="slide " data-title="What is an exception?" aria-label="What is an exception?" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 1 of 6</p><h2>What is an exception?</h2><div class="cols "><div><pre class="code small-code" data-mark="2">public class Crash {
+<p class="kicker">Concept 1 of 6</p><h2>What is an exception?</h2><pre class="code small-code" data-mark="2">public class Crash {
     static int avg(int[] a) { return sum(a) / a.length; }
     static int sum(int[] a) { int s = 0; for (int x : a) s += x; return s; }
     public static void main(String[] args) {
@@ -75,10 +75,13 @@
         System.out.println(avg(new int[]{}));
         System.out.println(&quot;never printed&quot;);
     }
-}</pre><div class="console"><div class="console-h">Output</div><pre class="console-body">5
+}</pre>
+</div></section>
+<section class="slide " data-title="What is an exception? (cont.)" aria-label="What is an exception? (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 1 of 6</p><h2>What is an exception? (cont.)</h2><div class="console"><div class="console-h">Output</div><pre class="console-body">5
 Exception in thread &quot;main&quot; java.lang.ArithmeticException: / by zero
 	at Crash.avg(Crash.java:2)
-	at Crash.main(Crash.java:6)</pre></div></div><div><ul><li>An <b>exception</b> is an object that describes an error that happened while the program was running.</li><li>When it is <b>thrown</b>, normal execution stops and Java looks back through the call stack for a matching <b>handler</b>.</li><li>If no method handles it, the thread ends and the <b>stack trace</b> shows where it happened — read it from the top.</li></ul></div></div>
+	at Crash.main(Crash.java:6)</pre></div><ul><li>An <b>exception</b> is an object that describes an error that happened while the program was running.</li><li>When it is <b>thrown</b>, normal execution stops and Java looks back through the call stack for a matching <b>handler</b>.</li><li>If no method handles it, the thread ends and the <b>stack trace</b> shows where it happened — read it from the top.</li></ul>
 </div></section>
 <section class="slide " data-title="Types of exceptions" aria-label="Types of exceptions" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 2 of 6</p><h2>Types of exceptions</h2><figure class="fig" data-fig="ex-tree"><figcaption>Everything that can be thrown extends Throwable.</figcaption></figure>
@@ -104,7 +107,10 @@ Exception in thread &quot;main&quot; java.lang.ArithmeticException: / by zero
 </div></section>
 
 <section class="slide " data-title="Trace: three inputs, three paths" aria-label="Trace: three inputs, three paths" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: three inputs, three paths</h2><p class="muted">Choose an input above the code, then step through. Compare which lines run for "10", "0" and "abc".</p><div data-trace="t10-try"></div>
+<p class="kicker">Step through the code</p><h2>Trace: three inputs, three paths</h2><p class="muted">Choose an input above the code, then step through. Compare which lines run for "10", "0" and "abc".</p>
+</div></section>
+<section class="slide " data-title="Trace: three inputs, three paths (cont.)" aria-label="Trace: three inputs, three paths (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: three inputs, three paths (cont.)</h2><div data-trace="t10-try"></div>
 </div></section>
 <section class="slide " data-title="Catch-clause matcher" aria-label="Catch-clause matcher" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Catch-clause matcher</h2><div data-demo="exmatch"></div>
@@ -136,10 +142,13 @@ static String firstLine(String path) throws IOException {
 }</pre></div><div><div class="scrollx"><table class="doc"><thead><tr><th></th><th><code>throw</code></th><th><code>throws</code></th></tr></thead><tbody><tr><td>What</td><td>A statement that throws one exception object now</td><td>Part of a method header listing exceptions it may pass on</td></tr><tr><td>Where</td><td>Inside a method body</td><td>After the parameter list</td></tr><tr><td>Followed by</td><td>An object: <code>throw new X(...)</code></td><td>Class names: <code>throws IOException, SQLException</code></td></tr></tbody></table></div></div></div>
 </div></section>
 <section class="slide " data-title="Trace: an exception travels up the stack" aria-label="Trace: an exception travels up the stack" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: an exception travels up the stack</h2><p class="muted">level3 throws; level2 does not catch it, but its finally still runs; main catches it. Watch the frames disappear.</p><div data-trace="t10-propagate"></div>
+<p class="kicker">Step through the code</p><h2>Trace: an exception travels up the stack</h2><p class="muted">level3 throws; level2 does not catch it, but its finally still runs; main catches it. Watch the frames disappear.</p>
+</div></section>
+<section class="slide " data-title="Trace: an exception travels up the stack (cont.)" aria-label="Trace: an exception travels up the stack (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: an exception travels up the stack (cont.)</h2><div data-trace="t10-propagate"></div>
 </div></section>
 <section class="slide " data-title="Creating your own exceptions" aria-label="Creating your own exceptions" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>Creating your own exceptions</h2><div class="codeout"><pre class="code" data-mark="1,12">class InsufficientFundsException extends Exception {     // checked
+<p class="kicker">Code example</p><h2>Creating your own exceptions</h2>class InsufficientFundsException extends Exception {     // checked
     private final double shortBy;
     InsufficientFundsException(double shortBy) {
         super(&quot;Insufficient funds: short by &quot; + shortBy);
@@ -162,11 +171,14 @@ try {
     acc.withdraw(10);
 } catch (InsufficientFundsException e) {
     System.out.println(e.getMessage());
-}</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">Withdrew 200.0, left 300.0
-Insufficient funds: short by 150.0</pre></div></div></div><ul><li>Extend <code>Exception</code> for a checked exception, <code>RuntimeException</code> for an unchecked one.</li><li>Pass a message to <code>super(msg)</code>; add fields for extra details.</li></ul>
+}<div class="console"><div class="console-h">Output</div><pre class="console-body">Withdrew 200.0, left 300.0
+Insufficient funds: short by 150.0</pre></div><ul><li>Extend <code>Exception</code> for a checked exception, <code>RuntimeException</code> for an unchecked one.</li><li>Pass a message to <code>super(msg)</code>; add fields for extra details.</li></ul>
 </div></section>
 <section class="slide " data-title="Trace: throwing a custom exception" aria-label="Trace: throwing a custom exception" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: throwing a custom exception</h2><p class="muted">A custom exception is an ordinary object. Watch it get created, thrown, and caught two frames up.</p><div data-trace="t10-custom"></div>
+<p class="kicker">Step through the code</p><h2>Trace: throwing a custom exception</h2><p class="muted">A custom exception is an ordinary object. Watch it get created, thrown, and caught two frames up.</p>
+</div></section>
+<section class="slide " data-title="Trace: throwing a custom exception (cont.)" aria-label="Trace: throwing a custom exception (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: throwing a custom exception (cont.)</h2><div data-trace="t10-custom"></div>
 </div></section>
 <section class="slide " data-title="try-with-resources" aria-label="try-with-resources" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>try-with-resources</h2><div class="codeout"><pre class="code">try (BufferedReader br = new BufferedReader(new FileReader(&quot;marks.txt&quot;))) {
@@ -179,7 +191,10 @@ Insufficient funds: short by 150.0</pre></div></div></div><ul><li>Extend <code>E
     System.out.println(&quot;File missing: &quot; + e.getMessage());
 } catch (IOException | NumberFormatException e) {
     System.out.println(&quot;Bad data: &quot; + e);
-}</pre><div><div class="console"><div class="console-h">Output (marks.txt holds 78, 91 and 64)</div><pre class="console-body">Total = 233</pre></div></div></div><ul><li>Resources declared in <code>try ( … )</code> are closed automatically at the end, in reverse order, even if an exception occurs.</li><li>Works with any class that implements <code>AutoCloseable</code>: files, sockets, database connections, Scanner.</li></ul>
+}</pre><div><div class="console"><div class="console-h">Output (marks.txt holds 78, 91 and 64)</div><pre class="console-body">Total = 233</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="try-with-resources (cont.)" aria-label="try-with-resources (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>try-with-resources (cont.)</h2><ul><li>Resources declared in <code>try ( … )</code> are closed automatically at the end, in reverse order, even if an exception occurs.</li><li>Works with any class that implements <code>AutoCloseable</code>: files, sockets, database connections, Scanner.</li></ul>
 </div></section>
 <section class="slide " data-title="Good exception habits" aria-label="Good exception habits" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 6 of 6</p><h2>Good exception habits</h2><div class="scrollx"><table class="doc"><thead><tr><th>Do</th><th>Avoid</th></tr></thead><tbody><tr><td>Catch the most specific type you can actually handle.</td><td><code>catch (Exception e) {}</code> — silently swallowing every error.</td></tr><tr><td>Validate arguments and throw <code>IllegalArgumentException</code> with a clear message.</td><td>Using exceptions for normal control flow (e.g. to leave a loop).</td></tr><tr><td>Use try-with-resources for files and connections.</td><td>Closing resources by hand and forgetting the error path.</td></tr><tr><td>Let exceptions propagate (throws) when the caller knows better how to react.</td><td>Catching and printing, then continuing with broken data.</td></tr></tbody></table></div>
@@ -221,7 +236,7 @@ Insufficient funds: short by 150.0</pre></div></div></div><ul><li>Extend <code>E
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 21</span>
+  <span class="counter" id="counter">1 / 29</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

@@ -94,9 +94,10 @@
 </div></section>
 <section class="slide " data-title="Event handling" aria-label="Event handling" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 3 of 5</p><h2>Event handling</h2><figure class="fig" data-fig="event-flow"><figcaption>The user acts; the control creates an event object and calls every registered handler.</figcaption></figure><pre class="code small-code">// 1. lambda (most common)
-btn.setOnAction(e -&gt; System.out.println(&quot;clicked&quot;));
-
-// 2. anonymous class implementing EventHandler&lt;ActionEvent&gt;
+btn.setOnAction(e -&gt; System.out.println(&quot;clicked&quot;));</pre>
+</div></section>
+<section class="slide " data-title="Event handling (cont.)" aria-label="Event handling (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 3 of 5</p><h2>Event handling (cont.)</h2><pre data-start="4" class="code small-code">// 2. anonymous class implementing EventHandler&lt;ActionEvent&gt;
 btn.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
     @Override
     public void handle(ActionEvent e) { System.out.println(&quot;clicked&quot;); }
@@ -107,7 +108,7 @@ field.setOnKeyPressed(e -&gt; System.out.println(e.getCode()));
 canvas.setOnMouseClicked(e -&gt; System.out.println(e.getX() + &quot;,&quot; + e.getY()));</pre>
 </div></section>
 <section class="slide " data-title="Designing a simple interface" aria-label="Designing a simple interface" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>Designing a simple interface</h2><div class="codeout"><pre class="code">GridPane g = new GridPane();
+<p class="kicker">Code example</p><h2>Designing a simple interface</h2>GridPane g = new GridPane();
 g.setHgap(10); g.setVgap(8); g.setPadding(new Insets(16));
 
 TextField marks = new TextField();
@@ -127,14 +128,17 @@ calc.setOnAction(e -&gt; {
         result.setText(&quot;Please enter a whole number&quot;);
     }
 });
-stage.setScene(new Scene(g));</pre><div><div class="console"><div class="console-h">The window after typing 76 and clicking</div><pre class="console-body">┌ Grade calculator ─────────────┐
+stage.setScene(new Scene(g));<div class="console"><div class="console-h">The window after typing 76 and clicking</div><pre class="console-body">┌ Grade calculator ─────────────┐
 │ Marks:  [ 76            ]     │
 │         [ Get grade ]         │
 │         A                     │
-└───────────────────────────────┘</pre></div></div></div><p>Layout pane + controls + one event handler with exception handling: every OOP idea in one small form.</p>
+└───────────────────────────────┘</pre></div><p>Layout pane + controls + one event handler with exception handling: every OOP idea in one small form.</p>
 </div></section>
 <section class="slide " data-title="Trace: an event handler runs later" aria-label="Trace: an event handler runs later" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: an event handler runs later</h2><p class="muted">Registering a handler runs nothing. Choose what the user types, then watch the click call the lambda.</p><div data-trace="t13-grade"></div>
+<p class="kicker">Step through the code</p><h2>Trace: an event handler runs later</h2><p class="muted">Registering a handler runs nothing. Choose what the user types, then watch the click call the lambda.</p>
+</div></section>
+<section class="slide " data-title="Trace: an event handler runs later (cont.)" aria-label="Trace: an event handler runs later (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: an event handler runs later (cont.)</h2><div data-trace="t13-grade"></div>
 </div></section>
 <section class="slide " data-title="Drawing graphics on a Canvas" aria-label="Drawing graphics on a Canvas" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive · code example</p><h2>Drawing graphics on a Canvas</h2><div class="cols wl"><div><pre class="code small-code">Canvas canvas = new Canvas(400, 250);
@@ -154,10 +158,16 @@ gc.setFill(Color.BLACK);       gc.fillText(&quot;My house&quot;, 110, 215);</pre
 <p class="kicker">Interactive</p><h2>Animation with AnimationTimer</h2><div data-demo="anim"></div>
 </div></section>
 <section class="slide " data-title="Connecting to a database with JDBC" aria-label="Connecting to a database with JDBC" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 4 of 5</p><h2>Connecting to a database with JDBC</h2><figure class="fig" data-fig="jdbc-flow"><figcaption>The standard JDBC steps.</figcaption></figure><ol><li>Add the driver (e.g. MySQL Connector/J) to the project.</li><li><code>DriverManager.getConnection(url, user, password)</code> opens a <code>Connection</code>.</li><li>Create a <code>PreparedStatement</code> with <code>?</code> placeholders and fill them with <code>setString</code>, <code>setInt</code>, …</li><li><code>executeQuery()</code> returns a <code>ResultSet</code> (SELECT); <code>executeUpdate()</code> returns a row count (INSERT/UPDATE/DELETE).</li><li>Close everything — try-with-resources does it for you.</li></ol>
+<p class="kicker">Concept 4 of 5</p><h2>Connecting to a database with JDBC</h2><figure class="fig" data-fig="jdbc-flow"><figcaption>The standard JDBC steps.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Connecting to a database with JDBC (cont.)" aria-label="Connecting to a database with JDBC (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>Connecting to a database with JDBC (cont.)</h2><ol><li>Add the driver (e.g. MySQL Connector/J) to the project.</li><li><code>DriverManager.getConnection(url, user, password)</code> opens a <code>Connection</code>.</li><li>Create a <code>PreparedStatement</code> with <code>?</code> placeholders and fill them with <code>setString</code>, <code>setInt</code>, …</li><li><code>executeQuery()</code> returns a <code>ResultSet</code> (SELECT); <code>executeUpdate()</code> returns a row count (INSERT/UPDATE/DELETE).</li><li>Close everything — try-with-resources does it for you.</li></ol>
 </div></section>
 <section class="slide " data-title="Trace: a ResultSet cursor, row by row" aria-label="Trace: a ResultSet cursor, row by row" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: a ResultSet cursor, row by row</h2><p class="muted">Follow the objects JDBC creates and the cursor moving through the result, then everything closing in reverse order.</p><div data-trace="t13-jdbc"></div>
+<p class="kicker">Step through the code</p><h2>Trace: a ResultSet cursor, row by row</h2><p class="muted">Follow the objects JDBC creates and the cursor moving through the result, then everything closing in reverse order.</p>
+</div></section>
+<section class="slide " data-title="Trace: a ResultSet cursor, row by row (cont.)" aria-label="Trace: a ResultSet cursor, row by row (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: a ResultSet cursor, row by row (cont.)</h2><div data-trace="t13-jdbc"></div>
 </div></section>
 <section class="slide " data-title="JDBC query walk-through" aria-label="JDBC query walk-through" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>JDBC query walk-through</h2><div data-demo="jdbc"></div>
@@ -174,10 +184,13 @@ try (Connection con = DriverManager.getConnection(url, &quot;root&quot;, &quot;s
     System.out.println(rows + &quot; row inserted&quot;);
 } catch (SQLException e) {
     System.out.println(&quot;DB error: &quot; + e.getMessage());
-}</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">1 row inserted</pre></div></div></div><div class="callout warn"><b>Security:</b> Never build SQL by joining user input: <code>"… WHERE name = '" + input + "'"</code> lets a user type <code>' OR '1'='1</code> and read every row (<b>SQL injection</b>). PreparedStatement parameters are always treated as data.</div>
+}</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">1 row inserted</pre></div></div></div>
+</div></section>
+<section class="slide " data-title="Inserting rows safely (cont.)" aria-label="Inserting rows safely (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Code example</p><h2>Inserting rows safely (cont.)</h2><div class="callout warn"><b>Security:</b> Never build SQL by joining user input: <code>"… WHERE name = '" + input + "'"</code> lets a user type <code>' OR '1'='1</code> and read every row (<b>SQL injection</b>). PreparedStatement parameters are always treated as data.</div>
 </div></section>
 <section class="slide " data-title="Introduction to Spring" aria-label="Introduction to Spring" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 5 of 5</p><h2>Introduction to Spring</h2><div class="cols "><div><pre class="code small-code">@SpringBootApplication
+<p class="kicker">Concept 5 of 5</p><h2>Introduction to Spring</h2><pre class="code small-code">@SpringBootApplication
 public class GradeApp {
     public static void main(String[] args) {
         SpringApplication.run(GradeApp.class, args);
@@ -193,11 +206,13 @@ class GradeService {
 class GradeController {
     private final GradeService service;
     GradeController(GradeService service) {   // injected by Spring
-        this.service = service;
-    }
+        this.service = service;</pre>
+</div></section>
+<section class="slide " data-title="Introduction to Spring (cont.)" aria-label="Introduction to Spring (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 5</p><h2>Introduction to Spring (cont.)</h2><pre data-start="18" class="code small-code">    }
     @GetMapping(&quot;/grade/{marks}&quot;)
     String grade(@PathVariable int marks) { return service.letter(marks); }
-}</pre><div class="console"><div class="console-h">Browser</div><pre class="console-body">GET http://localhost:8080/grade/85   →   A+</pre></div></div><div><ul><li><b>Spring</b> is the most widely used Java framework for back-end and web applications.</li><li><b>Inversion of Control / Dependency Injection</b>: you declare what an object needs (a constructor parameter); Spring creates the objects and wires them together.</li><li><b>Spring Boot</b> adds sensible defaults and an embedded web server, so a REST API is a few annotated classes.</li><li>Spring Data JPA maps classes to database tables, replacing most hand-written JDBC.</li></ul></div></div>
+}</pre><div class="console"><div class="console-h">Browser</div><pre class="console-body">GET http://localhost:8080/grade/85   →   A+</pre></div><ul><li><b>Spring</b> is the most widely used Java framework for back-end and web applications.</li><li><b>Inversion of Control / Dependency Injection</b>: you declare what an object needs (a constructor parameter); Spring creates the objects and wires them together.</li><li><b>Spring Boot</b> adds sensible defaults and an embedded web server, so a REST API is a few annotated classes.</li><li>Spring Data JPA maps classes to database tables, replacing most hand-written JDBC.</li></ul>
 </div></section>
 <section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Which layout pane would you use for a login form with labels in one column and fields in the next?</div><details class="reveal"><summary>Show the solution</summary><div class="ans"><b>GridPane</b> — it places nodes in rows and columns: <code>g.add(new Label("User"), 0, 0); g.add(userField, 1, 0);</code>.</div></details></div>
@@ -228,7 +243,7 @@ gc.fillOval(60, 60, 80, 80);   // top-left corner, width, height</pre></div></de
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 21</span>
+  <span class="counter" id="counter">1 / 30</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

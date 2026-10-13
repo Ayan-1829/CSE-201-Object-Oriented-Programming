@@ -79,7 +79,10 @@ String e = String.valueOf(42); // &quot;42&quot;</pre><ul><li><code>String</code
 </div></section>
 
 <section class="slide " data-title="Trace: pool, heap and ==" aria-label="Trace: pool, heap and ==" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: pool, heap and ==</h2><p class="muted">Watch which variables share an object. <code>a + "!"</code> builds a brand-new String — the original "Hi" is untouched.</p><div data-trace="t12-pool"></div>
+<p class="kicker">Step through the code</p><h2>Trace: pool, heap and ==</h2><p class="muted">Watch which variables share an object. <code>a + "!"</code> builds a brand-new String — the original "Hi" is untouched.</p>
+</div></section>
+<section class="slide " data-title="Trace: pool, heap and == (cont.)" aria-label="Trace: pool, heap and == (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: pool, heap and == (cont.)</h2><div data-trace="t12-pool"></div>
 </div></section>
 <section class="slide " data-title="Comparing strings" aria-label="Comparing strings" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 2 of 5</p><h2>Comparing strings</h2><div class="cols "><div><pre class="code small-code">String a = &quot;apple&quot;, b = &quot;Apple&quot;;
@@ -115,7 +118,10 @@ System.out.println(s.replace(&quot;Bangladesh&quot;, &quot;BD&quot;).toUpperCase
 GREEN UNIVERSITY OF BD</pre></div></div></div>
 </div></section>
 <section class="slide " data-title="Trace: split() and += on Strings" aria-label="Trace: split() and += on Strings" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: split() and += on Strings</h2><p class="muted">Every += creates a new String. Watch the old ones lose their last reference and become garbage.</p><div data-trace="t12-initials"></div>
+<p class="kicker">Step through the code</p><h2>Trace: split() and += on Strings</h2><p class="muted">Every += creates a new String. Watch the old ones lose their last reference and become garbage.</p>
+</div></section>
+<section class="slide " data-title="Trace: split() and += on Strings (cont.)" aria-label="Trace: split() and += on Strings (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: split() and += on Strings (cont.)</h2><div data-trace="t12-initials"></div>
 </div></section>
 <section class="slide " data-title="StringBuilder" aria-label="StringBuilder" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 4 of 5</p><h2>StringBuilder</h2><div class="cols "><div><pre class="code small-code">StringBuilder sb = new StringBuilder(&quot;GUB&quot;);
@@ -127,7 +133,10 @@ sb.deleteCharAt(sb.length() - 1);// &quot;902ESC ,BU&quot;
 String result = sb.toString();</pre></div><div><ul><li><code>StringBuilder</code> is a <b>mutable</b> sequence of characters: its methods change the same object.</li><li>Joining strings with <code>+</code> in a loop creates a new String every time — slow for long loops.</li><li><code>StringBuffer</code> is the older, synchronized (thread-safe) version.</li></ul></div></div>
 </div></section>
 <section class="slide " data-title="Trace: String + in a loop vs StringBuilder" aria-label="Trace: String + in a loop vs StringBuilder" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: String + in a loop vs StringBuilder</h2><p class="muted">Count the objects on the heap: every <code>s + i</code> leaves an abandoned String behind, while the builder reuses one object.</p><div data-trace="t12-builder"></div>
+<p class="kicker">Step through the code</p><h2>Trace: String + in a loop vs StringBuilder</h2><p class="muted">Count the objects on the heap: every <code>s + i</code> leaves an abandoned String behind, while the builder reuses one object.</p>
+</div></section>
+<section class="slide " data-title="Trace: String + in a loop vs StringBuilder (cont.)" aria-label="Trace: String + in a loop vs StringBuilder (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: String + in a loop vs StringBuilder (cont.)</h2><div data-trace="t12-builder"></div>
 </div></section>
 <section class="slide " data-title="Big numbers stored as Strings" aria-label="Big numbers stored as Strings" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 5 of 5</p><h2>Big numbers stored as Strings</h2><div class="cols "><div><div class="scrollx"><table class="doc"><thead><tr><th>Type</th><th>Largest value</th></tr></thead><tbody><tr><td>int</td><td>2,147,483,647 (10 digits)</td></tr><tr><td>long</td><td>9,223,372,036,854,775,807 (19 digits)</td></tr><tr><td>String of digits</td><td>as many digits as memory allows</td></tr></tbody></table></div><ul><li>Store each number as a String of digits; the last character is the ones digit.</li><li>Work from right to left: <code>a.charAt(i) - '0'</code> converts a digit character to its value.</li><li>Keep a <b>carry</b> (addition) or <b>borrow</b> (subtraction), and build the answer with a StringBuilder, reversing at the end.</li></ul></div><div><pre class="code small-code">static String add(String a, String b) {
@@ -147,7 +156,7 @@ String result = sb.toString();</pre></div><div><ul><li><code>StringBuilder</code
 <p class="kicker">Interactive</p><h2>Big-number addition, column by column</h2><div data-demo="bigadd"></div>
 </div></section>
 <section class="slide " data-title="Multiplying big numbers" aria-label="Multiplying big numbers" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>Multiplying big numbers</h2><div class="codeout"><pre class="code" data-mark="5-7">static String multiply(String a, String b) {
+<p class="kicker">Code example</p><h2>Multiplying big numbers</h2>static String multiply(String a, String b) {
     int[] r = new int[a.length() + b.length()];
     for (int i = a.length() - 1; i &gt;= 0; i--)
         for (int j = b.length() - 1; j &gt;= 0; j--) {
@@ -160,8 +169,8 @@ String result = sb.toString();</pre></div><div><ul><li><code>StringBuilder</code
     return sb.length() == 0 ? &quot;0&quot; : sb.toString();
 }
 System.out.println(multiply(&quot;123456789&quot;, &quot;987654321&quot;));
-System.out.println(multiply(&quot;12345678901234567890&quot;, &quot;98765432109876543210&quot;));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">121932631112635269
-1219326311370217952237463801111263526900</pre></div></div></div><p>Digit <code>i</code> of a times digit <code>j</code> of b lands in column <code>i + j + 1</code> of the result — the same shifted rows you write on paper.</p>
+System.out.println(multiply(&quot;12345678901234567890&quot;, &quot;98765432109876543210&quot;));<div class="console"><div class="console-h">Output</div><pre class="console-body">121932631112635269
+1219326311370217952237463801111263526900</pre></div><p>Digit <code>i</code> of a times digit <code>j</code> of b lands in column <code>i + j + 1</code> of the result — the same shifted rows you write on paper.</p>
 </div></section>
 <section class="slide " data-title="The library way: BigInteger and BigDecimal" aria-label="The library way: BigInteger and BigDecimal" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>The library way: BigInteger and BigDecimal</h2><div class="codeout"><pre class="code">import java.math.*;
@@ -219,7 +228,7 @@ System.out.println(w.length);            // 3</pre></div></details></div>
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 22</span>
+  <span class="counter" id="counter">1 / 27</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

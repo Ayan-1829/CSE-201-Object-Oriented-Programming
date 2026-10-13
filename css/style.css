@@ -846,3 +846,68 @@ body.anno-drawing .anno-page-svg{touch-action:none}
 /* topic list: small illustration on each card */
 .tlist a>span:not(.badge):not(.tart){flex:1;min-width:0}
 .tlist .tart{flex:none;width:84px;align-self:center;margin-left:4px}
+
+/* ===================== Shared projector type scale =====================
+   The same block ends the stylesheet of every course site (CSE-201, CSE-202, CSE-203, CSE-308, CSE-309),
+   so slides read the same size in every course. It applies to slide decks only (body.deck-page) and is
+   sized for a projector seen from the back of a classroom:
+                     1366 px wide     1920 px wide
+     small text         18 px            22 px     captions, labels, tables, buttons, tool text
+     code               18 px            23 px
+     body text          22 px            30 px     bullets, paragraphs, quiz and example questions
+     h3                 24 px            33 px
+     slide title h2     48 px            54 px
+     title-slide h1     74 px            80 px
+   Nothing on a slide is smaller than the small size. Change the six values here, in every course. */
+body.deck-page{
+  --pj-sm:clamp(18px,1.15vw,22px);
+  --pj-code:clamp(18px,1.2vw,23px);
+  --pj-body:clamp(22px,1.6vw,30px);
+  --pj-h3:clamp(24px,1.75vw,33px);
+  --pj-h2:clamp(32px,3.5vw,54px);
+  --pj-h1:clamp(36px,5.4vw,80px);
+}
+body.deck-page .slide-inner{max-width:min(1440px,100%)}
+body.deck-page .slide{font-size:var(--pj-body);line-height:1.45;padding-top:clamp(14px,2.2vw,34px)}
+/* tighter vertical rhythm than the reading pages, so the larger text still fits on one screen */
+body.deck-page .slide :where(p,li,.callout,.ans){line-height:1.45}
+body.deck-page .slide :where(li){margin-bottom:.12em}
+body.deck-page .slide h2{margin-bottom:.4em!important}
+/* body text */
+body.deck-page .slide :where(p,li,dd,dt,blockquote,.callout,.note,.qq,.qtext,.qopt,.ans,.lead,.outline-list a,.res b,.concept){font-size:var(--pj-body)!important}
+body.deck-page .slide :where(.title-slide .lead,.hook .q){font-size:calc(var(--pj-body) * 1.15)!important}
+/* small text */
+body.deck-page .slide :where(.kicker,figcaption,.hint,.small,.muted,label,.fld,summary,.btn,.seg button,.tabs button,input,select,textarea,
+  table th,table td,.out,.verdict,.qhead,.qwhy,.gwhy,.kv small,.kv b,.console-h,.res span,.res small,.lec,.co-h,.co-note,.src-note,.trace-note,.trace-title,.badge,.pill,.flow span,.tsw,.os-tag,.os-count){font-size:var(--pj-sm)!important}
+body.deck-page .slide :where(kbd){font-size:.85em!important}
+/* columns inside a column (e.g. strengths | weaknesses beside a figure) are narrow: step down to 85% */
+body.deck-page .slide .cols :where(.vs,.cols,.tgrid) :where(p,li,h4){font-size:calc(var(--pj-body) * .85)!important}
+/* interactive tools: their own text is small, their questions are body text */
+body.deck-page .slide .demo :where(p,li,dd,.sub,h4,td,th){font-size:var(--pj-sm)!important}
+body.deck-page .slide .demo :where(.gq,.qtext,.qopt){font-size:var(--pj-body)!important}
+/* code */
+body.deck-page .slide :where(pre.code,.trace-code,.console-body,.cl,.os-code){font-size:var(--pj-code)!important}
+body.deck-page .slide :where(p,li,td,.callout) code{font-size:.9em!important}
+/* headings */
+body.deck-page .slide h2{font-size:var(--pj-h2)!important}
+body.deck-page .slide :where(h3){font-size:var(--pj-h3)!important}
+body.deck-page .slide :where(h4){font-size:var(--pj-body)!important}
+body.deck-page .title-slide h1{font-size:var(--pj-h1)!important}
+
+/* ===== projector layout (shared by all course sites) =====
+   Interactive boxes show their controls first, right under the title; figures that used to sit
+   in a half-width column are stacked full width (see _tools/paginate) and capped in height. */
+.demo{display:flex;flex-direction:column}
+.demo>*{min-width:0}
+.demo>h3,.demo>.sub{order:-3}
+.demo>.row:has(button,select),.demo>.row.os-ctl{order:-2;margin-bottom:12px}
+.demo>label.fld,.demo>input,.demo>.bits{align-self:flex-start}
+.trace>.trace-ctl{justify-content:flex-start;margin:0 0 10px}
+.slide .trace-code{max-height:min(36vh,385px)}
+.lab>.lab-ctl{margin:0 0 8px}
+.slide-inner>figure.fig svg.dg{max-height:min(60vh,640px)}
+/* long code lines wrap (with a hanging indent past the line number) instead of scrolling sideways */
+.slide pre.code .cl{white-space:pre-wrap;overflow-wrap:anywhere;padding-left:4.2em;text-indent:-4.2em}
+.slide pre.code .cl .cn{text-indent:0}
+.slide pre.code.nonum .cl{padding-left:14px;text-indent:0}
+/* ===== end projector layout ===== */

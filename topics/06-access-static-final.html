@@ -89,13 +89,16 @@ Counter.getCount();         // call via the class</pre><ul><li>A <b>static</b> m
 </div></section>
 
 <section class="slide " data-title="Trace: a shared static counter" aria-label="Trace: a shared static counter" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: a shared static counter</h2><p class="muted">The static area holds one <code>count</code>. Every constructor call increases it and copies the current value into that object’s own <code>id</code>.</p><div data-trace="t6-static"></div>
+<p class="kicker">Step through the code</p><h2>Trace: a shared static counter</h2><p class="muted">The static area holds one <code>count</code>. Every constructor call increases it and copies the current value into that object’s own <code>id</code>.</p>
+</div></section>
+<section class="slide " data-title="Trace: a shared static counter (cont.)" aria-label="Trace: a shared static counter (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: a shared static counter (cont.)</h2><div data-trace="t6-static"></div>
 </div></section>
 <section class="slide " data-title="Static or not? Predict the compiler" aria-label="Static or not? Predict the compiler" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Static or not? Predict the compiler</h2><div data-demo="static-rules"></div>
 </div></section>
 <section class="slide " data-title="Static blocks and utility classes" aria-label="Static blocks and utility classes" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>Static blocks and utility classes</h2><div class="codeout"><pre class="code" data-mark="3-6">class MathUtil {
+<p class="kicker">Code example</p><h2>Static blocks and utility classes</h2>class MathUtil {
     static final double[] SQUARES = new double[5];
     static {                          // runs once, when the class loads
         for (int i = 0; i &lt; SQUARES.length; i++) SQUARES[i] = i * i;
@@ -110,22 +113,28 @@ Counter.getCount();         // call via the class</pre><ul><li>A <b>static</b> m
 }
 System.out.println(&quot;start&quot;);
 System.out.println(MathUtil.max(4, 9, 2));
-System.out.println(MathUtil.SQUARES[3]);</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">start
+System.out.println(MathUtil.SQUARES[3]);<div class="console"><div class="console-h">Output</div><pre class="console-body">start
 MathUtil loaded
 9
-9.0</pre></div></div></div><ul><li>A <b>static block</b> initialises static data once, the first time the class is used.</li><li>A <b>utility class</b> has only static members and a private constructor (like <code>Math</code> and <code>Arrays</code>).</li></ul>
+9.0</pre></div><ul><li>A <b>static block</b> initialises static data once, the first time the class is used.</li><li>A <b>utility class</b> has only static members and a private constructor (like <code>Math</code> and <code>Arrays</code>).</li></ul>
 </div></section>
 <section class="slide " data-title="Trace: when does a static block run?" aria-label="Trace: when does a static block run?" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: when does a static block run?</h2><p class="muted">Not at program start: the class is loaded, and its static block runs, on the first use of MathUtil.</p><div data-trace="t6-static-block"></div>
+<p class="kicker">Step through the code</p><h2>Trace: when does a static block run?</h2><p class="muted">Not at program start: the class is loaded, and its static block runs, on the first use of MathUtil.</p>
+</div></section>
+<section class="slide " data-title="Trace: when does a static block run? (cont.)" aria-label="Trace: when does a static block run? (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: when does a static block run? (cont.)</h2><div data-trace="t6-static-block"></div>
 </div></section>
 <section class="slide " data-title="The final keyword" aria-label="The final keyword" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 3 of 4</p><h2>The final keyword</h2><div class="scrollx"><table class="doc"><thead><tr><th>Applied to</th><th>Meaning</th><th>Example</th></tr></thead><tbody><tr><td>Local variable / parameter</td><td>Can be assigned only once.</td><td><code>final int max = 100;</code></td></tr><tr><td>Field</td><td>Must be set once — at declaration or in every constructor (“blank final”).</td><td><code>private final int id;</code></td></tr><tr><td>static final field</td><td>A class constant; name it in UPPER_CASE.</td><td><code>static final double PI = 3.14159;</code></td></tr><tr><td>Reference variable</td><td>The arrow cannot move, but the object can still change.</td><td><code>final int[] a = {1}; a[0] = 5; // OK</code></td></tr><tr><td>Method</td><td>Cannot be overridden by a subclass.</td><td><code>final void pay()</code></td></tr><tr><td>Class</td><td>Cannot be extended.</td><td><code>final class String</code></td></tr></tbody></table></div>
 </div></section>
 <section class="slide " data-title="Nested classes" aria-label="Nested classes" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 4 of 4</p><h2>Nested classes</h2><figure class="fig" data-fig="nested-classes"><figcaption>Four kinds of class that can live inside another class.</figcaption></figure><div class="scrollx"><table class="doc"><thead><tr><th>Kind</th><th>Key facts</th></tr></thead><tbody><tr><td><b>static nested</b></td><td>Like a normal class placed inside for grouping; no link to an outer object. <code>new Outer.Nested()</code></td></tr><tr><td><b>inner</b> (non-static)</td><td>Every inner object belongs to an outer object and can use its private fields. <code>outer.new Inner()</code></td></tr><tr><td><b>local</b></td><td>Declared inside a method; can use effectively-final local variables.</td></tr><tr><td><b>anonymous</b></td><td>A one-off class without a name, written where it is used — often to implement an interface.</td></tr></tbody></table></div>
+<p class="kicker">Concept 4 of 4</p><h2>Nested classes</h2><figure class="fig" data-fig="nested-classes"><figcaption>Four kinds of class that can live inside another class.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Nested classes (cont.)" aria-label="Nested classes (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 4</p><h2>Nested classes (cont.)</h2><div class="scrollx"><table class="doc"><thead><tr><th>Kind</th><th>Key facts</th></tr></thead><tbody><tr><td><b>static nested</b></td><td>Like a normal class placed inside for grouping; no link to an outer object. <code>new Outer.Nested()</code></td></tr><tr><td><b>inner</b> (non-static)</td><td>Every inner object belongs to an outer object and can use its private fields. <code>outer.new Inner()</code></td></tr><tr><td><b>local</b></td><td>Declared inside a method; can use effectively-final local variables.</td></tr><tr><td><b>anonymous</b></td><td>A one-off class without a name, written where it is used — often to implement an interface.</td></tr></tbody></table></div>
 </div></section>
 <section class="slide " data-title="Inner and anonymous classes in code" aria-label="Inner and anonymous classes in code" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>Inner and anonymous classes in code</h2><div class="codeout"><pre class="code">class Bank {
+<p class="kicker">Code example</p><h2>Inner and anonymous classes in code</h2>class Bank {
     private String name = &quot;GUB Bank&quot;;
     private int opened = 0;
 
@@ -148,10 +157,10 @@ Runnable r = new Runnable() {               // anonymous class
 };
 r.run();
 Runnable r2 = () -&gt; System.out.println(&quot;lambda&quot;);  // same idea, Java 8+
-r2.run();</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">GUB Bank #1, GUB Bank #2
+r2.run();<div class="console"><div class="console-h">Output</div><pre class="console-body">GUB Bank #1, GUB Bank #2
 0.08
 running
-lambda</pre></div></div></div>
+lambda</pre></div>
 </div></section>
 <section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Why does this not compile?<br><code>class A { int x; static void show() { System.out.println(x); } }</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">show() is static, so it runs without any object — there is no <code>this.x</code> to print. Make show() an instance method, or make x static, or pass an A object as a parameter.</div></details></div>
@@ -187,7 +196,7 @@ lambda</pre></div></div></div>
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 19</span>
+  <span class="counter" id="counter">1 / 24</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

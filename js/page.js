@@ -2,7 +2,7 @@
 function mountPage(root) {
   root = root || document;
   const fail = (ph, what, e) => ph.append(h('p', { class: 'bad' }, `This ${what} could not start: ${e.message}`));
-  root.querySelectorAll('pre.code:not([data-hl])').forEach((pre) => { try { Java.render(pre.textContent.replace(/^\n/, ''), pre, { nums: !pre.classList.contains('nonum'), marks: pre.getAttribute('data-mark') }); } catch (e) { /* leave plain text */ } });
+  root.querySelectorAll('pre.code:not([data-hl])').forEach((pre) => { try { Java.render(pre.textContent.replace(/^\n/, ''), pre, { nums: !pre.classList.contains('nonum'), marks: pre.getAttribute('data-mark'), start: +pre.getAttribute('data-start') || 1 }); } catch (e) { /* leave plain text */ } });
   root.querySelectorAll('figure.fig[data-fig]').forEach((fig) => {
     const id = fig.getAttribute('data-fig');
     try {

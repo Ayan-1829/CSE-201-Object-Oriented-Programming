@@ -82,13 +82,16 @@ class Student extends Person {
 </div></section>
 
 <section class="slide " data-title="Types of inheritance" aria-label="Types of inheritance" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 2 of 6</p><h2>Types of inheritance</h2><figure class="fig" data-fig="inherit-types"><figcaption>Java classes support single, multilevel and hierarchical inheritance. Multiple inheritance of classes is not allowed.</figcaption></figure><ul><li>A Java class extends <b>exactly one</b> superclass (by default <code>Object</code>).</li><li>Multiple inheritance of classes is banned to avoid the <b>diamond problem</b> (two inherited versions of the same method).</li><li>A class can implement many <b>interfaces</b> — that is how Java gets the benefits of multiple inheritance (topic 9).</li></ul>
+<p class="kicker">Concept 2 of 6</p><h2>Types of inheritance</h2><figure class="fig" data-fig="inherit-types"><figcaption>Java classes support single, multilevel and hierarchical inheritance. Multiple inheritance of classes is not allowed.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Types of inheritance (cont.)" aria-label="Types of inheritance (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 2 of 6</p><h2>Types of inheritance (cont.)</h2><ul><li>A Java class extends <b>exactly one</b> superclass (by default <code>Object</code>).</li><li>Multiple inheritance of classes is banned to avoid the <b>diamond problem</b> (two inherited versions of the same method).</li><li>A class can implement many <b>interfaces</b> — that is how Java gets the benefits of multiple inheritance (topic 9).</li></ul>
 </div></section>
 <section class="slide " data-title="What a subclass can and cannot use" aria-label="What a subclass can and cannot use" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 3 of 6</p><h2>What a subclass can and cannot use</h2><div class="scrollx"><table class="doc"><thead><tr><th>Member of the superclass</th><th>Inherited?</th><th>Usable in the subclass?</th></tr></thead><tbody><tr><td>public / protected fields and methods</td><td>Yes</td><td>Yes, directly</td></tr><tr><td>default (package) members</td><td>Yes</td><td>Only if the subclass is in the same package</td></tr><tr><td>private fields</td><td>They exist inside the object</td><td>No — use public/protected getters and setters</td></tr><tr><td>constructors</td><td>No</td><td>Called with <code>super(...)</code></td></tr><tr><td>static members</td><td>Shared, not copied</td><td>Yes, through the class name</td></tr></tbody></table></div><div class="callout"><b>Why it matters:</b> Private fields are still part of every Student object — Student just cannot name them. That is why Student’s constructor must call <code>super(name, age)</code> to set them.</div>
 </div></section>
 <section class="slide " data-title="The super keyword" aria-label="The super keyword" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 4 of 6</p><h2>The super keyword</h2><div class="cols "><div><pre class="code small-code" data-mark="10,15">class Person {
+<p class="kicker">Concept 4 of 6</p><h2>The super keyword</h2><pre class="code small-code" data-mark="10,15">class Person {
     private String name;
     Person(String name) { this.name = name; }
     String getName() { return name; }
@@ -100,15 +103,17 @@ class Student extends Person {
         super(name);                 // 1. superclass constructor
         this.id = id;
     }
-    @Override
-    String introduce() {
+    @Override</pre>
+</div></section>
+<section class="slide " data-title="The super keyword (cont.)" aria-label="The super keyword (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 6</p><h2>The super keyword (cont.)</h2><pre data-start="14" class="code small-code" data-mark="10,15">    String introduce() {
         return super.introduce()     // 2. superclass version
                + &quot;, ID &quot; + id;
     }
-}</pre></div><div><ul><li><code>super(args)</code> calls the superclass constructor; it must be the <b>first statement</b>.</li><li>If you do not write it, the compiler inserts <code>super();</code> — which fails if the superclass has no no-arg constructor.</li><li><code>super.method()</code> calls the superclass version of an overridden method.</li><li><code>super.field</code> reaches a superclass field hidden by a subclass field with the same name.</li></ul></div></div>
+}</pre><ul><li><code>super(args)</code> calls the superclass constructor; it must be the <b>first statement</b>.</li><li>If you do not write it, the compiler inserts <code>super();</code> — which fails if the superclass has no no-arg constructor.</li><li><code>super.method()</code> calls the superclass version of an overridden method.</li><li><code>super.field</code> reaches a superclass field hidden by a subclass field with the same name.</li></ul>
 </div></section>
 <section class="slide " data-title="super in action" aria-label="super in action" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>super in action</h2><div class="codeout"><pre class="code">class Person {
+<p class="kicker">Code example</p><h2>super in action</h2>class Person {
     private String name;
     Person(String name) { this.name = name; }
     String introduce() { return &quot;I am &quot; + name; }
@@ -126,14 +131,20 @@ class Teacher extends Person {
     String introduce() { return super.introduce() + &quot; from &quot; + dept; }
 }
 Person[] people = { new Student(&quot;Mitu&quot;, 221), new Teacher(&quot;Dr. Karim&quot;, &quot;CSE&quot;) };
-for (Person p : people) System.out.println(p.introduce());</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">I am Mitu, ID 221
-I am Dr. Karim from CSE</pre></div></div></div>
+for (Person p : people) System.out.println(p.introduce());<div class="console"><div class="console-h">Output</div><pre class="console-body">I am Mitu, ID 221
+I am Dr. Karim from CSE</pre></div>
 </div></section>
 <section class="slide " data-title="Trace: super(…) and super.introduce()" aria-label="Trace: super(…) and super.introduce()" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: super(…) and super.introduce()</h2><p class="muted">Follow one object through two constructors, then see an override call the superclass version with super.</p><div data-trace="t7-super"></div>
+<p class="kicker">Step through the code</p><h2>Trace: super(…) and super.introduce()</h2><p class="muted">Follow one object through two constructors, then see an override call the superclass version with super.</p>
+</div></section>
+<section class="slide " data-title="Trace: super(…) and super.introduce() (cont.)" aria-label="Trace: super(…) and super.introduce() (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: super(…) and super.introduce() (cont.)</h2><div data-trace="t7-super"></div>
 </div></section>
 <section class="slide " data-title="Multilevel hierarchies and constructor order" aria-label="Multilevel hierarchies and constructor order" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 5 of 6</p><h2>Multilevel hierarchies and constructor order</h2><div class="cols "><div><figure class="fig" data-fig="uml-multilevel"><figcaption>A three-level hierarchy: ElectricCar → Car → Vehicle.</figcaption></figure></div><div><pre class="code small-code">class Vehicle {
+<p class="kicker">Concept 5 of 6</p><h2>Multilevel hierarchies and constructor order</h2><figure class="fig" data-fig="uml-multilevel"><figcaption>A three-level hierarchy: ElectricCar → Car → Vehicle.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Multilevel hierarchies and constructor order (cont.)" aria-label="Multilevel hierarchies and constructor order (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 5 of 6</p><h2>Multilevel hierarchies and constructor order (cont.)</h2><pre class="code small-code">class Vehicle {
     Vehicle() { System.out.println(&quot;Vehicle&quot;); }
 }
 class Car extends Vehicle {
@@ -144,10 +155,13 @@ class ElectricCar extends Car {
 }
 new ElectricCar();</pre><div class="console"><div class="console-h">Output</div><pre class="console-body">Vehicle
 Car
-ElectricCar</pre></div><p>Constructors run from the <b>top</b> of the hierarchy down: a superclass part must be ready before the subclass part is built.</p></div></div>
+ElectricCar</pre></div><p>Constructors run from the <b>top</b> of the hierarchy down: a superclass part must be ready before the subclass part is built.</p>
 </div></section>
 <section class="slide " data-title="Trace: constructor chaining" aria-label="Trace: constructor chaining" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: constructor chaining</h2><p class="muted">Each constructor first calls <code>super()</code>. Watch the frames stack up to A, then print on the way back down.</p><div data-trace="t7-chain"></div>
+<p class="kicker">Step through the code</p><h2>Trace: constructor chaining</h2><p class="muted">Each constructor first calls <code>super()</code>. Watch the frames stack up to A, then print on the way back down.</p>
+</div></section>
+<section class="slide " data-title="Trace: constructor chaining (cont.)" aria-label="Trace: constructor chaining (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: constructor chaining (cont.)</h2><div data-trace="t7-chain"></div>
 </div></section>
 <section class="slide " data-title="The Object class" aria-label="The Object class" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 6 of 6</p><h2>The Object class</h2><figure class="fig" data-fig="object-tree"><figcaption>Every class inherits from java.lang.Object, directly or indirectly.</figcaption></figure>
@@ -209,7 +223,7 @@ class Circle extends Shape {
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 19</span>
+  <span class="counter" id="counter">1 / 27</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

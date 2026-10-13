@@ -284,8 +284,9 @@ const Tracer = (() => {
     const el = h('div', { class: 'trace' + (usesHeap || usesStatic ? ' has-arrows' : ' no-heap') },
       def.title ? h('div', { class: 'trace-title' }, def.title) : null,
       scenBar,
+      ctl,
       h('div', { class: 'trace-body' }, h('div', { class: 'trace-left' }, pre, note), side),
-      h('div', { class: 'trace-bottom' }, cons.el, ctl));
+      h('div', { class: 'trace-bottom' }, cons.el));
     setTimeout(() => show(opts.start === 'last' ? steps.length - 1 : 0), 0);
     show(opts.start === 'last' ? steps.length - 1 : 0);
     return el;

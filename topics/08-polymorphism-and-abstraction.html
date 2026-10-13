@@ -120,7 +120,10 @@ class Circle extends Shape {
 </div></section>
 
 <section class="slide " data-title="Trace: polymorphic area()" aria-label="Trace: polymorphic area()" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: polymorphic area()</h2><p class="muted">One array, three objects, one call. Watch which <code>area()</code> frame appears for each element.</p><div data-trace="t8-shapes"></div>
+<p class="kicker">Step through the code</p><h2>Trace: polymorphic area()</h2><p class="muted">One array, three objects, one call. Watch which <code>area()</code> frame appears for each element.</p>
+</div></section>
+<section class="slide " data-title="Trace: polymorphic area() (cont.)" aria-label="Trace: polymorphic area() (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: polymorphic area() (cont.)</h2><div data-trace="t8-shapes"></div>
 </div></section>
 <section class="slide " data-title="Polymorphic shapes" aria-label="Polymorphic shapes" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Polymorphic shapes</h2><div data-demo="shapes"></div>
@@ -137,7 +140,7 @@ final class Money { }
 class Taka extends Money { }   // ✗ cannot inherit from final</pre></div><div><ul><li>A <b>final method</b> keeps its behaviour in every subclass — useful for security checks and template steps.</li><li>A <b>final class</b> cannot be extended: <code>String</code>, <code>Integer</code>, <code>Math</code>.</li><li><code>abstract final</code> is a contradiction and does not compile.</li><li>final calls can be bound early, which also lets the JIT inline them.</li></ul></div></div>
 </div></section>
 <section class="slide " data-title="Using library classes" aria-label="Using library classes" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>Using library classes</h2><div class="codeout"><pre class="code">import java.util.*;
+<p class="kicker">Code example</p><h2>Using library classes</h2>import java.util.*;
 
 ArrayList&lt;String&gt; names = new ArrayList&lt;&gt;();
 names.add(&quot;Sadia&quot;); names.add(&quot;Imran&quot;); names.add(&quot;Mitu&quot;);
@@ -146,15 +149,15 @@ System.out.println(names + &quot; size=&quot; + names.size());
 
 Integer boxed = 42;                         // autoboxing
 int n = Integer.parseInt(&quot;123&quot;) + boxed;    // wrapper helpers
-System.out.println(n + &quot; &quot; + Integer.toBinaryString(10));
+System.out.println(n + &quot;&quot; + Integer.toBinaryString(10));
 
-System.out.println(Math.max(3, 8) + &quot; &quot; + Math.sqrt(49) + &quot; &quot; + Math.round(2.5));
+System.out.println(Math.max(3, 8) + &quot;&quot; + Math.sqrt(49) + &quot;&quot; + Math.round(2.5));
 
 Object o = names;                           // polymorphism again
-System.out.println(o instanceof List);</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">[Imran, Mitu, Sadia] size=3
+System.out.println(o instanceof List);<div class="console"><div class="console-h">Output</div><pre class="console-body">[Imran, Mitu, Sadia] size=3
 165 1010
 8 7.0 3
-true</pre></div></div></div><ul><li>The Java library (API) is thousands of ready-made classes. Read their documentation for constructors, methods and exceptions.</li><li>Wrapper classes (<code>Integer</code>, <code>Double</code>, …) let primitives be used as objects in collections.</li></ul>
+true</pre></div><ul><li>The Java library (API) is thousands of ready-made classes. Read their documentation for constructors, methods and exceptions.</li><li>Wrapper classes (<code>Integer</code>, <code>Double</code>, …) let primitives be used as objects in collections.</li></ul>
 </div></section>
 <section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">What is printed?<br><code>class A { void f() { System.out.print("A"); } }</code><br><code>class B extends A { void f() { System.out.print("B"); } }</code><br><code>A x = new B(); x.f(); ((A) x).f();</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans"><b>BB</b>. Casting the reference does not change the object; dispatch still picks B.f().</div></details></div>
@@ -196,7 +199,7 @@ class Hourly extends Employee {
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 20</span>
+  <span class="counter" id="counter">1 / 23</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>

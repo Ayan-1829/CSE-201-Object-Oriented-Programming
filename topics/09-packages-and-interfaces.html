@@ -105,13 +105,19 @@ class Invoice implements Payable {
 </div></section>
 
 <section class="slide " data-title="Trace: paying through an interface" aria-label="Trace: paying through an interface" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: paying through an interface</h2><p class="muted">The array’s type is <code>Payable[]</code>, yet each call runs the method of the real object.</p><div data-trace="t9-iface"></div>
+<p class="kicker">Step through the code</p><h2>Trace: paying through an interface</h2><p class="muted">The array’s type is <code>Payable[]</code>, yet each call runs the method of the real object.</p>
+</div></section>
+<section class="slide " data-title="Trace: paying through an interface (cont.)" aria-label="Trace: paying through an interface (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: paying through an interface (cont.)</h2><div data-trace="t9-iface"></div>
 </div></section>
 <section class="slide " data-title="Interface contract checker" aria-label="Interface contract checker" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Interface contract checker</h2><div data-demo="iface"></div>
 </div></section>
 <section class="slide " data-title="Multiple interfaces" aria-label="Multiple interfaces" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Concept 4 of 5</p><h2>Multiple interfaces</h2><figure class="fig" data-fig="iface-multi"><figcaption>A class extends one class but may implement any number of interfaces.</figcaption></figure><div class="cols "><div><pre class="code small-code">interface Flyable   { void fly(); }
+<p class="kicker">Concept 4 of 5</p><h2>Multiple interfaces</h2><figure class="fig" data-fig="iface-multi"><figcaption>A class extends one class but may implement any number of interfaces.</figcaption></figure>
+</div></section>
+<section class="slide " data-title="Multiple interfaces (cont.)" aria-label="Multiple interfaces (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Concept 4 of 5</p><h2>Multiple interfaces (cont.)</h2><div class="cols "><div><pre class="code small-code">interface Flyable   { void fly(); }
 interface Swimmable { void swim(); }
 class Bird { void layEggs() { } }
 
@@ -123,7 +129,7 @@ Flyable f = new Duck();   f.fly();
 Swimmable s = new Duck(); s.swim();</pre></div><div><ul><li>No diamond problem: interfaces (traditionally) carry no state and no competing method bodies.</li><li>Interfaces can extend other interfaces: <code>interface Amphibious extends Flyable, Swimmable {}</code>.</li></ul></div></div>
 </div></section>
 <section class="slide " data-title="default, static and private interface methods" aria-label="default, static and private interface methods" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>default, static and private interface methods</h2><div class="codeout"><pre class="code">interface Greeter {
+<p class="kicker">Code example</p><h2>default, static and private interface methods</h2>interface Greeter {
     String name();                               // abstract
     default String greet() {                     // Java 8
         return &quot;Hello, &quot; + decorate(name());
@@ -140,17 +146,20 @@ class Teacher implements Greeter {
     public String greet() { return &quot;Good morning, &quot; + name(); }   // override default
 }
 System.out.println(Greeter.of(&quot;Ayan&quot;).greet());
-System.out.println(new Teacher().greet());</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">Hello, *Ayan*
-Good morning, Sir</pre></div></div></div><ul><li><b>default</b> methods add behaviour to an interface without breaking existing implementing classes.</li><li><b>static</b> methods are helpers called on the interface name.</li><li><b>private</b> methods share code between default methods.</li></ul>
+System.out.println(new Teacher().greet());<div class="console"><div class="console-h">Output</div><pre class="console-body">Hello, *Ayan*
+Good morning, Sir</pre></div><ul><li><b>default</b> methods add behaviour to an interface without breaking existing implementing classes.</li><li><b>static</b> methods are helpers called on the interface name.</li><li><b>private</b> methods share code between default methods.</li></ul>
 </div></section>
 <section class="slide " data-title="Trace: default, static and private methods" aria-label="Trace: default, static and private methods" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Step through the code</p><h2>Trace: default, static and private methods</h2><p class="muted">Which method body actually runs? The lambda object gets the default greet(); Teacher overrides it.</p><div data-trace="t9-default"></div>
+<p class="kicker">Step through the code</p><h2>Trace: default, static and private methods</h2><p class="muted">Which method body actually runs? The lambda object gets the default greet(); Teacher overrides it.</p>
+</div></section>
+<section class="slide " data-title="Trace: default, static and private methods (cont.)" aria-label="Trace: default, static and private methods (cont.)" tabindex="-1"><div class="slide-inner">
+<p class="kicker">Step through the code</p><h2>Trace: default, static and private methods (cont.)</h2><div data-trace="t9-default"></div>
 </div></section>
 <section class="slide " data-title="Interface vs abstract class" aria-label="Interface vs abstract class" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 5 of 5</p><h2>Interface vs abstract class</h2><div class="scrollx"><table class="doc"><thead><tr><th></th><th>Interface</th><th>Abstract class</th></tr></thead><tbody><tr><td>Keyword</td><td><code>implements</code> (many)</td><td><code>extends</code> (only one)</td></tr><tr><td>Fields</td><td>Only public static final constants</td><td>Any fields, with any access</td></tr><tr><td>Constructors</td><td>None</td><td>Yes (called by subclasses)</td></tr><tr><td>Methods</td><td>abstract, default, static, private</td><td>abstract and concrete, any access</td></tr><tr><td>Relationship</td><td>“can do” — a capability (Comparable, Runnable)</td><td>“is a” — a common base with shared state</td></tr><tr><td>Use when</td><td>Unrelated classes share a role</td><td>Related classes share code and fields</td></tr></tbody></table></div>
 </div></section>
 <section class="slide " data-title="A library interface: Comparable" aria-label="A library interface: Comparable" tabindex="-1"><div class="slide-inner">
-<p class="kicker">Code example</p><h2>A library interface: Comparable</h2><div class="codeout"><pre class="code" data-mark="7-9">import java.util.Arrays;
+<p class="kicker">Code example</p><h2>A library interface: Comparable</h2>import java.util.Arrays;
 
 class Student implements Comparable&lt;Student&gt; {
     String name; double cgpa;
@@ -159,12 +168,12 @@ class Student implements Comparable&lt;Student&gt; {
     public int compareTo(Student o) {       // negative, 0 or positive
         return Double.compare(o.cgpa, cgpa); // higher CGPA first
     }
-    public String toString() { return name + &quot; &quot; + cgpa; }
+    public String toString() { return name + &quot;&quot; + cgpa; }
 }
 Student[] list = { new Student(&quot;Rahim&quot;, 3.15), new Student(&quot;Sadia&quot;, 3.91),
                    new Student(&quot;Nabila&quot;, 3.47) };
 Arrays.sort(list);                           // uses compareTo
-System.out.println(Arrays.toString(list));</pre><div><div class="console"><div class="console-h">Output</div><pre class="console-body">[Sadia 3.91, Nabila 3.47, Rahim 3.15]</pre></div></div></div><p>Because Student implements <code>Comparable</code>, the library’s <code>Arrays.sort</code> can order students without knowing anything else about them.</p>
+System.out.println(Arrays.toString(list));<div class="console"><div class="console-h">Output</div><pre class="console-body">[Sadia 3.91, Nabila 3.47, Rahim 3.15]</pre></div><p>Because Student implements <code>Comparable</code>, the library’s <code>Arrays.sort</code> can order students without knowing anything else about them.</p>
 </div></section>
 <section class="slide " data-title="Worked example 1" aria-label="Worked example 1" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Worked example 1 of 3</p><h2>Worked example 1</h2><div class="ex"><div class="qq">Why does this not compile? <code>interface Shape { double area(); }  class Sq implements Shape { double area() { return 4; } }</code></div><details class="reveal"><summary>Show the solution</summary><div class="ans">Interface methods are public; <code>area()</code> in Sq has default (package) access, which is weaker. Write <code>public double area()</code>.</div></details></div>
@@ -194,7 +203,7 @@ class Circle implements Resizable {
 </main>
 <footer class="deck-foot">
   <button type="button" class="btn" id="prev">Previous</button>
-  <span class="counter" id="counter">1 / 20</span>
+  <span class="counter" id="counter">1 / 26</span>
   <button type="button" class="btn pri" id="next">Next</button>
 </footer>
 <aside id="slide-menu" hidden aria-label="Slide list"><div class="menu-head"><h3>Slides in this topic</h3><button type="button" id="btn-menu-close" class="menu-close" aria-label="Close slide list">&#10005;</button></div></aside>
