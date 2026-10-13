@@ -157,6 +157,8 @@ class Box2 {
 </div></section>
 <section class="slide " data-title="Garbage collection" aria-label="Garbage collection" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Concept 6 of 6</p><h2>Garbage collection</h2><figure class="fig" data-fig="gc-fig"><figcaption>An object that no variable refers to is unreachable, so the garbage collector may reclaim its memory.</figcaption></figure><ul><li>Java has no <code>delete</code>: the <b>garbage collector</b> (GC) frees memory automatically.</li><li>An object becomes <b>eligible</b> when nothing reachable refers to it: <code>s = null;</code>, reassigning the variable, or the variable going out of scope.</li><li>You cannot control <i>when</i> GC runs; <code>System.gc()</code> is only a request.</li><li><code>finalize()</code> is deprecated — use try-with-resources to release files and connections.</li></ul>
+
+<div class="applinks" role="group" aria-label="Explore further"><span class="al-h">Explore further</span><a class="al al-itc" href="https://ayan-1829.github.io/inside-the-computer/parts/ram.html" target="_blank" rel="noopener"><span class="al-app">Inside the Computer</span><span class="al-t">RAM</span></a></div>
 </div></section>
 <section class="slide " data-title="Trace: which objects become garbage?" aria-label="Trace: which objects become garbage?" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Step through the code</p><h2>Trace: which objects become garbage?</h2><p class="muted">Objects turn grey with a dashed border as soon as no reference reaches them.</p>

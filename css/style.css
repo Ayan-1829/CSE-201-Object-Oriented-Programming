@@ -910,4 +910,13 @@ body.deck-page .title-slide h1{font-size:var(--pj-h1)!important}
 .slide pre.code .cl{white-space:pre-wrap;overflow-wrap:anywhere;padding-left:4.2em;text-indent:-4.2em}
 .slide pre.code .cl .cn{text-indent:0}
 .slide pre.code.nonum .cl{padding-left:14px;text-indent:0}
+/* "Explore further" strip: links to Inside the Computer and Gate Forge (see _tools/applinks) */
+.applinks{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:20px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+.applinks .al-h{font-weight:700;font-size:15px;font-family:var(--f-head,var(--f-ui,system-ui,sans-serif));color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+.applinks .al{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border:1px solid var(--line);border-radius:999px;background:var(--sheet);color:var(--ink);text-decoration:none;font-weight:600;font-size:17px;line-height:1.25;font-family:var(--f-head,var(--f-ui,system-ui,sans-serif))}
+.applinks .al:hover,.applinks .al:focus-visible{border-color:var(--ac);color:var(--ac)}
+.applinks .al-app{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.applinks .al-itc .al-app{background:#2557c7}
+.applinks .al-gf .al-app{background:#0d7a5f}
+.applinks .al-n{font-size:13.5px;font-weight:500;color:var(--ink-3)}
 /* ===== end projector layout ===== */

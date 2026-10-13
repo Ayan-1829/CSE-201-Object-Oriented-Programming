@@ -154,6 +154,8 @@ String result = sb.toString();</pre></div><div><ul><li><code>StringBuilder</code
 </div></section>
 <section class="slide " data-title="Big-number addition, column by column" aria-label="Big-number addition, column by column" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Interactive</p><h2>Big-number addition, column by column</h2><div data-demo="bigadd"></div>
+
+<div class="applinks" role="group" aria-label="Explore further"><span class="al-h">Explore further</span><a class="al al-itc" href="https://ayan-1829.github.io/inside-the-computer/parts/adder.html" target="_blank" rel="noopener"><span class="al-app">Inside the Computer</span><span class="al-t">Full adder</span></a><a class="al al-gf" href="https://gate-forge.netlify.app/" target="_blank" rel="noopener" title="Open Gate Forge, then Problems → Arithmetic"><span class="al-app">Gate Forge</span><span class="al-t">4-bit Adder</span><span class="al-n">Problems › Arithmetic</span></a></div>
 </div></section>
 <section class="slide " data-title="Multiplying big numbers" aria-label="Multiplying big numbers" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>Multiplying big numbers</h2>static String multiply(String a, String b) {
@@ -171,6 +173,8 @@ String result = sb.toString();</pre></div><div><ul><li><code>StringBuilder</code
 System.out.println(multiply(&quot;123456789&quot;, &quot;987654321&quot;));
 System.out.println(multiply(&quot;12345678901234567890&quot;, &quot;98765432109876543210&quot;));<div class="console"><div class="console-h">Output</div><pre class="console-body">121932631112635269
 1219326311370217952237463801111263526900</pre></div><p>Digit <code>i</code> of a times digit <code>j</code> of b lands in column <code>i + j + 1</code> of the result — the same shifted rows you write on paper.</p>
+
+<div class="applinks" role="group" aria-label="Explore further"><span class="al-h">Explore further</span><a class="al al-itc" href="https://ayan-1829.github.io/inside-the-computer/parts/multiplier.html" target="_blank" rel="noopener"><span class="al-app">Inside the Computer</span><span class="al-t">Multiplier</span></a><a class="al al-gf" href="https://gate-forge.netlify.app/" target="_blank" rel="noopener" title="Open Gate Forge, then Problems → Arithmetic"><span class="al-app">Gate Forge</span><span class="al-t">2x2 Multiplier</span><span class="al-n">Problems › Arithmetic</span></a></div>
 </div></section>
 <section class="slide " data-title="The library way: BigInteger and BigDecimal" aria-label="The library way: BigInteger and BigDecimal" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Code example</p><h2>The library way: BigInteger and BigDecimal</h2><div class="codeout"><pre class="code">import java.math.*;
