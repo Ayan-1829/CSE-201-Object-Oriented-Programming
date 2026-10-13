@@ -919,4 +919,24 @@ body.deck-page .title-slide h1{font-size:var(--pj-h1)!important}
 .applinks .al-itc .al-app{background:#2557c7}
 .applinks .al-gf .al-app{background:#0d7a5f}
 .applinks .al-n{font-size:13.5px;font-weight:500;color:var(--ink-3)}
+/* developer section at the bottom of each home page (see _tools/devfooter) */
+.devcard{margin:48px 0 8px;padding:24px 26px;border:1px solid var(--line);border-radius:14px;background:var(--sheet)}
+.dev-top{display:flex;gap:22px;align-items:flex-start}
+.dev-photo{width:96px;height:96px;border-radius:50%;object-fit:cover;flex:none;border:3px solid var(--ac)}
+.dev-k{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin:0 0 2px}
+.devcard h2{font-size:26px;line-height:1.15;margin:0 0 4px}
+.dev-role{margin:0 0 6px;color:var(--ink-2);font-weight:600}
+.dev-about{margin:0 0 12px;color:var(--ink-2);max-width:72ch}
+.dev-links{display:flex;flex-wrap:wrap;gap:8px}
+.dev-links a{padding:5px 13px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-size:14.5px;font-weight:600;color:var(--ink)}
+.dev-links a:hover,.dev-links a:focus-visible{border-color:var(--ac);color:var(--ac)}
+.dev-cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.devcard h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:0 0 10px}
+.devcard ul{list-style:none;padding:0;margin:0}
+.dev-apps li{margin-bottom:10px}.dev-apps span{display:block;color:var(--ink-2);font-size:14.5px}
+.dev-courses li{margin-bottom:6px}
+.dev-here{color:var(--ink-2)}.dev-tag{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--ac);border-radius:999px;padding:2px 8px;margin-left:4px}
+.dev-note{margin:18px 0 0;font-size:14px;color:var(--ink-3)}
+.devcard p,.devcard li{text-align:left}
+@media (max-width:720px){.dev-cols{grid-template-columns:1fr}.dev-top{flex-direction:column;gap:14px}.devcard{padding:20px 18px}}
 /* ===== end projector layout ===== */
