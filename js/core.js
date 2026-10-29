@@ -170,3 +170,58 @@ function consoleEl(label) {
   const el = h('div', { class: 'console' }, h('div', { class: 'console-h' }, label || 'Output'), pre);
   return { el, set(t) { pre.textContent = t; }, get: () => pre.textContent };
 }
+
+/* steady:begin -- GUB/_tools/scrollfix/steady.js, added by install.py; edit there, not here.
+   Clicking a control inside a slide or a demo must not move the page. Demos often re-render and replace
+   the clicked button, and the browser may then scroll: a focus() call, focus moving to a new element,
+   or content shrinking for a moment. For a short while after such a click, every scrollable box that
+   contains the control is put back where it was, unless the reader scrolls in the meantime.
+   Links, slide navigation and anything marked data-scroll-ok are left alone. */
+(function () {
+  if (window.__steady) return;
+  window.__steady = true;
+  var SKIP = 'a[href], [data-scroll-ok], .deck-nav, .deck-top, .topbar, #slide-menu, .slide-menu, .toc, nav';
+  var CONTROL = 'button, [role="button"], [role="switch"], [role="tab"], summary, select, input, label, ' +
+                '[data-demo], [data-fig], [data-trace], .demo, .fig, .tracer';
+  var held = null, until = 0, raf = 0;
+
+  function boxes(el) {
+    var out = [];
+    for (var e = el && el.parentElement; e && e !== document.body && e !== document.documentElement; e = e.parentElement) {
+      var s = getComputedStyle(e);
+      if (/(auto|scroll)/.test(s.overflowY + s.overflowX) && (e.scrollHeight > e.clientHeight || e.scrollWidth > e.clientWidth)) out.push(e);
+    }
+    out.push(document.scrollingElement || document.documentElement);
+    return out.map(function (b) { return { b: b, top: b.scrollTop, left: b.scrollLeft }; });
+  }
+  function hold(ev) {
+    var t = ev.target && ev.target.closest ? ev.target.closest(CONTROL) : null;
+    if (!t || t.closest(SKIP)) { if (ev.type === 'pointerdown') held = null; return; }   // e.g. grabbing a scrollbar
+    if (held && performance.now() < until) { until = performance.now() + 700; return; }   // same gesture: keep the first position
+    held = boxes(t);
+    until = performance.now() + 700;
+    if (!raf) raf = requestAnimationFrame(keep);
+  }
+  function restore() {
+    if (held) held.forEach(function (h) {
+      if (h.b.scrollTop !== h.top) h.b.scrollTop = h.top;
+      if (h.b.scrollLeft !== h.left) h.b.scrollLeft = h.left;
+    });
+  }
+  function keep() {
+    raf = 0;
+    if (!held) return;
+    restore();
+    if (performance.now() < until) raf = requestAnimationFrame(keep); else held = null;
+  }
+  function release() { held = null; }
+  ['pointerdown', 'click', 'change'].forEach(function (t) { document.addEventListener(t, hold, true); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') hold(e);
+    else if (/^(Arrow|Page|Home|End)/.test(e.key)) release();
+  }, true);
+  ['wheel', 'touchmove'].forEach(function (t) { document.addEventListener(t, release, { capture: true, passive: true }); });
+  /* restore synchronously too, so a scroll caused inside the click handler is undone before paint */
+  document.addEventListener('click', restore, false);
+})();
+/* steady:end */
