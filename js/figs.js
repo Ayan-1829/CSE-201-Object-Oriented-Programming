@@ -8,7 +8,7 @@
 const Figs = (() => {
   let uid = 0;
   const K = 1.2;
-  const FONT = { t: "700 18px 'Bricolage Grotesque', system-ui, sans-serif", s: "700 16px 'Bricolage Grotesque', system-ui, sans-serif", m: "500 16px 'IBM Plex Mono', ui-monospace, Menlo, monospace" };
+  const FONT = { t: "700 18px Georgia, 'Times New Roman', serif", s: "700 16px Georgia, 'Times New Roman', serif", m: "500 16px 'IBM Plex Mono', ui-monospace, Menlo, monospace" };
   const LH = { t: 22, s: 20, m: 20 };
   let ctx = null;
   /* width of the widest line; kind: 't' title, 's' label, 'm' (or true) monospace */

@@ -7,6 +7,6 @@
   <path d="M32,20 L42,25.5 L32,31 L22,25.5 Z" fill="#F4A259"/>
   <path d="M32,31 L32,43" stroke="#9A4300" stroke-width="1.4"/>
   </g>
-  <text x="78" y="27" font-family="'Bricolage Grotesque',system-ui,sans-serif" font-weight="700" font-size="15" letter-spacing="1.5" fill="#44536A">OBJECT ORIENTED</text>
-  <text x="77" y="52" font-family="'Bricolage Grotesque',system-ui,sans-serif" font-weight="800" font-size="27" fill="#E07A1F">Programming</text>
+  <text x="78" y="27" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="15" letter-spacing="1.5" fill="#44536A">OBJECT ORIENTED</text>
+  <text x="77" y="52" font-family="Georgia,'Times New Roman',serif" font-weight="800" font-size="27" fill="#E07A1F">Programming</text>
 </svg>
