@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 8 of 13 · Lectures 11–12": "টপিক 8 / 13 · লেকচার 11–12",
 "Replacing inherited behaviour with method overriding, dynamic method dispatch, casting within a hierarchy, abstract classes, final classes and methods, and using library classes.": "Method overriding দিয়ে inherited আচরণ প্রতিস্থাপন, dynamic method dispatch, hierarchy-র মধ্যে casting, abstract class, final class ও method, এবং library class ব্যবহার।",
-"One loop, one line — <code>for (Shape s : shapes) total += s.area();</code> — correctly adds the areas of circles, rectangles and triangles. How does one line know three formulas?": "একটি loop, একটি লাইন — <code>for (Shape s : shapes) total += s.area();</code> — বৃত্ত, আয়তক্ষেত্র ও ত্রিভুজের ক্ষেত্রফল সঠিকভাবে যোগ করে। একটি লাইন কীভাবে তিনটি সূত্র জানে?",
-"Each object carries its real class with it. When the program runs, Java looks at the <b>object</b>, not the variable, to decide which <code>area()</code> to call. That is <b>dynamic method dispatch</b>, the engine behind polymorphism.": "প্রতিটি object তার আসল class সাথে নিয়ে চলে। প্রোগ্রাম চলার সময় কোন <code>area()</code> call করবে তা ঠিক করতে Java variable নয়, <b>object</b> দেখে। একেই বলে <b>dynamic method dispatch</b>, polymorphism-এর চালিকাশক্তি।",
-"Abstract classes then let you say “every Shape has an area” without pretending to know a formula for a shape in general.": "তারপর abstract class আপনাকে বলতে দেয় “প্রতিটি Shape-এর একটি ক্ষেত্রফল আছে”, সাধারণ shape-এর সূত্র জানার ভান না করেই।",
 "Outline · Lectures 11–12": "সূচি · লেকচার 11–12",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Abstract classes": "Abstract class",
@@ -124,5 +121,8 @@ I18N_BN_ADD({
 "Asks the compiler to verify the method overrides one from a supertype": "Compiler-কে যাচাই করতে বলে method-টি একটি supertype-এর method override করছে কিনা",
 "Makes the method faster": "method-কে দ্রুত করে",
 "Is required for every override": "প্রতিটি override-এ বাধ্যতামূলক",
-"It is optional but catches mistakes like wrong parameter lists.": "এটি ঐচ্ছিক, কিন্তু ভুল parameter তালিকার মতো ভুল ধরে।"
+"It is optional but catches mistakes like wrong parameter lists.": "এটি ঐচ্ছিক, কিন্তু ভুল parameter তালিকার মতো ভুল ধরে।",
+"A teacher says: “Everyone, draw your shape!” The circle draws a circle, the triangle a triangle, the square a square. The teacher said one sentence.": "শিক্ষক বললেন: “সবাই নিজের shape আঁকো!” বৃত্ত আঁকল বৃত্ত, ত্রিভুজ ত্রিভুজ, বর্গ বর্গ। শিক্ষক বলেছিলেন একটিই বাক্য।",
+"That is <code>for (Shape s : shapes) s.draw();</code>. Java looks at the real <b>object</b>, not the variable, to decide which method runs: <b>dynamic method dispatch</b>, the engine of polymorphism. Abstract classes let you say “every shape has an area” without inventing a formula for a shape in general.": "এটাই <code>for (Shape s : shapes) s.draw();</code>। কোন method চলবে, Java তা ঠিক করে variable নয়, আসল <b>object</b> দেখে: <b>dynamic method dispatch</b>, polymorphism-এর ইঞ্জিন। Abstract class দিয়ে বলা যায় “প্রতিটি shape-এর area আছে”, সাধারণ shape-এর জন্য কোনো সূত্র বানাতে হয় না।",
+"This topic covers overriding, polymorphism and abstract classes.": "এই topic-এ আছে overriding, polymorphism আর abstract class।"
 });

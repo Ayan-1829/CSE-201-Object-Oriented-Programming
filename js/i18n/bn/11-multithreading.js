@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 11 of 13 · Lectures 19–21": "টপিক 11 / 13 · লেকচার 19–21",
 "Running several tasks at once with threads: creating and starting them, the thread life cycle, race conditions and synchronization, and coordinating threads with wait and notify.": "Thread দিয়ে একসাথে কয়েকটি কাজ চালানো: তৈরি ও শুরু করা, thread-এর জীবনচক্র, race condition ও synchronization, এবং wait ও notify দিয়ে thread-এর সমন্বয়।",
-"Your music keeps playing while you scroll, download and type. How can one program do several things at the same time?": "আপনি scroll, download ও টাইপ করার সময়ও আপনার গান বাজতে থাকে। একটি প্রোগ্রাম কীভাবে একই সময়ে কয়েকটি কাজ করে?",
-"Each activity runs in its own <b>thread</b>: an independent path of execution inside the same program. Threads make programs responsive and let them use every CPU core.": "প্রতিটি কাজ চলে নিজস্ব <b>thread</b>-এ: একই প্রোগ্রামের ভেতরে একটি স্বাধীন execution পথ। Thread প্রোগ্রামকে সাড়াশীল করে এবং প্রতিটি CPU core ব্যবহার করতে দেয়।",
-"But threads that share data can trip over each other. You will create threads, then break a counter on purpose, and fix it with synchronization.": "তবে ডেটা শেয়ার করা thread-গুলো একে অপরের পথে বাধা হতে পারে। আপনি thread তৈরি করবেন, তারপর ইচ্ছা করে একটি counter ভাঙবেন, এবং synchronization দিয়ে ঠিক করবেন।",
 "Outline · Lectures 19–21": "সূচি · লেকচার 19–21",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Processes and threads": "Process ও thread",
@@ -130,5 +127,8 @@ I18N_BN_ADD({
 "wait until t finishes": "t শেষ না হওয়া পর্যন্ত অপেক্ষা করায়",
 "start t": "t শুরু করে",
 "share t’s stack": "t-এর stack শেয়ার করায়",
-"join blocks until the target thread terminates.": "লক্ষ্য thread শেষ না হওয়া পর্যন্ত join block করে।"
+"join blocks until the target thread terminates.": "লক্ষ্য thread শেষ না হওয়া পর্যন্ত join block করে।",
+"You are listening to music, downloading a file and typing a message — all in one app, at once. Your brain cannot do that. Your computer can.": "আপনি গান শুনছেন, একটি file download করছেন আর একটি বার্তা টাইপ করছেন — একটি app-এ, একসঙ্গে। আপনার মস্তিষ্ক তা পারে না। আপনার computer পারে।",
+"Each job runs in its own <b>thread</b>: an independent path through the same program. Threads keep apps responsive and use every CPU core. But two threads sharing one counter can trip over each other — you will break one on purpose, then fix it.": "প্রতিটি কাজ চলে নিজের <b>thread</b>-এ: একই program-এর ভেতরে একটি স্বাধীন পথ। thread app-কে সাড়া দিতে সক্ষম রাখে আর প্রতিটি CPU core ব্যবহার করে। কিন্তু একটি counter শেয়ার করা দুটি thread একে অপরের পায়ে পা জড়াতে পারে — আপনি ইচ্ছে করে একটি ভাঙবেন, তারপর ঠিক করবেন।",
+"This topic covers creating threads, their life cycle and synchronization.": "এই topic-এ আছে thread তৈরি, তাদের life cycle আর synchronization।"
 });

@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 5 of 13 · Lectures 7–8": "টপিক 5 / 13 · লেকচার 7–8",
 "Methods and constructors that share a name, how Java passes arguments (always by value — even references), returning objects, and solving problems with recursion.": "একই নামের method ও constructor, Java কীভাবে argument পাঠায় (সবসময় by value — reference-ও), object ফেরত দেওয়া, এবং recursion দিয়ে সমস্যা সমাধান।",
-"Why can you call <code>System.out.println(5)</code>, <code>println(\"hi\")</code> and <code>println(3.14)</code> — is println one method or many?": "কেন আপনি <code>System.out.println(5)</code>, <code>println(\"hi\")</code> ও <code>println(3.14)</code> call করতে পারেন — println কি একটি method নাকি অনেকগুলো?",
-"It is many: <code>PrintStream</code> declares ten methods called <code>println</code>, each with a different parameter list. The compiler picks the best match. That is <b>overloading</b>.": "অনেকগুলো: <code>PrintStream</code> <code>println</code> নামে দশটি method ঘোষণা করে, প্রত্যেকটির parameter তালিকা আলাদা। Compiler সবচেয়ে ভালো মিলটি বাছে। একেই বলে <b>overloading</b>।",
-"This topic also answers a question that trips up most students: when you pass an object to a method, can the method change it? And it introduces methods that call themselves.": "এই টপিক বেশিরভাগ শিক্ষার্থীকে বিভ্রান্ত করা একটি প্রশ্নেরও উত্তর দেয়: একটি method-এ object পাঠালে method কি তা পরিবর্তন করতে পারে? আর এটি নিজেকে call করা method পরিচয় করায়।",
 "Outline · Lectures 7–8": "সূচি · লেকচার 7–8",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Passing objects as parameters": "Object-কে parameter হিসেবে পাঠানো",
@@ -107,5 +104,8 @@ I18N_BN_ADD({
 "Every call adds a stack frame until the stack runs out.": "Stack ফুরিয়ে না যাওয়া পর্যন্ত প্রতিটি call একটি stack frame যোগ করে।",
 "&lt;code&gt;void m(Point q) { q = new Point(); q.x = 9; }&lt;/code&gt; — after &lt;code&gt;m(p)&lt;/code&gt;, the caller’s &lt;code&gt;p.x&lt;/code&gt; is…": "&lt;code&gt;void m(Point q) { q = new Point(); q.x = 9; }&lt;/code&gt; — &lt;code&gt;m(p)&lt;/code&gt;-এর পরে caller-এর &lt;code&gt;p.x&lt;/code&gt; হয়…",
 "unchanged": "অপরিবর্তিত",
-"q was redirected to a new object; the caller’s object was never touched.": "q একটি নতুন object-এ সরানো হয়েছে; caller-এর object কখনো ছোঁয়া হয়নি।"
+"q was redirected to a new object; the caller’s object was never touched.": "q একটি নতুন object-এ সরানো হয়েছে; caller-এর object কখনো ছোঁয়া হয়নি।",
+"A waiter takes three orders: “tea”, “tea with two sugars” and “tea with two sugars, no milk”. One word, three jobs — and he never gets confused.": "একজন ওয়েটার তিনটি অর্ডার নেন: “চা”, “দুই চামচ চিনি দিয়ে চা” আর “দুই চামচ চিনি, দুধ ছাড়া চা”। একটি শব্দ, তিনটি কাজ — আর তিনি কখনো গুলিয়ে ফেলেন না।",
+"Java does the same with <code>println(5)</code>, <code>println(\"hi\")</code> and <code>println(3.14)</code>: one name, many methods, picked by the arguments. That is <b>overloading</b>. Then there is the method that calls itself, like two mirrors facing each other.": "Java-ও তা-ই করে <code>println(5)</code>, <code>println(\"hi\")</code> আর <code>println(3.14)</code> দিয়ে: একটি নাম, অনেক method, argument দেখে বাছাই। এটাই <b>overloading</b>। তারপর আছে এমন method, যা নিজেকেই call করে, মুখোমুখি দুটি আয়নার মতো।",
+"This topic covers overloading, passing objects to methods and recursion.": "এই topic-এ আছে overloading, method-এ object পাঠানো আর recursion।"
 });

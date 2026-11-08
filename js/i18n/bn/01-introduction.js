@@ -3,9 +3,6 @@ I18N_BN_ADD({
 "Topic 1 of 13 · Lecture 1": "টপিক 1 / 13 · লেকচার 1",
 "Introducing OOP &amp; Java Basics": "OOP ও Java-র মৌলিক বিষয়ের পরিচিতি",
 "What object-oriented programming is, how it differs from structured programming, and the Java building blocks: data types, variables, operators and decisions.": "Object-oriented programming কী, এটি structured programming থেকে কীভাবে আলাদা, এবং Java-র মূল উপাদান: data type, variable, operator ও সিদ্ধান্ত।",
-"A banking app stores two million accounts. Where does each balance live — and who is allowed to change it?": "একটি ব্যাংকিং অ্যাপ বিশ লক্ষ অ্যাকাউন্ট রাখে। প্রতিটি balance কোথায় থাকে — আর কে তা পরিবর্তন করতে পারে?",
-"In a structured program, every function can reach every piece of data, so one careless line anywhere can corrupt a balance. Object-oriented programming (OOP) groups each account’s data together with the only methods allowed to touch it.": "Structured প্রোগ্রামে প্রতিটি function প্রতিটি ডেটায় পৌঁছাতে পারে, তাই যেকোনো জায়গার একটি অসতর্ক লাইন একটি balance নষ্ট করে দিতে পারে। Object-oriented programming (OOP) প্রতিটি অ্যাকাউন্টের ডেটাকে সেটি ছোঁয়ার অনুমতিপ্রাপ্ত method-গুলোর সাথে একত্র করে।",
-"This topic introduces that idea and the Java basics we will use to express it: types, variables, operators and decisions.": "এই টপিক সেই ধারণা এবং তা প্রকাশের জন্য Java-র মৌলিক বিষয়গুলো পরিচয় করায়: type, variable, operator ও সিদ্ধান্ত।",
 "Outline · Lecture 1": "সূচি · লেকচার 1",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "What is object-oriented programming": "Object-oriented programming কী",
@@ -171,5 +168,8 @@ I18N_BN_ADD({
 "run only the default case": "কেবল default case চালাবে",
 "Execution continues into the next case labels until a break or the end of the switch.": "break বা switch-এর শেষ না আসা পর্যন্ত execution পরের case label-গুলোতে চলতে থাকে।",
 "Which pillar of OOP hides an object’s data behind methods?": "OOP-এর কোন স্তম্ভ object-এর ডেটাকে method-এর আড়ালে লুকায়?",
-"Encapsulation keeps fields private and exposes controlled methods.": "Encapsulation field-গুলো private রাখে এবং নিয়ন্ত্রিত method প্রকাশ করে।"
+"Encapsulation keeps fields private and exposes controlled methods.": "Encapsulation field-গুলো private রাখে এবং নিয়ন্ত্রিত method প্রকাশ করে।",
+"Rahim’s bank app had one tiny bug: any function could change any balance. On Monday, the function that prints receipts gave him 10 lakh taka.": "Rahim-এর bank app-এ ছিল একটি ছোট্ট bug: যেকোনো function যেকোনো balance বদলাতে পারত। সোমবার receipt প্রিন্ট করার function তাকে 10 লাখ টাকা দিয়ে দিল।",
+"He was delighted. The bank was not. In a structured program every function can reach every piece of data, so one careless line anywhere can do this. Object-oriented programming locks each account’s data inside an object, and only its own methods hold the key.": "সে খুশি। bank খুশি নয়। structured program-এ প্রতিটি function প্রতিটি data-তে পৌঁছাতে পারে, তাই কোথাও একটি অসাবধান লাইনই এমন কাণ্ড ঘটাতে পারে। Object-oriented programming প্রতিটি account-এর data একটি object-এর ভেতরে তালাবন্ধ রাখে, আর চাবি থাকে শুধু তার নিজের method-গুলোর কাছে।",
+"This topic starts that idea, with the Java basics to write it: types, variables, operators and decisions.": "এই topic সেই ধারণা দিয়ে শুরু করে, সঙ্গে তা লেখার Java-র মূল বিষয়: type, variable, operator আর সিদ্ধান্ত।"
 });

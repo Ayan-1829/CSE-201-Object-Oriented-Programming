@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 6 of 13 · Lectures 8–9": "টপিক 6 / 13 · লেকচার 8–9",
 "Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes.": "কে একটি field বা method ব্যবহার করতে পারে (private, default, protected, public), object নয় বরং class-এর অন্তর্গত member (static), constant ও স্থির reference (final), এবং class-এর ভেতরে class।",
-"How does every <code>Student</code> object know how many students have been created so far — without any of them being in charge?": "প্রতিটি <code>Student</code> object কীভাবে জানে এখন পর্যন্ত কতজন student তৈরি হয়েছে — যদিও কেউই দায়িত্বে নেই?",
-"A <code>static</code> field belongs to the class itself, so there is exactly one copy shared by every object. Combined with access modifiers and <code>final</code>, it lets you control precisely who sees what, and what may never change.": "একটি <code>static</code> field class-এরই অন্তর্গত, তাই ঠিক একটি কপি থাকে যা প্রতিটি object শেয়ার করে। Access modifier ও <code>final</code>-এর সাথে মিলে এটি ঠিক করে দিতে দেয় কে কী দেখবে আর কী কখনো বদলাবে না।",
-"We finish with nested classes: classes defined inside other classes to keep helper code close to where it is used.": "শেষে nested class: সাহায্যকারী কোড যেখানে ব্যবহৃত হয় তার কাছে রাখতে অন্য class-এর ভেতরে সংজ্ঞায়িত class।",
 "Outline · Lectures 8–9": "সূচি · লেকচার 8–9",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Access modifiers": "Access modifier",
@@ -120,5 +117,8 @@ I18N_BN_ADD({
 "Runs once when the class is loaded": "class লোড হলে একবার চলে",
 "Prevents inheritance": "inheritance প্রতিরোধ করে",
 "Makes all fields static": "সব field static করে",
-"Static initialisers run once, on class initialisation.": "Static initialiser class initialisation-এর সময় একবার চলে।"
+"Static initialisers run once, on class initialisation.": "Static initialiser class initialisation-এর সময় একবার চলে।",
+"Every student in the class thinks someone else is counting the attendance. At the end of the day, nobody knows how many came.": "ক্লাসের প্রত্যেক ছাত্র ভাবে, হাজিরা অন্য কেউ গুনছে। দিনশেষে কেউ জানে না কতজন এসেছিল।",
+"A <code>static</code> field fixes that: one counter that belongs to the whole class, not to any single object, so every new <code>Student</code> adds to the same number. Add access modifiers and <code>final</code>, and you decide who may see what — and what may never change.": "একটি <code>static</code> field সমস্যাটা মেটায়: একটি counter, যা কোনো একক object-এর নয়, পুরো class-এর, তাই প্রতিটি নতুন <code>Student</code> একই সংখ্যায় যোগ হয়। access modifier আর <code>final</code> যোগ করলে আপনি ঠিক করেন কে কী দেখবে — আর কী কখনো বদলাবে না।",
+"We finish with nested classes: helper classes kept inside the class that uses them.": "শেষে nested class: সাহায্যকারী class, যা ব্যবহারকারী class-এর ভেতরেই রাখা হয়।"
 });

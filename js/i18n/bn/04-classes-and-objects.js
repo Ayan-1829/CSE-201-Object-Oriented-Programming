@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 4 of 13 · Lectures 4–6": "টপিক 4 / 13 · লেকচার 4–6",
 "Defining classes, creating objects with new, protecting data with encapsulation, writing constructors, using this, and how Java garbage-collects unused objects.": "Class সংজ্ঞায়িত করা, new দিয়ে object তৈরি, encapsulation দিয়ে ডেটা রক্ষা, constructor লেখা, this-এর ব্যবহার, এবং Java কীভাবে অব্যবহৃত object garbage-collect করে।",
-"If <code>Student s2 = s1;</code> and then you change <code>s2</code>’s CGPA, whose CGPA did you just change?": "যদি <code>Student s2 = s1;</code> হয় এবং তারপর আপনি <code>s2</code>-এর CGPA বদলান, তবে কার CGPA বদলালেন?",
-"Both — because <code>s1</code> and <code>s2</code> are two names for one object. Understanding the difference between an object and a reference to it is the single most important idea in Java.": "দুজনেরই — কারণ <code>s1</code> ও <code>s2</code> একটি object-এর দুটি নাম। একটি object আর তার reference-এর পার্থক্য বোঝা Java-র সবচেয়ে গুরুত্বপূর্ণ ধারণা।",
-"This topic builds classes from scratch: fields, methods, constructors, encapsulation with private fields, the <code>this</code> keyword and garbage collection.": "এই টপিক শুরু থেকে class তৈরি করে: field, method, constructor, private field দিয়ে encapsulation, <code>this</code> keyword এবং garbage collection।",
 "Outline · Lectures 4–6": "সূচি · লেকচার 4–6",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Class and object": "Class ও object",
@@ -116,5 +113,8 @@ I18N_BN_ADD({
 "When it is set to 0": "যখন এটিকে 0 করা হয়",
 "Unreachable objects may be reclaimed at any time the GC chooses.": "পৌঁছানো যায় না এমন object GC যেকোনো সময় ফিরিয়ে নিতে পারে।",
 "Class &lt;code&gt;P&lt;/code&gt; has only &lt;code&gt;P(int x)&lt;/code&gt;. Which line fails?": "Class &lt;code&gt;P&lt;/code&gt;-এ কেবল &lt;code&gt;P(int x)&lt;/code&gt; আছে। কোন লাইন ব্যর্থ হয়?",
-"Once any constructor is written, Java no longer adds the default no-arg constructor.": "কোনো constructor লেখা হলে Java আর ডিফল্ট no-arg constructor যোগ করে না।"
+"Once any constructor is written, Java no longer adds the default no-arg constructor.": "কোনো constructor লেখা হলে Java আর ডিফল্ট no-arg constructor যোগ করে না।",
+"Two friends share one Netflix account. One renames the profile to “Batman”. The next evening the other wonders why he is Batman.": "দুই বন্ধু একটি Netflix account শেয়ার করে। একজন profile-এর নাম বদলে রাখে “Batman”। পরের সন্ধ্যায় অন্যজন ভাবে, সে কেন Batman হয়ে গেল।",
+"That is <code>Student s2 = s1;</code> — two names, one object. Change <code>s2</code>’s CGPA and <code>s1</code>’s changes too. Telling an object apart from a reference to it is the most important idea in Java.": "এটাই <code>Student s2 = s1;</code> — দুটি নাম, একটি object। <code>s2</code>-এর CGPA বদলান, <code>s1</code>-এরটাও বদলে যায়। object আর তার reference আলাদা করে চেনা Java-র সবচেয়ে গুরুত্বপূর্ণ ধারণা।",
+"This topic builds classes from scratch: fields, methods, constructors, private fields, <code>this</code> and garbage collection.": "এই topic শূন্য থেকে class বানায়: field, method, constructor, private field, <code>this</code> আর garbage collection।"
 });

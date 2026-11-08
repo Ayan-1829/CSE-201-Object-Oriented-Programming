@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 3 of 13 · Lecture 3": "টপিক 3 / 13 · লেকচার 3",
 "Storing many values in one array, 2-D and jagged arrays, how arrays live in memory, and the classic sorting and searching algorithms.": "এক array-তে অনেক মান রাখা, 2-D ও jagged array, মেমরিতে array কীভাবে থাকে, এবং ক্লাসিক sorting ও searching algorithm।",
-"A class has 60 students. Do you really need 60 separate variables to store their marks?": "একটি ক্লাসে 60 জন ছাত্রছাত্রী। তাদের নম্বর রাখতে কি সত্যিই 60টি আলাদা variable লাগবে?",
-"An array stores many values of the same type under one name, each reached by an index. Once marks sit in an array, one loop can find the highest, the average or sort them.": "Array একই type-এর অনেক মান এক নামে রাখে, প্রতিটিতে একটি index দিয়ে পৌঁছানো যায়। নম্বরগুলো array-তে থাকলে একটি loop সর্বোচ্চ, গড় বের করতে বা সাজাতে পারে।",
-"You will also see a surprise: arrays are objects, so copying an array variable does not copy the array.": "একটি চমকও দেখবেন: array হলো object, তাই array variable কপি করলে array কপি হয় না।",
 "Outline · Lecture 3": "সূচি · লেকচার 3",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Arrays: declaration, creation, length": "Array: ঘোষণা, তৈরি, length",
@@ -124,5 +121,8 @@ I18N_BN_ADD({
 "What does &lt;code&gt;m[1].length&lt;/code&gt; give for &lt;code&gt;int[][] m = {{1,2},{3,4,5}}&lt;/code&gt;?": "&lt;code&gt;int[][] m = {{1,2},{3,4,5}}&lt;/code&gt;-এর জন্য &lt;code&gt;m[1].length&lt;/code&gt; কী দেয়?",
 "m[1] is the row {3, 4, 5}, which has length 3.": "m[1] হলো সারি {3, 4, 5}, যার দৈর্ঘ্য 3।",
 "Which sort finds the minimum of the unsorted part and swaps it into place?": "কোন sort অসাজানো অংশের সর্বনিম্নটি খুঁজে swap করে জায়গায় বসায়?",
-"Selection sort selects the minimum on every pass.": "Selection sort প্রতিটি পাসে সর্বনিম্নটি বেছে নেয়।"
+"Selection sort selects the minimum on every pass.": "Selection sort প্রতিটি পাসে সর্বনিম্নটি বেছে নেয়।",
+"A teacher with 60 students declares <code>mark1</code>, <code>mark2</code>, <code>mark3</code>… By <code>mark37</code> she has a headache and a typo.": "60 জন ছাত্রের এক শিক্ষক declare করেন <code>mark1</code>, <code>mark2</code>, <code>mark3</code>… <code>mark37</code>-এ পৌঁছাতেই তাঁর মাথাব্যথা আর একটি typo।",
+"An array keeps all 60 marks under one name, each reached by an index, so one loop can find the highest, the average or sort them all. Careful, though: arrays are objects, so “copying” one can leave two names pointing at the same marks.": "array 60টি নম্বরই একটি নামে রাখে, প্রতিটিতে পৌঁছানো যায় index দিয়ে, তাই একটি loop-ই সর্বোচ্চ, গড় বের করতে বা সব sort করতে পারে। তবে সাবধান: array হলো object, তাই একটিকে “কপি” করলে দুটি নাম একই নম্বরগুলোকে নির্দেশ করতে পারে।",
+"This topic covers arrays, sorting and searching.": "এই topic-এ আছে array, sorting আর searching।"
 });

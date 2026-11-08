@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 9 of 13 · Lectures 13–14": "টপিক 9 / 13 · লেকচার 13–14",
 "Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes.": "Class-কে package-এ সাজানো, package-জুড়ে access modifier কীভাবে কাজ করে, interface সংজ্ঞায়িত ও implement করা, default ও static interface method, এবং interface ও abstract class-এর মধ্যে বেছে নেওয়া।",
-"An Employee and an Invoice have nothing in common — except that the accounts office must pay both. How can one loop pay them all?": "একটি Employee আর একটি Invoice-এর মধ্যে কোনো মিল নেই — শুধু হিসাব বিভাগকে দুটোকেই অর্থ দিতে হয়। একটি loop কীভাবে সবাইকে অর্থ দেবে?",
-"Neither class should extend the other. Instead both can promise, through an <b>interface</b>, that they have a <code>getPayment()</code> method. The loop only needs that promise.": "কোনো class-ই অন্যটিকে extend করা উচিত নয়। বরং দুটোই একটি <b>interface</b>-এর মাধ্যমে প্রতিশ্রুতি দিতে পারে যে তাদের একটি <code>getPayment()</code> method আছে। Loop-এর কেবল সেই প্রতিশ্রুতিটুকু দরকার।",
-"First, though, we organise classes into <b>packages</b> — and see how packages change what <code>protected</code> and default access mean.": "তবে প্রথমে আমরা class-গুলোকে <b>package</b>-এ সাজাব — এবং দেখব package কীভাবে <code>protected</code> ও default access-এর অর্থ বদলায়।",
 "Outline · Lectures 13–14": "সূচি · লেকচার 13–14",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Packages and import": "Package ও import",
@@ -126,5 +123,8 @@ I18N_BN_ADD({
 "static methods": "static method",
 "constructors": "constructor",
 "constants": "constant",
-"Interfaces have no constructors because they cannot be instantiated.": "Interface-এর instance তৈরি করা যায় না বলে এর constructor নেই।"
+"Interfaces have no constructors because they cannot be instantiated.": "Interface-এর instance তৈরি করা যায় না বলে এর constructor নেই।",
+"The accounts office must pay a teacher, an electricity bill and a tea stall. They have nothing in common — except that each one wants money.": "হিসাব অফিসকে টাকা দিতে হবে একজন শিক্ষক, একটি বিদ্যুৎ বিল আর একটি চায়ের দোকানকে। তাদের মধ্যে কোনো মিল নেই — শুধু সবাই টাকা চায়।",
+"Nobody should be forced to inherit from a tea stall. Instead, each class promises through an <b>interface</b> that it has <code>getPayment()</code>, and one loop pays them all. The loop trusts the promise, not the family tree.": "কাউকে চায়ের দোকান থেকে inherit করতে বাধ্য করা উচিত নয়। বরং প্রতিটি class একটি <b>interface</b>-এর মাধ্যমে প্রতিশ্রুতি দেয় যে তার <code>getPayment()</code> আছে, আর একটি loop সবাইকে টাকা দেয়। loop বিশ্বাস করে প্রতিশ্রুতিকে, বংশতালিকাকে নয়।",
+"First we organise classes into <b>packages</b>, and see how packages change what <code>protected</code> and default access mean.": "প্রথমে আমরা class-গুলোকে <b>package</b>-এ সাজাব, আর দেখব package কীভাবে <code>protected</code> ও default access-এর অর্থ বদলে দেয়।"
 });

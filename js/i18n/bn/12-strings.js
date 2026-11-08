@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 12 of 13 · Lectures 22–23": "টপিক 12 / 13 · লেকচার 22–23",
 "The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long.": "String class, string pool ও অপরিবর্তনীয়তা, string তুলনা ও প্রক্রিয়াকরণ, StringBuilder, এবং long-এর পক্ষে অনেক বড় সংখ্যার গাণিতিক কাজ।",
-"What is 30 factorial? A <code>long</code> gives you −8,764,578,968,847,253,504. Clearly wrong — so how do banks and cryptography handle numbers with hundreds of digits?": "30 factorial কত? একটি <code>long</code> দেয় −8,764,578,968,847,253,504। স্পষ্টতই ভুল — তাহলে ব্যাংক ও cryptography শত শত অঙ্কের সংখ্যা কীভাবে সামলায়?",
-"One answer is to store the digits in a <b>String</b> and do the arithmetic yourself, digit by digit, exactly as you learnt at school. Java’s <code>BigInteger</code> does the same thing internally.": "একটি উত্তর হলো অঙ্কগুলো একটি <b>String</b>-এ রেখে নিজে অঙ্ক ধরে ধরে গাণিতিক কাজ করা, ঠিক যেমন স্কুলে শিখেছিলেন। Java-র <code>BigInteger</code> ভেতরে একই কাজ করে।",
-"First we study String itself: why <code>==</code> can lie, why strings never change, and the methods you will use in almost every program.": "প্রথমে আমরা String নিজেই পড়ব: <code>==</code> কেন মিথ্যা বলতে পারে, string কেন কখনো বদলায় না, এবং প্রায় প্রতিটি প্রোগ্রামে যে method-গুলো ব্যবহার করবেন।",
 "Outline · Lectures 22–23": "সূচি · লেকচার 22–23",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "The String class and the string pool": "String class ও string pool",
@@ -102,5 +99,8 @@ I18N_BN_ADD({
 "The ASCII code": "ASCII code",
 "The digit value": "অঙ্কের মান",
 "The index": "index",
-"A String": "একটি String"
+"A String": "একটি String",
+"Ask Java for 30 factorial in a <code>long</code> and it answers −8,764,578,968,847,253,504. Confident, precise and completely wrong.": "Java-কে <code>long</code>-এ 30 factorial জিজ্ঞেস করুন, উত্তর দেবে −8,764,578,968,847,253,504। আত্মবিশ্বাসী, নিখুঁত, আর পুরোপুরি ভুল।",
+"The fix is the method you learnt in class five: store the digits in a <b>String</b> and do the arithmetic yourself, carrying the one. Java’s <code>BigInteger</code> does the same inside. But first, String itself has surprises — like why <code>==</code> can say two equal words are different.": "সমাধান হলো পঞ্চম শ্রেণিতে শেখা পদ্ধতি: অঙ্কগুলো একটি <b>String</b>-এ রাখুন আর হাতে-কলমে, হাতে-এক রেখে, হিসাব করুন। Java-র <code>BigInteger</code> ভেতরে এটাই করে। তবে আগে String-এর নিজেরই কিছু চমক আছে — যেমন <code>==</code> কেন দুটি একই শব্দকে আলাদা বলতে পারে।",
+"This topic covers String methods, immutability, StringBuilder and big numbers.": "এই topic-এ আছে String-এর method, immutability, StringBuilder আর বড় সংখ্যা।"
 });

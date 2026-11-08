@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 10 of 13 · Lectures 15–18": "টপিক 10 / 13 · লেকচার 15–18",
 "What happens when something goes wrong at run time, the exception class hierarchy, try, catch, finally, throw and throws, and writing your own exception classes.": "Run time-এ কিছু ভুল হলে কী ঘটে, exception class hierarchy, try, catch, finally, throw ও throws, এবং নিজস্ব exception class লেখা।",
-"A user types “abc” where your program expects a number. Should the whole program crash?": "যেখানে আপনার প্রোগ্রাম একটি সংখ্যা আশা করে সেখানে একজন ইউজার “abc” লেখে। পুরো প্রোগ্রাম কি crash করা উচিত?",
-"Without exception handling, yes: Java prints a stack trace and stops. With it, you can catch the problem, explain it to the user and carry on.": "Exception handling ছাড়া, হ্যাঁ: Java একটি stack trace প্রিন্ট করে থেমে যায়। এটি থাকলে আপনি সমস্যাটি ধরে ইউজারকে ব্যাখ্যা করে কাজ চালিয়ে যেতে পারেন।",
-"Java separates the code that does the work from the code that handles problems, and the compiler even forces you to deal with some kinds of failure.": "Java কাজ করা কোডকে সমস্যা সামলানো কোড থেকে আলাদা রাখে, এবং compiler কিছু ধরনের ব্যর্থতা সামলাতে আপনাকে বাধ্যও করে।",
 "Outline · Lectures 15–18": "সূচি · লেকচার 15–18",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "What is an exception": "Exception কী",
@@ -114,5 +111,8 @@ I18N_BN_ADD({
 "To create a checked custom exception, extend…": "একটি checked custom exception তৈরি করতে extend করুন…",
 "Throwable only": "কেবল Throwable",
 "Exception (but not RuntimeException) gives a checked exception.": "Exception (কিন্তু RuntimeException নয়) একটি checked exception দেয়।",
-"The text is not a valid integer.": "লেখাটি বৈধ integer নয়।"
+"The text is not a valid integer.": "লেখাটি বৈধ integer নয়।",
+"Your program asks: “How old are you?” A user types “old enough”. The program falls over and prints forty lines of red text.": "আপনার program জিজ্ঞেস করে: “আপনার বয়স কত?” একজন ব্যবহারকারী লেখেন “যথেষ্ট”। program উল্টে পড়ে আর চল্লিশ লাইনের লাল লেখা প্রিন্ট করে।",
+"Without exception handling, that is exactly what Java does. With it, you catch the problem, ask again politely and carry on. Java keeps the code that does the work apart from the code that handles trouble — and for some failures, the compiler won’t let you forget.": "exception handling ছাড়া Java ঠিক এটাই করে। এটি থাকলে আপনি সমস্যাটা ধরেন, ভদ্রভাবে আবার জিজ্ঞেস করেন, আর কাজ চালিয়ে যান। Java কাজের কোড আর ঝামেলা সামলানোর কোড আলাদা রাখে — আর কিছু ব্যর্থতার ক্ষেত্রে compiler আপনাকে ভুলতেই দেয় না।",
+"This topic covers try, catch, finally, throw, throws and your own exception classes.": "এই topic-এ আছে try, catch, finally, throw, throws আর নিজের exception class।"
 });

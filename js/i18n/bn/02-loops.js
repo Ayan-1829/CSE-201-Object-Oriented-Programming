@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 2 of 13 · Lecture 2": "টপিক 2 / 13 · লেকচার 2",
 "Repeating work with while, do-while, for and for-each loops, nesting loops, and controlling them with break, labeled break and continue.": "while, do-while, for ও for-each loop দিয়ে কাজের পুনরাবৃত্তি, loop-এর ভেতরে loop, এবং break, labeled break ও continue দিয়ে নিয়ন্ত্রণ।",
-"How would you print the multiplication table from 1 × 1 to 12 × 12 without writing 144 println lines?": "144টি println লাইন না লিখে 1 × 1 থেকে 12 × 12 পর্যন্ত গুণের নামতা কীভাবে প্রিন্ট করবেন?",
-"A loop lets the computer repeat a block of code while a condition stays true. With one loop inside another, those 144 lines shrink to about five.": "Loop একটি শর্ত সত্য থাকা পর্যন্ত কম্পিউটারকে কোডের একটি অংশ বারবার চালাতে দেয়। একটি loop-এর ভেতরে আরেকটি থাকলে সেই 144 লাইন প্রায় পাঁচ লাইনে নেমে আসে।",
-"In this topic you will learn the four loop forms in Java, when each is the right choice, and how to leave or skip part of a loop early.": "এই টপিকে আপনি Java-র চার ধরনের loop শিখবেন, কখন কোনটি ঠিক, এবং কীভাবে loop-এর অংশ আগেভাগে ছেড়ে যাওয়া বা বাদ দেওয়া যায়।",
 "Outline · Lecture 2": "সূচি · লেকচার 2",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Nested loops": "Nested loop",
@@ -122,5 +119,8 @@ I18N_BN_ADD({
 "To exit an outer loop from inside an inner one": "Inner loop-এর ভেতর থেকে outer loop থেকে বেরিয়ে যাওয়া",
 "To jump backwards": "পেছনে লাফ দেওয়া",
 "To catch exceptions": "Exception ধরা",
-"break label; ends the loop that carries that label.": "break label; সেই label-যুক্ত loop শেষ করে।"
+"break label; ends the loop that carries that label.": "break label; সেই label-যুক্ত loop শেষ করে।",
+"The teacher said: “Write ‘I will not talk in class’ 100 times.” The programmer in the back row wrote it once, inside a <code>for</code> loop, and went home early.": "শিক্ষক বললেন: “‘আমি ক্লাসে কথা বলব না’ 100 বার লেখো।” পেছনের বেঞ্চের programmer একবারই লিখল, একটি <code>for</code> loop-এর ভেতরে, তারপর আগেভাগে বাড়ি চলে গেল।",
+"That is the whole trick of loops: say it once, let the computer repeat it. Two loops, one inside the other, print the full 12 × 12 multiplication table in about five lines instead of 144.": "loop-এর পুরো কৌশল এটাই: একবার বলুন, computer বারবার করবে। একটির ভেতরে আরেকটি, দুটি loop পুরো 12 × 12 নামতা প্রিন্ট করে 144 লাইনের বদলে মোটামুটি পাঁচ লাইনে।",
+"You will learn Java’s four loop forms, when to use each, and how to leave or skip part of a loop early.": "আপনি Java-র চার রকম loop শিখবেন, কোনটি কখন ব্যবহার করবেন, এবং কীভাবে loop থেকে আগেই বের হবেন বা একটি অংশ বাদ দেবেন।"
 });

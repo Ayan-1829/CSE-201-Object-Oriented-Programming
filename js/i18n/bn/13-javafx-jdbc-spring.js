@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 13 of 13 · Lecture 24": "টপিক 13 / 13 · লেকচার 24",
 "Building desktop interfaces with JavaFX components and layouts, handling events, drawing and animating graphics, connecting to a database with JDBC, and a first look at the Spring framework.": "JavaFX component ও layout দিয়ে desktop interface তৈরি, event সামলানো, graphics আঁকা ও অ্যানিমেশন, JDBC দিয়ে database-এ সংযোগ, এবং Spring framework-এ প্রথম দৃষ্টি।",
-"Every app you use has buttons, text boxes and pictures, and saves your data somewhere. How much of that can you already build with the OOP you know?": "আপনার ব্যবহৃত প্রতিটি অ্যাপে বাটন, text box ও ছবি আছে, আর এটি আপনার ডেটা কোথাও সংরক্ষণ করে। আপনার জানা OOP দিয়ে এর কতটা আপনি এখনই তৈরি করতে পারেন?",
-"All of it. A JavaFX window is a tree of objects; a button click is an event object delivered to a method; a database row becomes a Java object. Classes, inheritance, interfaces and lambdas are everywhere.": "সবটাই। একটি JavaFX উইন্ডো হলো object-এর একটি tree; বাটন ক্লিক হলো একটি method-এ পৌঁছানো event object; database-এর একটি row একটি Java object হয়ে যায়। Class, inheritance, interface ও lambda সর্বত্র।",
-"This last topic tours the libraries you will use for real projects: JavaFX for interfaces and graphics, JDBC for databases and Spring for back-end services.": "এই শেষ টপিক বাস্তব প্রকল্পে ব্যবহার করবেন এমন library-গুলো ঘুরে দেখায়: interface ও graphics-এর জন্য JavaFX, database-এর জন্য JDBC এবং back-end সেবার জন্য Spring।",
 "Outline · Lecture 24": "সূচি · লেকচার 24",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "JavaFX application structure": "JavaFX application-এর গঠন",
@@ -126,5 +123,8 @@ I18N_BN_ADD({
 "The programmer in main": "main-এ programmer",
 "The Spring container": "Spring container",
 "The browser": "Browser",
-"That is dependency injection.": "এটাই dependency injection।"
+"That is dependency injection.": "এটাই dependency injection।",
+"A student finishes a Java course and asks: “Great — now how do I build a real app with buttons that saves my data?” Good news: you already know most of it.": "একজন ছাত্র Java course শেষ করে জিজ্ঞেস করে: “দারুণ — এখন button-ওয়ালা, data সেভ করা আসল app কীভাবে বানাব?” সুখবর: এর বেশিরভাগই আপনি ইতিমধ্যে জানেন।",
+"A JavaFX window is a tree of objects. A button click is an event object delivered to a method. A database row becomes a Java object. Classes, inheritance, interfaces and lambdas are everywhere — you are just meeting them in new clothes.": "একটি JavaFX window হলো object-এর একটি tree। button click হলো একটি event object, যা একটি method-এ পৌঁছে দেওয়া হয়। database-এর একটি row হয়ে যায় একটি Java object। class, inheritance, interface আর lambda সর্বত্র — আপনি শুধু তাদের নতুন পোশাকে দেখছেন।",
+"This last topic tours JavaFX for interfaces, JDBC for databases and Spring for back-end services.": "এই শেষ topic ঘুরিয়ে দেখায় interface-এর জন্য JavaFX, database-এর জন্য JDBC আর back-end service-এর জন্য Spring।"
 });

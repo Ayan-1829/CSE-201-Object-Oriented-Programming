@@ -2,9 +2,6 @@
 I18N_BN_ADD({
 "Topic 7 of 13 · Lectures 9–10": "টপিক 7 / 13 · লেকচার 9–10",
 "Building new classes from existing ones with extends, drawing the hierarchy in UML, using super for constructors and members, multilevel hierarchies and the Object class.": "extends দিয়ে বিদ্যমান class থেকে নতুন class তৈরি, UML-এ hierarchy আঁকা, constructor ও member-এর জন্য super ব্যবহার, multilevel hierarchy এবং Object class।",
-"A university system has Students, Teachers and Staff. All of them have a name, age, phone number and address. Do you really write those four fields three times?": "একটি বিশ্ববিদ্যালয়ের সিস্টেমে Student, Teacher ও Staff আছে। সবারই নাম, বয়স, ফোন নম্বর ও ঠিকানা আছে। আপনি কি সত্যিই এই চারটি field তিনবার লিখবেন?",
-"Inheritance lets you put the shared parts in one <b>superclass</b> (Person) and have each <b>subclass</b> add only what is different. Fix a bug in Person and all three classes are fixed.": "Inheritance আপনাকে শেয়ার করা অংশগুলো একটি <b>superclass</b>-এ (Person) রাখতে দেয়, আর প্রতিটি <b>subclass</b> কেবল আলাদা অংশটুকু যোগ করে। Person-এর একটি bug ঠিক করলে তিনটি class-ই ঠিক হয়ে যায়।",
-"You will also see exactly which constructors run, and in what order, when you create an object at the bottom of a hierarchy.": "Hierarchy-র একেবারে নিচে একটি object তৈরি করলে ঠিক কোন constructor-গুলো কোন ক্রমে চলে তা-ও দেখবেন।",
 "Outline · Lectures 9–10": "সূচি · লেকচার 9–10",
 "Topics in this chapter": "এই অধ্যায়ের টপিক",
 "Inheritance basics and UML": "Inheritance-এর মৌলিক বিষয় ও UML",
@@ -112,5 +109,8 @@ I18N_BN_ADD({
 "Every Java class ultimately extends…": "প্রতিটি Java class শেষ পর্যন্ত extend করে…",
 "java.lang.Object is the root of the class hierarchy.": "java.lang.Object হলো class hierarchy-র মূল।",
 "Which is a has-a relationship?": "কোনটি has-a সম্পর্ক?",
-"A car has an engine; it is not an engine.": "Car-এর একটি engine আছে; এটি নিজে engine নয়।"
+"A car has an engine; it is not an engine.": "Car-এর একটি engine আছে; এটি নিজে engine নয়।",
+"The university software has Students, Teachers and Staff, each with name, age, phone and address — copied three times. Then the phone format changes. Someone fixes it in two places and forgets the third.": "বিশ্ববিদ্যালয়ের software-এ আছে Student, Teacher আর Staff, প্রত্যেকের নাম, বয়স, ফোন আর ঠিকানা — তিনবার কপি করা। তারপর ফোনের format বদলায়। কেউ দুই জায়গায় ঠিক করে, তৃতীয়টা ভুলে যায়।",
+"Inheritance puts the shared fields in one <b>superclass</b>, <code>Person</code>, and lets each <b>subclass</b> add only what is different. Fix <code>Person</code> once and all three are fixed.": "Inheritance শেয়ার করা field-গুলো রাখে একটি <b>superclass</b>-এ, <code>Person</code>, আর প্রতিটি <b>subclass</b> শুধু আলাদা অংশটুকু যোগ করে। <code>Person</code> একবার ঠিক করলেই তিনটিই ঠিক।",
+"You will also see which constructors run, and in what order, when an object is created.": "একটি object তৈরির সময় কোন constructor কোন ক্রমে চলে, তাও দেখবেন।"
 });
