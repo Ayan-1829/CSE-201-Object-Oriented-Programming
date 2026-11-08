@@ -58,7 +58,6 @@
 <h1>Overriding, Polymorphism & Abstract Classes</h1>
 <p class="lead">Replacing inherited behaviour with method overriding, dynamic method dispatch, casting within a hierarchy, abstract classes, final classes and methods, and using library classes.</p>
 <div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
-<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
 </div></section>
 <section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">One loop, one line — <code>for (Shape s : shapes) total += s.area();</code> — correctly adds the areas of circles, rectangles and triangles. How does one line know three formulas?</p><p>Each object carries its real class with it. When the program runs, Java looks at the <b>object</b>, not the variable, to decide which <code>area()</code> to call. That is <b>dynamic method dispatch</b>, the engine behind polymorphism.</p><p>Abstract classes then let you say “every Shape has an area” without pretending to know a formula for a shape in general.</p></div>

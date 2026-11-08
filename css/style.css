@@ -428,7 +428,7 @@ pre.code.small-code{font-size:13px;line-height:1.5;margin:0}
 .cn{display:inline-block;width:3.2em;padding-right:1em;text-align:right;color:var(--code-num);user-select:none;-webkit-user-select:none}
 pre.code.nonum .cl{padding-left:14px}
 .cl.mk{background:var(--code-cur);border-left-color:var(--accent)}
-.cl.cur{background:var(--code-cur);border-left-color:var(--accent);font-weight:600}
+.cl.cur{background:var(--code-cur);border-left-color:var(--accent)}
 .cl.prev{background:var(--code-prev)}
 .cl.ok{background:var(--ok-soft);border-left-color:var(--ok)}
 .cl.off{opacity:.45}

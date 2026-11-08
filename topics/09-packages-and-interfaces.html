@@ -58,7 +58,6 @@
 <h1>Packages & Interfaces</h1>
 <p class="lead">Organising classes into packages, how access modifiers work across packages, defining and implementing interfaces, default and static interface methods, and choosing between interfaces and abstract classes.</p>
 <div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
-<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
 </div></section>
 <section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">An Employee and an Invoice have nothing in common — except that the accounts office must pay both. How can one loop pay them all?</p><p>Neither class should extend the other. Instead both can promise, through an <b>interface</b>, that they have a <code>getPayment()</code> method. The loop only needs that promise.</p><p>First, though, we organise classes into <b>packages</b> — and see how packages change what <code>protected</code> and default access mean.</p></div>

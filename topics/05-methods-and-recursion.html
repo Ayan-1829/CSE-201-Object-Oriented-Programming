@@ -58,7 +58,6 @@
 <h1>Overloading, Objects as Parameters & Recursion</h1>
 <p class="lead">Methods and constructors that share a name, how Java passes arguments (always by value — even references), returning objects, and solving problems with recursion.</p>
 <div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
-<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
 </div></section>
 <section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">Why can you call <code>System.out.println(5)</code>, <code>println("hi")</code> and <code>println(3.14)</code> — is println one method or many?</p><p>It is many: <code>PrintStream</code> declares ten methods called <code>println</code>, each with a different parameter list. The compiler picks the best match. That is <b>overloading</b>.</p><p>This topic also answers a question that trips up most students: when you pass an object to a method, can the method change it? And it introduces methods that call themselves.</p></div>

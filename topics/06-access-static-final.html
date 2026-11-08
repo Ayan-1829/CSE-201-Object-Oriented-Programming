@@ -58,7 +58,6 @@
 <h1>Access Control, static, final & Nested Classes</h1>
 <p class="lead">Who may use a field or method (private, default, protected, public), members that belong to the class rather than an object (static), constants and fixed references (final), and classes inside classes.</p>
 <div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
-<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
 </div></section>
 <section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">How does every <code>Student</code> object know how many students have been created so far — without any of them being in charge?</p><p>A <code>static</code> field belongs to the class itself, so there is exactly one copy shared by every object. Combined with access modifiers and <code>final</code>, it lets you control precisely who sees what, and what may never change.</p><p>We finish with nested classes: classes defined inside other classes to keep helper code close to where it is used.</p></div>

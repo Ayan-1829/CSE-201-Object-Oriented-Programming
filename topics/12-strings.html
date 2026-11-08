@@ -58,7 +58,6 @@
 <h1>Strings & Big Numbers</h1>
 <p class="lead">The String class, the string pool and immutability, comparing and processing strings, StringBuilder, and doing arithmetic on numbers far too large for long.</p>
 <div class="row"><a class="btn pri" href="#s=2">Start</a><a class="btn" href="../index.html">All topics</a></div>
-<p class="hint"><kbd>←</kbd> <kbd>→</kbd> move between slides · <kbd>F</kbd> full screen · <kbd>M</kbd> slide list</p>
 </div></section>
 <section class="slide " data-title="Why this matters" aria-label="Why this matters" tabindex="-1"><div class="slide-inner">
 <p class="kicker">Before we start</p><h2>Why this matters</h2><div class="hook"><p class="q">What is 30 factorial? A <code>long</code> gives you −8,764,578,968,847,253,504. Clearly wrong — so how do banks and cryptography handle numbers with hundreds of digits?</p><p>One answer is to store the digits in a <b>String</b> and do the arithmetic yourself, digit by digit, exactly as you learnt at school. Java’s <code>BigInteger</code> does the same thing internally.</p><p>First we study String itself: why <code>==</code> can lie, why strings never change, and the methods you will use in almost every program.</p></div>
