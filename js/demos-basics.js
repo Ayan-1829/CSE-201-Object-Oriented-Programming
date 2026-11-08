@@ -12,9 +12,25 @@ function codeView(src, opts = {}) {
   const lines = () => Array.from(pre.querySelectorAll('.cl'));
   return {
     el: pre,
-    mark(nums, cls = 'cur') { const set = new Set([].concat(nums || [])); lines().forEach((l, i) => l.classList.toggle(cls, set.has(i + 1))); },
+    /* highlight lines; the box scrolls (never the page) only if the first marked line would leave it */
+    mark(nums, cls = 'cur') {
+      const set = new Set([].concat(nums || [])); lines().forEach((l, i) => l.classList.toggle(cls, set.has(i + 1)));
+      const first = [...set].filter((n) => n > 0).sort((a, b) => a - b)[0];
+      if (first && pre.scrollHeight > pre.clientHeight + 2) requestAnimationFrame(() => {
+        const el = lines()[first - 1]; if (!el) return;
+        const pr = pre.getBoundingClientRect(), lr = el.getBoundingClientRect(); if (!pr.height) return;
+        const z = pr.height / pre.offsetHeight || 1, top = (lr.top - pr.top) / z + pre.scrollTop, bottom = top + lr.height / z, pad = 24;
+        if (top - pad < pre.scrollTop) pre.scrollTop = Math.max(0, top - pad);
+        else if (bottom + pad > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom + pad - pre.clientHeight;
+      });
+    },
     clearAll() { lines().forEach((l) => l.classList.remove('cur', 'prev', 'off', 'ok')); },
-    set(src2) { Java.render(src2, pre, opts); }
+    /* new code: only the lines whose text changed are replaced, so the block never flashes or jumps */
+    set(src2) {
+      const fresh = Java.render(src2, null, opts), now = lines(), next = Array.from(fresh.querySelectorAll('.cl'));
+      if (now.length && now.length === next.length) next.forEach((nl, i) => { if (now[i].innerHTML !== nl.innerHTML) now[i].innerHTML = nl.innerHTML; });
+      else { const st = pre.scrollTop; Java.render(src2, pre, opts); pre.scrollTop = st; }
+    }
   };
 }
 const kv = (k, v, cls) => h('span', { class: 'kv ' + (cls || '') }, h('small', null, k), h('b', null, v));

@@ -940,3 +940,5 @@ body.deck-page .title-slide h1{font-size:var(--pj-h1)!important}
 .devcard p,.devcard li{text-align:left}
 @media (max-width:720px){.dev-cols{grid-template-columns:1fr}.dev-top{flex-direction:column;gap:14px}.devcard{padding:20px 18px}}
 /* ===== end projector layout ===== */
+/* step-through code: the box glides to the running line instead of jumping */
+.trace-code,.slide pre.code{scroll-behavior:smooth}

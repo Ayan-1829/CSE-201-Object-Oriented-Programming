@@ -137,6 +137,18 @@ const Tracer = (() => {
     return html;
   }
 
+  /* keep the running line inside the code box: scroll only when it would leave the box, and measure it
+     against the box itself (offsetTop is relative to another ancestor, which scrolled the wrong amount) */
+  function keepLine(pre, el) {
+    if (pre.scrollHeight <= pre.clientHeight + 2) return;
+    const pr = pre.getBoundingClientRect(), lr = el.getBoundingClientRect();
+    if (!pr.height || !lr.height) return;                       // slide not on screen yet
+    const z = pr.height / pre.offsetHeight || 1;                // the slide may be scaled to fit: rects are scaled, scrollTop is not
+    const top = (lr.top - pr.top) / z + pre.scrollTop, bottom = top + lr.height / z, pad = Math.min(48, pre.clientHeight / 4);
+    if (top - pad < pre.scrollTop) pre.scrollTop = Math.max(0, top - pad);
+    else if (bottom + pad > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom + pad - pre.clientHeight;
+  }
+
   function build(def, opts = {}) {
     const { labels, code } = parseCode(def.code);
     const scen = def.scenarios || [{ label: 'Run', run: def.run }];
@@ -184,7 +196,7 @@ const Tracer = (() => {
       const st = steps[cur], pv = cur > 0 ? steps[cur - 1] : null;
       lineEls.forEach((l, k) => { l.classList.toggle('cur', k + 1 === st.line); l.classList.toggle('prev', !!pv && k + 1 === pv.line && pv.line !== st.line); });
       const curEl = lineEls[st.line - 1];
-      if (curEl) { const top = curEl.offsetTop - pre.clientHeight / 2 + 12; pre.scrollTop = Math.max(0, top); }
+      if (curEl) keepLine(pre, curEl);
       clear(stackBox);
       const stackEls = (stk, pstk, box, kp, isActive, label) => {
         stk.slice().reverse().forEach((f, ri) => {
