@@ -942,3 +942,11 @@ body.deck-page .title-slide h1{font-size:var(--pj-h1)!important}
 /* ===== end projector layout ===== */
 /* step-through code: the box glides to the running line instead of jumping */
 .trace-code,.slide pre.code{scroll-behavior:smooth}
+/* ===== Phones: code and its output / preview stack top-to-bottom =====
+   Applies below 900px wide, and on phones turned sideways (a touch screen no taller than 540px):
+   big phones are 850-950px wide in landscape, so a width test alone kept the panes side by side.
+   Laptops, desktops and tablets keep the side-by-side layout. */
+@media (max-width:900px),(pointer:coarse) and (max-height:540px){
+  .cols,.cols.wl,.codeout,.trace-body,.trace.no-heap .trace-body{grid-template-columns:1fr}
+}
+@media (pointer:coarse) and (max-height:540px){.slide .trace-code{max-height:60vh}}
