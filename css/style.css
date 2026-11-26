@@ -950,3 +950,11 @@ body.deck-page .title-slide h1{font-size:var(--pj-h1)!important}
   .cols,.cols.wl,.codeout,.trace-body,.trace.no-heap .trace-body{grid-template-columns:1fr}
 }
 @media (pointer:coarse) and (max-height:540px){.slide .trace-code{max-height:60vh}}
+
+/* help: header tools */
+.site-header .brand{order:1}
+.site-header .head-tools{order:2;display:flex;align-items:center;gap:8px;margin-left:auto}
+.site-header .topnav{order:3;flex:1 1 100%}
+.site-header{row-gap:14px}
+@media (max-width:480px){.head-tools .btn{padding-left:9px;padding-right:9px}.head-tools .btn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+/* /help */

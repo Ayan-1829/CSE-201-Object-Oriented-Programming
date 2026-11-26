@@ -1,6 +1,6 @@
 /* ===================== help.js : the Help button and panel (shared by every GUB course site) =====================
    Installed by GUB/_tools/help/help.py, which also writes js/help-data.js (window.COURSE_HELP) for the course.
-   Adds a "Help" button to the deck bar (.deck-actions) or the site navigation (.topnav), opens a dialog with
+   Adds a "Help" button beside Dark mode at the top right (.head-tools), or to the deck bar (.deck-actions), opens a dialog with
    keyboard shortcuts, the drawing tool, how the site works and where to ask; the "?" key opens it too.
    The panel follows the English / Bengali switch (localStorage "course-lang") and is skipped by lang.js. */
 (function () {
@@ -67,7 +67,7 @@
   btn.setAttribute('aria-haspopup', 'dialog'); btn.setAttribute('data-no-i18n', '');
   const label = () => { const L = T[isBn() ? 'bn' : 'en']; btn.innerHTML = ICON + '<span>' + L.help + '</span>'; btn.setAttribute('aria-label', L.help + ' (?)'); btn.title = L.help + ' (?)'; };
   label();
-  const host = document.querySelector('.deck-actions') || document.querySelector('.topnav');
+  const host = document.querySelector('.head-tools') || document.querySelector('.deck-actions') || document.querySelector('.topnav');
   if (host) host.appendChild(btn); else { btn.classList.add('help-fab'); document.body.appendChild(btn); }
 
   /* ---------- the dialog ---------- */
