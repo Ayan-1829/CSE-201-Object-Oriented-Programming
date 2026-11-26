@@ -115,6 +115,16 @@
     if (e.key === '?' && !dlg.open) { e.preventDefault(); open(); }
     if (e.key === 'l' || e.key === 'L') setTimeout(label, 60);
   });
+  /* in a deck the theme, full-screen, Help and Feedback buttons show only their icons (GUB/_tools/look):
+     keep each button's current name ("Light mode", "Exit full screen", the Bengali name...) as its tooltip */
+  function tips() {
+    document.querySelectorAll('.deck-actions :is(#btn-theme,#btn-fs,#btn-help,#btn-feedback)').forEach((b) => {
+      const sp = b.querySelector('span'), name = sp && sp.textContent.trim();
+      if (name && b.title !== name) b.title = name;
+    });
+  }
+  const bar = document.querySelector('.deck-actions');
+  if (bar) { setTimeout(tips, 0); new MutationObserver(tips).observe(bar, { childList: true, subtree: true, characterData: true }); }
   /* the language button changes the label too */
   document.addEventListener('click', (e) => { if (e.target.closest && e.target.closest('#btn-lang')) setTimeout(label, 60); }, true);
 })();

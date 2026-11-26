@@ -951,6 +951,162 @@ body.deck-page .title-slide h1{font-size:var(--pj-h1)!important}
 }
 @media (pointer:coarse) and (max-height:540px){.slide .trace-code{max-height:60vh}}
 
+/* look: plain styling */
+.panel{border-radius:4px}
+.demo{border-radius:4px}
+.note{border:1px solid var(--line);border-left:1px solid var(--line)}
+.fig{border-radius:4px}
+.ex{border-radius:4px}
+details.reveal .ans{border:1px solid var(--line);border-left:1px solid var(--line)}
+.donebar{border-radius:4px}
+.qwhy{border:1px solid var(--line);border-left:1px solid var(--line)}
+.proj{border-radius:4px}
+.iconbtn{border-radius:4px}
+.btn{border-radius:4px}
+.seg{border-radius:4px}
+input[type=text],input[type=number],select,textarea{border-radius:4px}
+.demo{border-radius:4px;border-top:1px solid var(--line)}
+.panel,.ex,.proj{border-radius:4px}
+.ex{border:1px solid var(--line);border-left:1px solid var(--line)}
+.note{border-radius:4px;border-left-color:var(--line)}
+.out{border-radius:4px}
+.concept .formula{border:1px solid var(--line);border-left:1px solid var(--line)}
+details.reveal .ans{border-left-color:var(--line)}
+.badge{border-radius:4px}
+.badge.big{border-radius:4px}
+.chhead{border-radius:4px}
+.chstrip a{border-radius:3px}
+.donebar{border-radius:4px;border-left:1px solid var(--line)}
+.hook{border-radius:4px;border-left:1px solid var(--line)}
+.syl{border-radius:4px}
+.qlist a{border-radius:4px}
+.qopt{border-radius:4px}
+.qwhy{border-left-color:var(--line)}
+.proj{border-top:1px solid var(--line)}
+.tcard{border-radius:4px}
+.deck-bar .home-link{border-radius:4px}
+.deck-bar .home-link img{border-radius:4px}
+.deck-title .badge{border-radius:4px}
+#slide-menu .menu-close{border-radius:4px}
+#slide-menu a{border-radius:4px}
+.title-slide .badge.big{border-radius:4px}
+.tcard{border-radius:4px}
+.tlist a{border-radius:4px;border-left:1px solid var(--line)}
+.anno-bar{border-radius:4px}
+.anno-tool{border-radius:4px}
+pre.code{border-radius:4px;border-left:1px solid var(--line)}
+.console{border-radius:4px}
+.trace{border-radius:4px;border-top:1px solid var(--line)}
+.trace-note{border-radius:4px;border:1px solid var(--line);border-left:1px solid var(--line)}
+.mem-sec{border-radius:4px}
+.frame{border-radius:4px}
+.obj{border-radius:4px}
+.thread{border-radius:4px}
+.callout{border-radius:4px;border-left:1px solid var(--line)}
+.callout.warn{border-left-color:var(--line)}
+.vs>div{border-radius:4px}
+.pill{border-radius:3px}
+.kv{border-radius:4px}
+.verdict{border-radius:4px}
+.cell{border-radius:4px}
+.g2c{border-radius:4px}
+.prow{border-radius:4px}
+.chip{border-radius:3px}
+.chip button{border-radius:3px}
+.tlog{border-radius:4px}
+.lane{border-radius:4px}
+.lane-op.next{box-shadow:none}
+.shared-box{border-radius:4px}
+.slot{border-radius:4px}
+.bigadd{border-radius:4px}
+.fxwin{border-radius:4px}
+.fx-borderpane>div{border-radius:4px}
+.anim-canvas{border-radius:4px}
+.anno-page-btn{border-radius:4px}
+.anno-page{border-radius:4px}
+.anno-page-close{border-radius:4px}
+.applinks .al{border-radius:3px}
+.applinks .al-app{border-radius:3px}
+.devcard{border-radius:4px}
+.dev-links a{border-radius:3px}
+.dev-tag{border-radius:3px}
+/* -- by hand -- */
+/* headings: no coloured bar beside slide titles and section titles; a hairline under section titles */
+.slide h2::before,.sec>h2::before{display:none}
+.slide h2{gap:0}
+.sec>h2{display:block;padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:16px}
+/* topic cards: one hairline border, small corners, plain number, quiet meta line */
+.tlist a{border:1px solid var(--line);border-radius:4px;background:var(--sheet);transition:border-color .15s,box-shadow .15s}
+.tlist a:hover{background:var(--sheet);border-color:var(--ac);box-shadow:0 1px 3px rgba(15,27,45,.08)}
+.badge{background:transparent;border:1px solid var(--line);border-radius:3px;color:var(--ink-2)}
+.tlist span.m{color:var(--ink-2);font-weight:500;margin-top:10px}
+.tlist span.d{margin-top:4px}
+.tlist .prog{display:inline-block;margin-top:8px;padding:2px 8px;font:600 13px var(--f-head,var(--f-ui,Georgia,serif));background:var(--sheet-2);color:var(--ink-2);border:1px solid var(--line);border-radius:3px}
+.tlist .prog:empty{display:none}
+/* the journey on a home page (GUB/_tools/look/home.py): a vertical numbered path, not boxes */
+.journey{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:24px 56px;margin:40px 0 36px;padding:30px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.jr-intro h2{margin:0 0 12px}
+.jr-intro p{color:var(--ink-2);text-align:left;margin:0 0 16px;max-width:46ch}
+.jr{list-style:none;margin:0;padding:0;counter-reset:jr}
+.jr li{position:relative;counter-increment:jr;padding:0 0 22px 56px;min-height:36px}
+.jr li:last-child{padding-bottom:0}
+.jr li::before{content:counter(jr);position:absolute;left:0;top:0;width:34px;height:34px;display:grid;place-items:center;font:700 15px var(--f-mono);color:var(--ac);background:var(--paper);border:1.5px solid var(--ac);border-radius:50%;z-index:1}
+.jr li::after{content:"";position:absolute;left:16.5px;top:34px;bottom:0;width:1.5px;background:var(--line)}
+.jr li:last-child::after{display:none}
+.jr li:first-child::before{background:var(--ac);color:var(--on-ink)}
+.jr a.jr-main{display:block;text-decoration:none;color:var(--ink)}
+.jr-k{display:block;font:600 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.jr b{display:block;font:700 19px/1.3 var(--f-head,var(--f-display))}
+.jr-d{display:block;color:var(--ink-2);font-size:var(--text-small,16px);line-height:1.45;margin-top:3px}
+.jr a.jr-main:hover b{color:var(--ac);text-decoration:underline;text-underline-offset:3px}
+.jr-ex{display:block;margin-top:3px;font-size:var(--text-small,16px);line-height:1.45;color:var(--ink-2);text-decoration:none}
+.jr-ex:hover{color:var(--ac-ink);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:820px){.journey{grid-template-columns:1fr;gap:18px}}
+/* a menu button beside "Start" on a home page (CSE-308: the example documents) */
+.docmenu{position:relative;display:inline-block}
+.docmenu>summary{list-style:none;cursor:pointer;gap:9px}
+.docmenu>summary::-webkit-details-marker{display:none}
+.docmenu>summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.docmenu[open]>summary::after{transform:translateY(2px) rotate(-135deg)}
+.dm-list{position:absolute;z-index:30;top:calc(100% + 6px);left:0;width:min(340px,calc(100vw - 40px));background:var(--sheet);border:1px solid var(--line);border-radius:4px;box-shadow:0 12px 32px -12px rgba(0,0,0,.3);padding:6px}
+.dm-list p{margin:6px 10px 8px;font-size:14px;line-height:1.4;color:var(--ink-2);text-align:left}
+.dm-list a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 10px;border-radius:3px;text-decoration:none;color:var(--ink);font:600 15px var(--f-head,var(--f-ui,Georgia,serif))}
+.dm-list a:hover,.dm-list a:focus-visible{background:var(--sheet-2);color:var(--ac-ink)}
+.dm-list a span{font:500 13px var(--f-mono);color:var(--ink-3);white-space:nowrap}
+/* slide decks: Dark/Light mode, Full screen, Help and Feedback are icon buttons; their names stay
+   for screen readers and appear as tooltips (help.js copies each name into the title) */
+.deck-actions :is(#btn-theme,#btn-fs,#btn-help,#btn-feedback){position:relative;padding:7px;min-width:36px;justify-content:center}
+.deck-actions :is(#btn-theme,#btn-fs,#btn-help,#btn-feedback)>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.deck-actions :is(#btn-theme,#btn-fs,#btn-help,#btn-feedback) .btn-ic{width:18px;height:18px}
+/* buttons: square-cornered, one weight of border */
+.btn,.seg,.seg button,.iconbtn,select,input[type=text],input[type=number],textarea{border-radius:4px}
+/* the deck progress bar uses the course colour, not the second accent */
+.deck-progress i{background:var(--ac)}
+/* callouts: a plain bordered box. Information is tinted with the course colour, warnings with the accent */
+.callout{background:color-mix(in srgb,var(--ac) 5%,var(--sheet));border:1px solid color-mix(in srgb,var(--ac) 30%,var(--line));border-radius:4px}
+.callout.warn,.integrity{background:color-mix(in srgb,var(--accent) 7%,var(--sheet));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:4px}
+.callout.ok{border-color:color-mix(in srgb,var(--ok) 35%,var(--line))}
+.note,.qwhy,.gwhy:not(:empty),details.reveal .ans,.trace-note,.concept .formula,.tex-task{border:1px solid var(--line);border-radius:4px}
+.note{border-radius:4px}
+.hook{background:var(--sheet);border:1px solid var(--line);border-radius:4px}
+.donebar,.excard,.vcard,.task-card,.idea,.res{border:1px solid var(--line);border-radius:4px}
+pre.code{border:1px solid var(--line);border-radius:4px}
+/* menus and step lists: the current item is shown by its background only */
+#slide-menu a.cur{box-shadow:none}
+.anno-toggle{border-radius:4px;border-width:1px}
+/* headings on the ordinary pages had no space under them; slides set their own */
+.page-simple :is(h2,h3):not(.devcard *,.tlist *){margin-bottom:12px}
+.page-simple h3:not(.devcard *,.tlist *){margin-bottom:8px}
+/* spacing: text that follows a table, code, list, figure or column block gets room of its own;
+   labels and titles stay close to the text they belong to; the output boxes of demos keep their own spacing */
+:is(.scrollx,.codeview,.console,.codeout,.cols,.vs,.tgrid,figure,.fig,.demo,.g-files,.flow,table,ul,ol,pre)+p:not(.demo *,.out *,.g-scene *){margin-top:.8em}
+:is(.scrollx,.codeview,.console,.vs,.demo,ul,ol,p)+:is(.cols,.vs,.callout,.note):not(.demo *){margin-top:.8em}
+:is(.slide-inner,.ans,.hook,.callout,.note,.panel,.integrity,.excard,.vcard,.idea,.task-card,.doc-sec,.refsec,.concept)>p+p:not(.demo *){margin-top:.65em}
+:is(div,table,pre,figure)+p.small:not(.demo *,.g-scene *){margin-top:.7em}
+:is(.slide-inner,.ans)>div+p:not(.demo *){margin-top:.8em}
+.page-simple main>h1+.lead{margin-top:10px}
+/* /look */
+
 /* help: header tools */
 .site-header .brand{order:1}
 .site-header .head-tools{order:2;display:flex;align-items:center;gap:8px;margin-left:auto}

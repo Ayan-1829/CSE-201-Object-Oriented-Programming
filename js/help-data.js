@@ -40,7 +40,7 @@
     ]
    }
   ],
-  "ask": "Look again at the slide’s worked examples and “Show the answer” sections, then ask your course teacher. Found a mistake or something unclear on the site? <a href=\"https://github.com/Ayan-1829/CSE-201-Object-Oriented-Programming/issues/new\" target=\"_blank\" rel=\"noopener\">Report it on GitHub</a> or email <a href=\"mailto:ayan@cse.green.edu.bd\">ayan@cse.green.edu.bd</a>."
+  "ask": "Look again at the slide’s worked examples and “Show the answer” sections, then ask your course teacher. Found a mistake or something unclear on the site? <a href=\"#feedback\" data-feedback>Send feedback</a> with the <b>Feedback</b> button at the top, or email <a href=\"mailto:ayan@cse.green.edu.bd\">ayan@cse.green.edu.bd</a>."
  },
  "bn": {
   "name": "CSE 201 · অবজেক্ট ওরিয়েন্টেড প্রোগ্রামিং (Java)",
@@ -79,7 +79,7 @@
     ]
    }
   ],
-  "ask": "আগে স্লাইডের “Show the answer” অংশ ও সমাধানসহ উদাহরণ আবার দেখুন, তারপর কোর্স শিক্ষককে জিজ্ঞেস করুন। সাইটে কোনো ভুল বা অস্পষ্টতা পেলে <a href=\"https://github.com/Ayan-1829/CSE-201-Object-Oriented-Programming/issues/new\" target=\"_blank\" rel=\"noopener\">GitHub-এ জানান</a> বা <a href=\"mailto:ayan@cse.green.edu.bd\">ayan@cse.green.edu.bd</a>-এ ইমেইল করুন।"
+  "ask": "আগে স্লাইডের “Show the answer” অংশ ও সমাধানসহ উদাহরণ আবার দেখুন, তারপর কোর্স শিক্ষককে জিজ্ঞেস করুন। সাইটে কোনো ভুল বা অস্পষ্টতা পেলে উপরের <b>মতামত</b> বোতাম দিয়ে <a href=\"#feedback\" data-feedback>জানান</a>, বা <a href=\"mailto:ayan@cse.green.edu.bd\">ayan@cse.green.edu.bd</a>-এ ইমেইল করুন।"
  }
 });
 })();
